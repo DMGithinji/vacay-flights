@@ -4,12 +4,11 @@ import {connect} from 'react-redux';
 
 import Navigation from './Navigation';
 import MainHeader from './MainHeader';
-import Loader from "../Loader";
+import Loader from "../Loader/Loader";
 import routes from "../../routes";
 import Aux from "../../hoc/_Aux";
 
 class Layout extends Component {
-
 
     render() {
 
@@ -26,16 +25,22 @@ class Layout extends Component {
             ) : (null);
         });
 
+
+
         return (
             <Aux>
                 <MainHeader />
                 <Navigation />
-                <Suspense fallback={<Loader/>}>
-                    <Switch>
-                        {menu}
-                        <Redirect from="/" to={this.props.defaultPath} />
-                    </Switch>
-                </Suspense>
+                <div className="main-wrapper">
+                    <div className="content-wrapper">
+                        <Suspense fallback={<Loader/>}>
+                            <Switch>
+                                {menu}
+                                <Redirect from="/" to={this.props.defaultPath} />
+                            </Switch>
+                        </Suspense>
+                    </div>
+                </div>
             </Aux>
         )
     }

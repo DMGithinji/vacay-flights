@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-// import { withRouter } from 'react-router-dom';
 import navigation from '../../../menu-items';
-import Aux from './../../../hoc/_Aux'
+import Aux from '../../../hoc/_Aux'
 import NavItem from './NavItem';
 
 let navClass = ['theme-horizontal', 'navigation'];
@@ -14,13 +13,11 @@ class Navigation extends Component {
         prevDisable: true,
         nextDisable: false
     };
-
     
     render() {
-    const pathName = window.location.href.split('/').pop()
-    console.log('pathName', pathName);
-
+    const pathName = window.location.href.split('/').pop();
     const items = navigation.items[0].children;
+
     const navContent = (
         <div className={navBarClass.join(' ')}>
             {   

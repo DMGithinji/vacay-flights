@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 
 import '../../node_modules/font-awesome/scss/font-awesome.scss';
 
-import Loader from './Loader'
+import Loader from './Loader/Loader'
 import Aux from "../hoc/_Aux";
 import ScrollToTop from './ScrollToTop';
 import routes from "../route";
