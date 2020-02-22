@@ -1,5 +1,6 @@
 import React from 'react';
 // import Breadcrumb from './../../App/layout/AdminLayout/Breadcrumb'
+import CONSTANTS from "../../store/constants";
 
 import {
     Row,
@@ -9,6 +10,7 @@ import {
 } from 'react-bootstrap';
 
 import Aux from "./../../hoc/_Aux";
+import Breadcrumbs from '../../App/Breadcrumbs';
 
 
 class PassengerDetails extends React.Component {
@@ -17,9 +19,9 @@ class PassengerDetails extends React.Component {
 
         return (
             <Aux>
-                {/* <Breadcrumb /> */}
+                <Breadcrumbs />
                 <Row className='btn-page'>
-                    <Col md={8}>
+                    <Col lg={8}>
                             <div className="card">
                                         <div className="card-header">
                                             <h5 className="mb-2">Billing information</h5>
@@ -385,13 +387,13 @@ class PassengerDetails extends React.Component {
 
 
                                                 <Col md={6} className = "pt-4">
-                                                    <a href={'#'} className="btn btn-outline-secondary">
+                                                    <a href={CONSTANTS.BLANK_LINK} className="btn btn-outline-secondary">
                                                         Back to Search
                                                     </a>
                                                 </Col>
                                                 <Col md={6} className = "pt-4">
                                                     <div className="text-sm-right">
-                                                        <a href={'#'} className="btn btn-primary text-sm-right mt-md-0 mt-2">
+                                                        <a href={CONSTANTS.BLANK_LINK} className="btn btn-primary text-sm-right mt-md-0 mt-2">
                                                             <i className="mdi mdi-truck-fast mr-1"/> SUBMIT
                                                         </a>
                                                     </div>
@@ -400,7 +402,7 @@ class PassengerDetails extends React.Component {
                                         </div>
                                     </div>           
                     </Col>
-                    <Col md={4}>
+                    <Col lg={4}>
                         <Card>
                             <Card.Header>
                                 <h5>Order Summary</h5>
@@ -413,7 +415,7 @@ class PassengerDetails extends React.Component {
                                             <tr>
                                                 <td>
                                                     <p className="m-0 d-inline-block align-middle">
-                                                        <a href={'#'} className="text-body font-weight-semibold">Rolling Chair</a>
+                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Rolling Chair</a>
                                                         <br/>
                                                         <small>5 x $148.66</small>
                                                     </p>
@@ -433,7 +435,7 @@ class PassengerDetails extends React.Component {
                                             <tr>
                                                 <td>
                                                     <p className="m-0 d-inline-block align-middle">
-                                                        <a href={'#'} className="text-body font-weight-semibold">Dining Chair</a>
+                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Dining Chair</a>
                                                         <br/>
                                                         <small>2 x $99.00</small>
                                                     </p>
@@ -453,7 +455,7 @@ class PassengerDetails extends React.Component {
                                             <tr>
                                                 <td>
                                                     <p className="m-0 d-inline-block align-middle">
-                                                        <a href={'#'} className="text-body font-weight-semibold">Chamiu lipstick</a>
+                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Chamiu lipstick</a>
                                                         <br/>
                                                         <small>1 x $129.99</small>
                                                     </p>

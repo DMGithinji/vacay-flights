@@ -1,14 +1,13 @@
 .navigation {
     background-color: #477EFA;
     height: 48px;
-    margin-top: 10px;
 
     .navbar {
         background-color: none;
         width: 80%;
         margin: 0 auto;
-        @media only screen and (max-width: 800px) {
-            width: 95%;
+        @media only screen and (max-width: 1000px) {
+            width: 100%;
         }
     }
 

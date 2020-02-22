@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import Navigation from './Navigation';
 import MainHeader from './MainHeader';
-import Loader from "../Loader/Loader";
+import Loader from "../Loader";
 import routes from "../../routes";
 import Aux from "../../hoc/_Aux";
 
@@ -29,8 +29,10 @@ class Layout extends Component {
 
         return (
             <Aux>
-                <MainHeader />
-                <Navigation />
+                <div className="fixed-top">
+                    <MainHeader />
+                    <Navigation />
+                </div>
                 <div className="main-wrapper">
                     <div className="content-wrapper">
                         <Suspense fallback={<Loader/>}>

@@ -2,9 +2,14 @@
 .main-header {
     background-color: #fff;
     height: 50px;
-    padding: 10px 100px 0px;
-    @media only screen and (max-width: 600px) {
-        padding: 10px 20px;
+    width: 100%;
+
+    .main-header-content-wrapper{
+        width: 80%;
+        margin: 0 auto;
+        @media only screen and (max-width: 1000px) {
+            width: 100%;
+        }    
     }
 
     .semi-bold {
