@@ -5,12 +5,11 @@ import CONSTANTS from "../../store/constants";
 import {
     Row,
     Col,
-    Table,
-    Card,
 } from 'react-bootstrap';
 
 import Aux from "./../../hoc/_Aux";
 import Breadcrumbs from '../../App/Breadcrumbs';
+import FlightSummary from '../FlightSummary';
 
 
 class PassengerDetails extends React.Component {
@@ -403,103 +402,7 @@ class PassengerDetails extends React.Component {
                                     </div>           
                     </Col>
                     <Col lg={4}>
-                        <Card>
-                            <Card.Header>
-                                <h5>Order Summary</h5>
-                            </Card.Header>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item py-0">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless mb-0">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Rolling Chair</a>
-                                                        <br/>
-                                                        <small>5 x $148.66</small>
-                                                    </p>
-                                                </td>
-                                                <td className="text-right">
-                                                    $743.00
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                                <li className="list-group-item py-0">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless mb-0">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Dining Chair</a>
-                                                        <br/>
-                                                        <small>2 x $99.00</small>
-                                                    </p>
-                                                </td>
-                                                <td className="text-right">
-                                                    $198.00
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                                <li className="list-group-item py-0">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless mb-0">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Chamiu lipstick</a>
-                                                        <br/>
-                                                        <small>1 x $129.99</small>
-                                                    </p>
-                                                </td>
-                                                <td className="text-right">
-                                                    $129.00
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                            </ul>
-                            <Card.Body className="py-2">
-                                <Table responsive className="table-borderless mb-0 w-auto table-sm float-right text-right">
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <h6 className="m-0">Sub Total:</h6>
-                                        </td>
-                                        <td>
-                                            $1070
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h6 className="m-0">Shipping:</h6>
-                                        </td>
-                                        <td>
-                                            FREE
-                                        </td>
-                                    </tr>
-                                    <tr className="border-top">
-                                        <td>
-                                            <h5 className="m-0">Total:</h5>
-                                        </td>
-                                        <td className="font-weight-semibold">
-                                            $1070
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                        <FlightSummary />
                     </Col>
                 </Row>
             </Aux>

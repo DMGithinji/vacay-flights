@@ -32,12 +32,12 @@ class App extends Component {
         return (
             <Aux>
                 <ScrollToTop>
-                    <Suspense fallback={<Loader/>}>
+                    {/* <Suspense fallback={<Loader/>}> */}
                         <Switch>
                             {menu}
                             <Route path="/" component={Layout} />
                         </Switch>
-                    </Suspense>
+                    {/* </Suspense> */}
                 </ScrollToTop>
             </Aux>
         );

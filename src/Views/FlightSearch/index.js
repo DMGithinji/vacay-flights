@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Search from './SearchField/Search';
+import Search from './Search';
 import Filter from './Filter';
 // import connect from 'react-redux';
 
