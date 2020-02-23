@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getDestinationOptions } from '../../../store/actions/destinations';
+
 import DatePicker from "react-datepicker";
 import FlightType from './FlightType';
 import PaxNumber from './PaxNumber';
@@ -9,6 +12,10 @@ class Search extends Component {
     state = {
         startDate: new Date()
         };
+
+    componentDidMount(){
+        this.props.getDestinationOptions();
+    }
         
     handleChange = date => {
         this.setState({
@@ -60,7 +67,7 @@ class Search extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-2 col-sm-12 search-btn">
-                                    <button className = "btn btn-md">Modify Search</button>
+                                    <button className = "btn btn-md">Search</button>
                                 </div>
                             </div>
                         </form>
@@ -71,4 +78,16 @@ class Search extends Component {
     }
 }
 
-export default Search;
+
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getDestinationOptions: () => dispatch(getDestinationOptions())
+        };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Search);
