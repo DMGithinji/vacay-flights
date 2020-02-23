@@ -1,0 +1,61 @@
+.searchCard {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    background-color: #fff;
+    color: #444;
+
+    .searchContent {
+        width: 90%;
+        margin: 0 auto;
+        @media only screen and (max-width: 1000px) {
+            width: 100%;
+        }
+        
+        .row{
+            margin: 0 auto !important;
+        }
+
+        .search-btn{ 
+            margin-top: 38px; //Realigns the search button with input forms due to label introd misalignment
+            @media only screen and (max-width: 1000px) {
+                width: 100%;
+            }
+            .btn{
+                background-color: yellow;
+            }
+        }
+
+        label{
+            color: #666;
+            font-weight: 400;
+            font-size: small;
+            margin-top: 10px;
+        }
+    }
+}
+
+.dropdownSearchContent{
+    margin-left: 15px;
+    display: flex;
+    @media only screen and (max-width: 1000px) {
+        margin: 10px;
+    }
+}
+
+.dropdownToggle {
+    background-color: transparent !important;
+    color: #333;
+    border: none;
+    &:hover{
+        color: #333;
+    }
+    &:active{
+        color: #333;
+    }
+    &:focus{
+        color: #333;
+    }
+
+}

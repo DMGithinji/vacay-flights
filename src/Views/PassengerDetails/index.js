@@ -20,7 +20,7 @@ class PassengerDetails extends React.Component {
         return (
             <Aux>
                 <Breadcrumbs />
-                <Row className='btn-page'>
+                <Row className='btn-page content-wrapper'>
                     <Col lg={8}>
                             <div className="card">
                                         <div className="card-header">

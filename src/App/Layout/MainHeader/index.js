@@ -7,18 +7,34 @@ const MainHeader = () => {
 
     return (
         <div>
-            <nav className= "navbar main-header" >
-            <div className="main-header-content-wrapper d-flex justify-content-between ">
+            <nav className= "main-header" >
+                    <div className="header-wrapper">
+                        <div class="navbar d-flex justify-content-between">
+                            <img id="main-logo" src={logo} alt="logo" className="logo" />
+                                <div>
+                                    <div className= "d-flex  align-items-center mr-auto" >
+                                        <img id="main-logo" src={phone} alt="phone" height="20" width="30" className= "pr-2"/> &nbsp;
+                                        <div className= "d-flex flex-column" >
+                                            <span className="semi-bold">Contact</span>
+                                            <span>0712345678</span>
+                                        </div>
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                </nav>
+            {/* <div class="navbar d-flex justify-content-between">
                 <img id="main-logo" src={logo} alt="logo" className="logo" />
-                <div className= "d-flex inline  align-items-center" >
-                    <img id="main-logo" src={phone} alt="phone" height="20" width="30" className= "pr-2"/> &nbsp;
-                    <div className= "d-flex flex-column" >
-                        <span className="semi-bold">Contact</span>
-                        <span>0712345678</span>
+                <div>
+                    <div className= "d-flex  align-items-center mr-auto" >
+                        <img id="main-logo" src={phone} alt="phone" height="20" width="30" className= "pr-2"/> &nbsp;
+                        <div className= "d-flex flex-column" >
+                            <span className="semi-bold">Contact</span>
+                            <span>0712345678</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            </nav>
+            </div> */}
         </div>
     )
 }

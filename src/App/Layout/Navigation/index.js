@@ -3,10 +3,6 @@ import navigation from '../../../menu-items';
 import Aux from '../../../hoc/_Aux'
 import NavItem from './NavItem';
 
-let navClass = ['theme-horizontal', 'navigation'];
-let navBarClass = [ 'navbar'];
-
-
 class Navigation extends Component {
     state = {
         scrollWidth: 0,
@@ -19,7 +15,7 @@ class Navigation extends Component {
     const items = navigation.items[0].children;
 
     const navContent = (
-        <div className={navBarClass.join(' ')}>
+        <div className={'navbar'}>
             {   
                 items.map((child) => {
                     return (
@@ -32,7 +28,7 @@ class Navigation extends Component {
 
     return (
         <Aux>
-            <nav className={navClass.join(' ')}>
+            <nav className={'navigation'}>
                 {navContent}
             </nav>
         </Aux>

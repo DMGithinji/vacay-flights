@@ -56,10 +56,12 @@ File: style.css
 @import "themes/generic";
 @import "themes/plugin/animate";
 
+//react modules
+@import "~react-datepicker/dist/react-datepicker";
 
-// theme layouts
-// @import "themes/layouts/menu-lite";
-@import "themes/layouts/menu-react";
+// // theme layouts
+// // @import "themes/layouts/menu-lite";
+// @import "themes/layouts/menu-react";
 
 
 // custom plugin
@@ -73,14 +75,11 @@ File: style.css
 @import "themes/plugin/select2";
 
 
-// pages
-@import "themes/pages/maintaince";
-@import "themes/pages/icon-lauouts";
-@import "themes/pages/user";
 
 //components
 @import  "themes/components/mainheader";
 @import  "themes/components/navigation";
 @import  "themes/components/layouts";
+@import  "themes/components/search";
 
 

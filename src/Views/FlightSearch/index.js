@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Search from './SearchField/Search';
+// import connect from 'react-redux';
 
-const FlightSearch = () => {
 
-    return (
-        <div>
-            <h3>Flight Search</h3>
-        </div>
-    )
+class FlightSearch extends Component {
+
+    componentDidMount(){
+        this.getDestinations();
+    }
+
+    getDestinations = () => {
+        
+    }
+
+    render() {
+        return (
+            <div>
+                <Search />
+            </div>
+        )
+    }
 }
+
+// const mapStateToProps = state => {
+//     const { gameState: { guess } } = state;
+//     return { guess }
+// }
 
 export default FlightSearch;

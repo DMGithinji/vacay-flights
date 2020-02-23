@@ -34,7 +34,7 @@ class Layout extends Component {
                     <Navigation />
                 </div>
                 <div className="main-wrapper">
-                    <div className="content-wrapper">
+                    <div className="">
                         <Suspense fallback={<Loader/>}>
                             <Switch>
                                 {menu}

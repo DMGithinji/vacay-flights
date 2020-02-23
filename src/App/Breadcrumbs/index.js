@@ -60,8 +60,7 @@ class Breadcrumbs extends Component {
 
             if(this.state.item.breadcrumbs !== false) {
                 breadcrumb = (
-                    
-                            <div className="row align-items-center pt-3">
+                            <div className="row align-items-center content-wrapper pt-3">
                                 <div className="col-md-12">
                                     <div className="page-header-title">
                                         <h5 className="m-b-10">{pageTitle}</h5>
