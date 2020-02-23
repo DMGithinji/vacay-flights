@@ -8,7 +8,7 @@ const FlightType = () => {
     return (
         <div>
             <Dropdown>
-                <Dropdown.Toggle variant="default" className="dropdownToggle" id="dropdown-basic">
+                <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
                     {'Flight Type'}
                 </Dropdown.Toggle>
 

@@ -7,7 +7,7 @@ const PaxNumber = () => {
     return (
         <div>
             <Dropdown>
-                <Dropdown.Toggle variant="default" className="dropdownToggle" id="dropdown-basic">
+                <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
                 Passenger No.
                 </Dropdown.Toggle>
 

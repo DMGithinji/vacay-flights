@@ -37,7 +37,7 @@
 }
 
 .dropdownSearchContent{
-    margin-left: 15px;
+    margin-left: 12px;
     display: flex;
     @media only screen and (max-width: 1000px) {
         margin: 10px;
@@ -46,7 +46,7 @@
 
 .dropdownToggle {
     background-color: transparent !important;
-    color: #333;
+    color: #666;
     border: none;
     &:hover{
         color: #333;
