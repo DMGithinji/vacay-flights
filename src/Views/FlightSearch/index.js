@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from './SearchField/Search';
+import Filter from './Filter';
 // import connect from 'react-redux';
 
 
@@ -17,6 +18,13 @@ class FlightSearch extends Component {
         return (
             <div>
                 <Search />
+                <div className='content-wrapper'>
+                <div className='search-content-wrapper'>
+                    <Filter />
+                </div>
+                </div>
+                
+                
             </div>
         )
     }

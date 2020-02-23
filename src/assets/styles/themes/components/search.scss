@@ -1,5 +1,5 @@
 .searchCard {
-    position: fixed;
+    // position: fixed;
     width: 100%;
     height: auto;
     padding: 30px;
@@ -58,4 +58,18 @@
         color: #333;
     }
 
+}
+
+.search-content-wrapper{
+    display: block;
+    position: relative;
+    width: 20%;
+    margin: 60px 0;
+}
+
+.filter-panel{
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }

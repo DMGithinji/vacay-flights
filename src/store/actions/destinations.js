@@ -3,6 +3,8 @@
 import { SET_DESTINATIONS } from './types';
 import config from '../../config';
 
+import axios from 'axios';
+import auth from '../../auth';
 const API_URL = config.API_URL;
 
 
@@ -11,13 +13,14 @@ const API_URL = config.API_URL;
  * If successful, dispatches an array of destination objects
  */
 export const getDestinationOptions = () => dispatch  => {
-    return fetch(`${API_URL}/getDestinations`)
+    return axios.get(API_URL, { headers: auth })
         .then(response => {
-            if (response.status !== 200 ) {
-                throw new Error ('Unsuccessful request to get flight destinations options')
-            }
-            return response.json()
+            const data = response.data;
+            console.log(data);
+            dispatch({ type: SET_DESTINATIONS.FETCH_SUCCESS, destinations: data.aerocrs.destinations.destination, })
         })
-        .then(json => dispatch({ type: SET_DESTINATIONS.FETCH_SUCCESS, destinations: json.aerocrs.destinations.destination, }))
-        .catch(error => dispatch({ type: SET_DESTINATIONS.FETCH_ERROR, message: error.message }));
+        .catch((error) => {
+            console.log('error ', error);
+            dispatch({ type: SET_DESTINATIONS.FETCH_ERROR, message: error.message })
+        });
 }

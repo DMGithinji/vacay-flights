@@ -67,7 +67,7 @@ class Search extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-2 col-sm-12 search-btn">
-                                    <button className = "btn btn-md">Search</button>
+                                    <button className = "btn btn-md">Modify Search</button>
                                 </div>
                             </div>
                         </form>
