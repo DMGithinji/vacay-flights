@@ -18,6 +18,7 @@ export const setReturnDate = returnDate => {
 }
 
 export const setAdultNumber = adultNumber => {
+    console.log('Adult Number being set', adultNumber);
     return { type: SET_QUERRY.ADULT_NO, adultNumber: adultNumber }
 }
 

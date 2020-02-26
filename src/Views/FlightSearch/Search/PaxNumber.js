@@ -1,38 +1,81 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
+import { connect } from 'react-redux';
+import { setAdultNumber, setChildrenNumber, setInfantNumber } from '../../../store/actions/querryState';
 
-const PaxNumber = () => {
+class PaxNumber extends Component {
+    
+    updatePaxNo = (method, currentNo) => {
+        if (method === 'ADD') {
+            currentNo++;
+        } else if (method === 'SUBTRACT') {
+            if (currentNo > 0){
+                currentNo--;
+            } else {
+                currentNo = 0
+            }
+        }
+        return currentNo;
+    }
 
-    return (
-        <div>
-            <Dropdown>
-                <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
-                Passenger No.
-                </Dropdown.Toggle>
+    paxUpdater = (paxType, method, currentNo) =>()=> {
+        if (paxType === 'Adults'){
+            this.props.setAdultNumber(this.updatePaxNo(method, currentNo));
+        }
+    }
 
-                <Dropdown.Menu className="p-2">
-                <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Number of Adults</Form.Label>
-                        <Form.Control className="form-control form-control-sm" type="number" placeholder="No. of adults" />
-                    </Form.Group>
+    getTotalPassengers = (adults, children, infants) => (adults + children + infants);
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Number of Children</Form.Label>
-                        <Form.Control className="form-control form-control-sm" type="number" placeholder="No. of children" />
-                    </Form.Group>
+    render() {
+        const passenger = this.props;
+        const passengerNumber = this.getTotalPassengers(passenger.adultNumber, passenger.childrenNumber, passenger.infantNumber);
+        return (
+            <div>
+                <Dropdown>
+                    <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
+                        <span className="dropdown-styling">{passengerNumber} {passengerNumber > 1 ? (<span>Passengers</span>) : (<span>Passenger</span>)}</span>
+                    </Dropdown.Toggle>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Number of Infants</Form.Label>
-                        <Form.Control className="form-control form-control-sm" type="number" placeholder="No. of infants" />
-                    </Form.Group>
-
-                    </Form>
-                </Dropdown.Menu>
-            </Dropdown>
-        </div>
-    )
+                    <Dropdown.Menu className="p-2">
+                    <div className = "container">
+                            <div className = "d-flex inline justify-content-between">
+                                <button onClick={passenger.setAdultNumber(this.updatePaxNo('ADD',passenger.adultNumber))}>Plus</button>
+                                    <span>{`${passenger.adultNumber} Adults`}</span>
+                                <button onClick={passenger.setAdultNumber(this.updatePaxNo('SUBTRACT',passenger.adultNumber))}>Minus</button>
+                            </div>
+                            <div className = "d-flex inline justify-content-between">
+                                <button onClick={passenger.setChildrenNumber(this.updatePaxNo('ADD',passenger.childrenNumber))}>Plus</button>
+                                    <span>{`${passenger.childrenNumber} Children`}</span>
+                                <button onClick={passenger.setChildrenNumber(this.updatePaxNo('SUBTRACT',passenger.childrenNumber))}>Minus</button>
+                            </div>
+                            <div className = "d-flex inline justify-content-between">
+                                <button onClick={passenger.setInfantNumber(this.updatePaxNo('ADD',passenger.infantNumber))}>Plus</button>
+                                    <span>{`${passenger.infantNumber} Infants`}</span>
+                                <button onClick={passenger.setInfantNumber(this.updatePaxNo('SUBTRACT',passenger.infantNumber))}>Minus</button>
+                            </div>
+                    </div>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        )
+    }
 }
 
-export default PaxNumber;
+
+
+const mapStateToProps = state => {
+    const { querry: { adultNumber, childrenNumber, infantNumber } } = state;
+    return { adultNumber, childrenNumber, infantNumber }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setAdultNumber: adultNumber => () => dispatch(setAdultNumber(adultNumber)),
+        setChildrenNumber: childrenNumber => () => dispatch(setChildrenNumber(childrenNumber)),
+        setInfantNumber: infantNumber => () => dispatch(setInfantNumber(infantNumber))
+    };
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PaxNumber);

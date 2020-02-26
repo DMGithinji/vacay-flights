@@ -47,15 +47,27 @@
 .dropdownToggle {
     background-color: transparent !important;
     color: #666;
-    border: none;
+    border: none;    
+    border-bottom: solid 1px #888;
+    width: 85%;
+    line-height: 13px;
+    margin: -4px auto 0px;
     &:hover{
-        color: #333;
+        color: rgb(29, 33, 54);
     }
     &:active{
         color: #333;
     }
     &:focus{
         color: #333;
+    }
+
+
+
+
+    .dropdown-styling {
+        text-align: left;
+        margin-left: -15px;
     }
 
 }
@@ -72,4 +84,9 @@
     border: none !important;
     border-color: transparent !important;
     box-shadow: none !important;
+}
+
+.option-select {
+    color: #666 !important;
+    font-size: 14px !important;
 }
