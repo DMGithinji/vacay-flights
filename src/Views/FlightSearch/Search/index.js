@@ -6,6 +6,9 @@ import {
     setDestination,
     setDepartDate,
     setReturnDate,
+    setAdultNumber,
+    setChildrenNumber,
+    setInfantNumber,
     setFlightClass,
     setFlightType,
     setQuerry 
@@ -22,6 +25,15 @@ class Search extends Component {
             destination: { value: this.props.destination },
             departDate: { value: this.props.departDate },
             returnDate: { value: this.props.returnDate },
+            adultNumber: {
+                value: this.props.adultNumber,
+            },
+            childrenNumber: {
+                value: this.props.childrenNumber,
+            },
+            infantNumber: {
+                value: this.props.infantNumber,
+            },
             flightClass: {
                 value: this.props.flightClass,
                 options: [
@@ -59,6 +71,18 @@ class Search extends Component {
             case 'destination':
                 this.setState({ destination: {value} });
                 this.props.setDestination(value);
+                return;
+            case 'adultNumber':
+                this.setState({ adultNumber: {value} });
+                this.props.setAdultNumber(value);
+                return;
+            case 'childrenNumber':
+                this.setState({ childrenNumber: {value} });
+                this.props.setChildrenNumber(value);
+                return;
+            case 'infantNumber':
+                this.setState({ infantNumber: {value} });
+                this.props.setInfantNumber(value);
                 return;
             case 'flightType':
                 this.setState({
@@ -123,7 +147,7 @@ class Search extends Component {
                                         options={form.flightClass.options}
                                         handleSelect={this.handleChange}
                                         />
-                            <PaxNumber />
+                            <PaxNumber handleChange={this.handleChange} />
                         </div>
                         <form>
                             <div className="row"> 
@@ -201,6 +225,9 @@ const mapDispatchToProps = dispatch => {
         setDestination: destination => dispatch(setDestination(destination)),
         setDepartDate: departDate => dispatch(setDepartDate(departDate)),
         setReturnDate: returnDate => dispatch(setReturnDate(returnDate)),
+        setAdultNumber: adultNumber => dispatch(setAdultNumber(adultNumber)),
+        setChildrenNumber: childrenNumber => dispatch(setChildrenNumber(childrenNumber)),
+        setInfantNumber: infantNumber => dispatch(setInfantNumber(infantNumber)),
         setFlightType: flightType => dispatch(setFlightType(flightType)),
         setFlightClass: flightClass => dispatch(setFlightClass(flightClass)),
 

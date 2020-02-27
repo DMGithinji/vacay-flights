@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { connect } from 'react-redux';
-import { setAdultNumber, setChildrenNumber, setInfantNumber } from '../../../store/actions/querryState';
 import ControlPointRoundedIcon from '@material-ui/icons/ControlPointRounded';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
@@ -20,6 +19,15 @@ class PaxNumber extends Component {
         return currentNo;
     }
 
+    paxUpdater = (paxType, method, currentNo) =>()=> {
+        const paxNo = this.updatePaxNo(method, currentNo);
+        let event = {
+            target: { name: paxType, value: paxNo},
+        }
+        console.log(event);
+        this.props.handleChange(event);
+    }
+
     getTotalPassengers = (adults, children, infants) => (adults + children + infants);
 
     render() {
@@ -36,21 +44,21 @@ class PaxNumber extends Component {
                     <div className = "container">
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={passenger.setAdultNumber(this.updatePaxNo('ADD',passenger.adultNumber))} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber)} fontSize="small" />
                                     <span>{passenger.adultNumber} {passenger.adultNumber === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={passenger.setAdultNumber(this.updatePaxNo('SUBTRACT',passenger.adultNumber))} fontSize="small" />
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={passenger.setChildrenNumber(this.updatePaxNo('ADD',passenger.childrenNumber))} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber)} fontSize="small" />
                                     <span>{passenger.childrenNumber} {passenger.childrenNumber === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={passenger.setChildrenNumber(this.updatePaxNo('SUBTRACT',passenger.childrenNumber))} fontSize="small" />
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={passenger.setInfantNumber(this.updatePaxNo('ADD',passenger.infantNumber))} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
                                     <span>{passenger.infantNumber} {passenger.infantNumber === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={passenger.setInfantNumber(this.updatePaxNo('SUBTRACT',passenger.infantNumber))} fontSize="small" />
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
                             </div>
 
                     </div>
@@ -66,14 +74,6 @@ const mapStateToProps = state => {
     return { adultNumber, childrenNumber, infantNumber }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setAdultNumber: adultNumber => () => dispatch(setAdultNumber(adultNumber)),
-        setChildrenNumber: childrenNumber => () => dispatch(setChildrenNumber(childrenNumber)),
-        setInfantNumber: infantNumber => () => dispatch(setInfantNumber(infantNumber))
-    };
-}
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
 )(PaxNumber);
