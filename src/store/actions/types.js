@@ -19,6 +19,9 @@ export const SET_QUERRY = {
     INFANT_NO: 'SET_INFANT_NO',
 }; 
 
+//To set user querry parameters
+export const RESET_QUERRY = "RESET_QUERRY";
+
 
 export const FLIGHTS = {
     FETCH_SUCCESS: 'FETCH_FLIGHTS_SUCCESS',

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { connect } from 'react-redux';
 import { setAdultNumber, setChildrenNumber, setInfantNumber } from '../../../store/actions/querryState';
+import ControlPointRoundedIcon from '@material-ui/icons/ControlPointRounded';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 class PaxNumber extends Component {
     
@@ -18,12 +20,6 @@ class PaxNumber extends Component {
         return currentNo;
     }
 
-    paxUpdater = (paxType, method, currentNo) =>()=> {
-        if (paxType === 'Adults'){
-            this.props.setAdultNumber(this.updatePaxNo(method, currentNo));
-        }
-    }
-
     getTotalPassengers = (adults, children, infants) => (adults + children + infants);
 
     render() {
@@ -33,26 +29,30 @@ class PaxNumber extends Component {
             <div>
                 <Dropdown>
                     <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
-                        <span className="dropdown-styling">{passengerNumber} {passengerNumber > 1 ? (<span>Passengers</span>) : (<span>Passenger</span>)}</span>
+                        <span className="dropdown-styling">{passengerNumber} {passengerNumber === 1 ? (<span>Passenger</span>) : (<span>Passengers</span>)}</span>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className="p-2">
                     <div className = "container">
-                            <div className = "d-flex inline justify-content-between">
-                                <button onClick={passenger.setAdultNumber(this.updatePaxNo('ADD',passenger.adultNumber))}>Plus</button>
-                                    <span>{`${passenger.adultNumber} Adults`}</span>
-                                <button onClick={passenger.setAdultNumber(this.updatePaxNo('SUBTRACT',passenger.adultNumber))}>Minus</button>
+
+                            <div className = "d-flex inline justify-content-between mb-2">
+                                <ControlPointRoundedIcon onClick={passenger.setAdultNumber(this.updatePaxNo('ADD',passenger.adultNumber))} fontSize="small" />
+                                    <span>{passenger.adultNumber} {passenger.adultNumber === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={passenger.setAdultNumber(this.updatePaxNo('SUBTRACT',passenger.adultNumber))} fontSize="small" />
                             </div>
-                            <div className = "d-flex inline justify-content-between">
-                                <button onClick={passenger.setChildrenNumber(this.updatePaxNo('ADD',passenger.childrenNumber))}>Plus</button>
-                                    <span>{`${passenger.childrenNumber} Children`}</span>
-                                <button onClick={passenger.setChildrenNumber(this.updatePaxNo('SUBTRACT',passenger.childrenNumber))}>Minus</button>
+
+                            <div className = "d-flex inline justify-content-between mb-2">
+                                <ControlPointRoundedIcon onClick={passenger.setChildrenNumber(this.updatePaxNo('ADD',passenger.childrenNumber))} fontSize="small" />
+                                    <span>{passenger.childrenNumber} {passenger.childrenNumber === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={passenger.setChildrenNumber(this.updatePaxNo('SUBTRACT',passenger.childrenNumber))} fontSize="small" />
                             </div>
-                            <div className = "d-flex inline justify-content-between">
-                                <button onClick={passenger.setInfantNumber(this.updatePaxNo('ADD',passenger.infantNumber))}>Plus</button>
-                                    <span>{`${passenger.infantNumber} Infants`}</span>
-                                <button onClick={passenger.setInfantNumber(this.updatePaxNo('SUBTRACT',passenger.infantNumber))}>Minus</button>
+
+                            <div className = "d-flex inline justify-content-between mb-2">
+                                <ControlPointRoundedIcon onClick={passenger.setInfantNumber(this.updatePaxNo('ADD',passenger.infantNumber))} fontSize="small" />
+                                    <span>{passenger.infantNumber} {passenger.infantNumber === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={passenger.setInfantNumber(this.updatePaxNo('SUBTRACT',passenger.infantNumber))} fontSize="small" />
                             </div>
+
                     </div>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -60,8 +60,6 @@ class PaxNumber extends Component {
         )
     }
 }
-
-
 
 const mapStateToProps = state => {
     const { querry: { adultNumber, childrenNumber, infantNumber } } = state;

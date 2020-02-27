@@ -1,158 +1,114 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDestinationOptions } from '../../../store/actions/destinations';
+import {
+    setOrigin,
+    setDestination,
+    setDepartDate,
+    setReturnDate,
+    setFlightClass,
+    setFlightType,
+    setQuerry 
+} from '../../../store/actions/querryState';
 
 import DatePicker from "react-datepicker";
 import PaxNumber from './PaxNumber';
-import validate from '../../../Shared/utils/formValidator';
 import OptionSelect from './OptionSelect';
 
 
 class Search extends Component {
-
     state = {
-        formControls: {
-            formIsValid: false, //to track the overall form validity
-            origin: {
-                value: '',
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            destination: {
-                value: '',
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            departDate: {
-                value: new Date(),
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            returnDate: {
-                value: new Date(),
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: false
-                }            },
+            origin: { value: this.props.origin },
+            destination: { value: this.props.destination },
+            departDate: { value: this.props.departDate },
+            returnDate: { value: this.props.returnDate },
             flightClass: {
-                value: 'Economy',
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: true,
-                },
+                value: this.props.flightClass,
                 options: [
                     { value: 'Economy', displayValue: 'Economy' },
                     { value: 'Business', displayValue: 'Business'}
                 ]
             },
             flightType: {
-                value: 'Return',
-                placeholder: 'One way or Return',
-                valid: false,
-                touched: false,
-                validationRules: {
-                    isRequired: true,
-                },
+                value: this.props.flightType,
                 options: [
                     { value: 'Return', displayValue: 'Return' },
                     { value: 'One-way', displayValue: 'One-Way'}
                 ]
             },
-            passengers: [
-                { type: 'Adults', count: 1 },
-                { type: 'Children', count: 0},
-                { type: 'Infants', count: 0}
-            ]
-        },
     };
 
     componentDidMount(){
         this.props.getDestinationOptions();
     }
-        
-    handleChange = event => {
 
-        console.log('event', event)
+    handleChange = event => {
         const value = event.target.value;
         const name = event.target.name;
 
-        const updatedControls = {
-            ...this.state.formControls
-            };
-        const updatedFormElement = {
-            ...updatedControls[name]
-            };
+        this.updateStore(name, value);
 
-        updatedFormElement.value = value;
-        updatedFormElement.touched = true;
-        updatedFormElement.valid = validate(value, updatedFormElement.validationRules);
-    
-        updatedControls[name] = updatedFormElement;
+    };
 
-        let formIsValid = true;
-        for (let inputIdentifier in updatedControls) {
-            formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
+    updateStore = (fieldName, value) => {
+        switch(fieldName) {
+            case 'origin':
+                this.setState({ origin: { value } });
+                this.props.setOrigin(value);
+                return;
+            case 'destination':
+                this.setState({ destination: {value} });
+                this.props.setDestination(value);
+                return;
+            case 'flightType':
+                this.setState({
+                        flightType: {
+                        ...this.state.flightType,
+                        value
+                        }
+                });
+                this.props.setOrigin(value);
+                return;
+            case 'flightClass':
+                this.setState({
+                        flightClass: {
+                        ...this.state.flightClass,
+                        value
+                        }
+                });
+                this.props.setOrigin(value);
+                return;
+            default:
+                return;
         }
-
-        this.setState({
-            formControls: updatedControls,
-            formIsValid: formIsValid
-        });
-    };
-
-    handleDateChange = event => {
-        let value;
-        value = event;
-        
-        this.setState({
-            formControls: {
-                ...this.state.formControls,
-                departDate: {
-                ...this.state.formControls.departDate,
-                value
-                }
-            }
-        });
-    };
-
-    handleReturnDateChange = event => {
-        const value = event;
-        
-        this.setState({
-            formControls: {
-                ...this.state.formControls,
-                returnDate: {
-                ...this.state.formControls.returnDate,
-                value
-                }
-            }
-        });
-    };
-
-    formSubmitHandler = () => {
-        console.log(this.state.formControls);
     }
+
+    handleDepartDateChange = value => {
+        this.setState({ departDate: { value } });
+        this.props.setDepartDate(value);
+    };
+
+    handleReturnDateChange = value => {
+        this.setState({ returnDate: { value } });
+        this.props.setReturnDate(value);
+    };
+
+    formSubmitHandler = (e) => {
+        e.preventDefault();
+        const querry = this.state;
+        console.log('querry ', querry);
+        setQuerry(querry); //dispatch the SEARCH action creator
+    }
+
 
     render(){
 
-        const form = this.state.formControls;
-
+        const form = this.state;
         return (
             <div>
                 <div className="searchCard">
                     <div className = "searchContent">
-                        <div className = "dropdownSearchContent">
+                        <div className = "dropdownSearchContent mb-3">
                             <OptionSelect className="option-select-form"
                                         name="flightType"
                                         placeholder={form.flightType.placeholder}
@@ -167,11 +123,11 @@ class Search extends Component {
                                         options={form.flightClass.options}
                                         handleSelect={this.handleChange}
                                         />
-                            <PaxNumber passengers={form.passengers}/>
+                            <PaxNumber />
                         </div>
                         <form>
                             <div className="row"> 
-                                <div className="col-md-5 col-sm-12">
+                                <div className="col-md-5 col-sm-12 p-0 pr-4">
                                     <div className="row">
                                         <div className="col-md-6 col-sm-12">
                                             <label htmlFor="Origin">Origin</label>
@@ -195,7 +151,7 @@ class Search extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-5 col-sm-12">
+                                <div className="col-md-5 col-sm-12 p-0 pr-5">
                                     <div className="row">
                                         <div className="col-md-6 col-sm-12 d-flex flex-column">
                                             <label htmlFor="Destination">Departue Date</label>      
@@ -204,7 +160,7 @@ class Search extends Component {
                                                 name="departDate"
                                                 selected={form.departDate.value}
                                                 placeholderText="dd/mm/yyyy"
-                                                onChange={this.handleDateChange} 
+                                                onChange={this.handleDepartDateChange} 
                                             />
                                         </div>
                                         <div className="col-md-6 col-sm-12  d-flex flex-column">
@@ -219,8 +175,9 @@ class Search extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-2 col-sm-12 search-btn">
-                                <button onClick={this.formSubmitHandler}>Submit</button>                                </div>
+                                <div className="col-md-2 col-sm-12 search-btn p-0">
+                                <button className="btn btn-md" onClick={(e) => {this.formSubmitHandler(e)}}>Modify Search</button>                                
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -231,11 +188,23 @@ class Search extends Component {
 }
 
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+    const { querry: { origin, destination, departDate, returnDate, flightType, flightClass  } } = state;
+    return { origin, destination, departDate, returnDate, flightType, flightClass   }
+};
 
 const mapDispatchToProps = dispatch => {
     return {
-        getDestinationOptions: () => dispatch(getDestinationOptions())
+        getDestinationOptions: () => dispatch(getDestinationOptions()), //To get origin/destination options
+
+        setOrigin: origin =>  dispatch(setOrigin(origin)),
+        setDestination: destination => dispatch(setDestination(destination)),
+        setDepartDate: departDate => dispatch(setDepartDate(departDate)),
+        setReturnDate: returnDate => dispatch(setReturnDate(returnDate)),
+        setFlightType: flightType => dispatch(setFlightType(flightType)),
+        setFlightClass: flightClass => dispatch(setFlightClass(flightClass)),
+
+        setQuerry: querry => () => dispatch(setQuerry(querry)), //To initiate search for flights
         };
 }
 

@@ -1,6 +1,6 @@
 //Reducer to handle action cases
 
-import { SET_QUERRY } from '../actions/types';
+import { SET_QUERRY, RESET_QUERRY } from '../actions/types';
 
 const DEFAULT_QUERRY_PARAMETERS = {
     origin: "",
@@ -10,8 +10,8 @@ const DEFAULT_QUERRY_PARAMETERS = {
     adultNumber: 1,
     childrenNumber: 0,
     infantNumber: 0,
-    flightType: "",
-    flightClass: "",
+    flightType: "Return",
+    flightClass: "Economy",
 }
 
 const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
@@ -33,7 +33,20 @@ const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
         case SET_QUERRY.FLIGHT_TYPE:
             return {...state,  flightType: action.flightType}; 
         case SET_QUERRY.FLIGHT_CLASS:
-            return {...state,  flightClass: action.flightClass};         
+            return {...state,  flightClass: action.flightClass}; 
+        case RESET_QUERRY:
+            return {
+                ...state,
+                origin: action.querry.origin,
+                destination: action.querry.destination,
+                departDate: action.querry.departDate,
+                returnDate: action.querry.returnDate,
+                // adultNumber: action.querry.adultNumber,
+                // childrenNumber: action.querry.childrenNumber,
+                // infantNumber: action.querry.infantNumber,
+                flightType: action.querry.flightType,
+                flightClass: action.querry.flightClass,
+            }       
         default:
             return state;
     }

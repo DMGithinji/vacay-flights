@@ -1,4 +1,9 @@
 import { SET_QUERRY } from './types';
+import { RESET_QUERRY } from './types';
+
+export const setQuerry = querry => {
+    return { type: RESET_QUERRY, querry: querry }
+}
 
 
 export const setOrigin = origin => {

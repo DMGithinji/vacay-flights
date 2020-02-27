@@ -16,6 +16,7 @@
         .row{
             margin: 0 auto !important;
         }
+        
 
         .search-btn{ 
             margin-top: 38px; //Realigns the search button with input forms due to label introd misalignment
@@ -34,10 +35,15 @@
             margin-top: 10px;
         }
     }
+
+    .search-section {
+        padding: 0 !important;
+        margin: 0 auto;
+    }
 }
 
 .dropdownSearchContent{
-    margin-left: 12px;
+    margin-left: 18px;
     display: flex;
     @media only screen and (max-width: 1000px) {
         margin: 10px;
@@ -62,11 +68,7 @@
         color: #333;
     }
 
-
-
-
-    .dropdown-styling {
-        text-align: left;
+    .dropdown-styling { //for passenger count
         margin-left: -15px;
     }
 
