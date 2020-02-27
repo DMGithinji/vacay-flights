@@ -91,7 +91,7 @@ class Search extends Component {
                         value
                         }
                 });
-                this.props.setOrigin(value);
+                this.props.setFlightType(value);
                 return;
             case 'flightClass':
                 this.setState({
@@ -100,7 +100,7 @@ class Search extends Component {
                         value
                         }
                 });
-                this.props.setOrigin(value);
+                this.props.setFlightClass(value);
                 return;
             default:
                 return;
