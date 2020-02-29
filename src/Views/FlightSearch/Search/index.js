@@ -13,8 +13,17 @@ import {
     setFlightType,
     setQuerry 
 } from '../../../store/actions/querryState';
+import places from '../../../Shared/utils/places';
 
-import DatePicker from "react-datepicker";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 import PaxNumber from './PaxNumber';
 import OptionSelect from './OptionSelect';
 
@@ -54,14 +63,28 @@ class Search extends Component {
         this.props.getDestinationOptions();
     }
 
-    handleChange = event => {
-        const value = event.target.value;
+    handleChange = (event) => {
         const name = event.target.name;
-
+        const value = event.target.value;
         this.updateStore(name, value);
-
+        console.log('value', value);
     };
 
+    handleOriginSelect = (event, newValue) => {
+        let selected = {
+            target: { name: 'origin', value: newValue.code },
+        }
+        console.log(selected);
+        this.handleChange(selected);
+    }
+
+    handleDestinationSelect = (event, newValue) => {
+        let selected = {
+            target: { name: 'destination', value: newValue.code },
+        }
+        console.log(selected);
+        this.handleChange(selected);
+    }
     updateStore = (fieldName, value) => {
         switch(fieldName) {
             case 'origin':
@@ -128,6 +151,8 @@ class Search extends Component {
     render(){
 
         const form = this.state;
+        const placeOptions = places.aerocrs.destinations.destination;
+
         return (
             <div>
                 <div className="searchCard">
@@ -149,58 +174,99 @@ class Search extends Component {
                                         />
                             <PaxNumber handleChange={this.handleChange} />
                         </div>
-                        <form>
+                        <form className="mt-4">
                             <div className="row"> 
                                 <div className="col-md-5 col-sm-12 p-0 pr-4">
                                     <div className="row">
                                         <div className="col-md-6 col-sm-12">
-                                            <label htmlFor="Origin">Origin</label>
-                                            <input 
-                                                type="text"
-                                                name="origin"
-                                                value={form.origin.value}
-                                                onChange={this.handleChange} 
-                                                className="form-control" 
-                                                placeholder="Place of origin" />
+                                            <Autocomplete
+                                                id="origin-select"
+                                                onChange={this.handleOriginSelect}
+                                                options={placeOptions}
+                                                autoHighlight
+                                                getOptionLabel={option => option.name}
+                                                renderOption={option => (
+                                                    <React.Fragment>
+                                                    {option.name} ({option.country}) +{option.countryiso}
+                                                    </React.Fragment>
+                                                )}
+                                                renderInput={params => (
+                                                    <TextField
+                                                    {...params}
+                                                    label="Origin"
+                                                    variant="outlined"
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        autoComplete: 'new-password', // disable autocomplete and autofill
+                                                    }}
+                                                    />
+                                                )}
+                                            />
                                         </div>
                                         <div className="col-md-6 col-sm-12">
-                                            <label htmlFor="Destination">Destination</label>      
-                                            <input 
-                                                type="text"
-                                                name="destination"
-                                                value={form.destination.value}
-                                                onChange={this.handleChange} 
-                                                className="form-control" 
-                                                placeholder="Destination" />
+                                            <Autocomplete
+                                                id="destination-select"
+                                                onChange={this.handleDestinationSelect}
+                                                options={placeOptions}
+                                                autoHighlight
+                                                getOptionLabel={option => option.name}
+                                                renderOption={option => (
+                                                    <React.Fragment>
+                                                    {option.name} ({option.country}) +{option.countryiso}
+                                                    </React.Fragment>
+                                                )}
+                                                renderInput={params => (
+                                                    <TextField
+                                                    {...params}
+                                                    label="Destination"
+                                                    variant="outlined"
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        autoComplete: 'new-password', // disable autocomplete and autofill
+                                                    }}
+                                                    />
+                                                )}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-5 col-sm-12 p-0 pr-5">
                                     <div className="row">
                                         <div className="col-md-6 col-sm-12 d-flex flex-column">
-                                            <label htmlFor="Destination">Departue Date</label>      
-                                            <DatePicker
-                                                className="form-control"
-                                                name="departDate"
-                                                selected={form.departDate.value}
-                                                placeholderText="dd/mm/yyyy"
-                                                onChange={this.handleDepartDateChange} 
-                                            />
+                                            <MuiPickersUtilsProvider utils={DateFnsUtils} className="searchDate">
+                                                <KeyboardDatePicker
+                                                    inputVariant="outlined"
+                                                    label="Departure date"
+                                                    id="date-picker-dialog"
+                                                    format="dd/MM/yyyy"
+                                                    value={form.departDate.value}
+                                                    onChange={this.handleDepartDateChange}
+                                                    KeyboardButtonProps={{
+                                                        'aria-label': 'change date',
+                                                    }}
+                                                />
+                                            </MuiPickersUtilsProvider>
                                         </div>
                                         <div className="col-md-6 col-sm-12  d-flex flex-column">
-                                            <label htmlFor="Destination">Return Date</label>      
-                                            <DatePicker
-                                                name="returnDate"
-                                                selected={form.returnDate.value}
-                                                className="form-control w-100"
-                                                placeholderText="dd/mm/yyyy"
-                                                onChange={this.handleReturnDateChange} 
-                                            />                                    
+                                            <MuiPickersUtilsProvider utils={DateFnsUtils} className="searchDate">
+                                                <KeyboardDatePicker
+                                                    inputVariant="outlined"
+                                                    label="Return date"
+                                                    id="date-picker-dialog"
+                                                    format="dd/MM/yyyy"
+                                                    value={form.returnDate.value}
+                                                    placeholder = "dd/mm/yyyy"
+                                                    onChange={this.handleReturnDateChange}
+                                                    KeyboardButtonProps={{
+                                                        'aria-label': 'change date',
+                                                    }}
+                                                />
+                                            </MuiPickersUtilsProvider>                                   
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-2 col-sm-12 search-btn p-0">
-                                <button className="btn btn-md" onClick={(e) => {this.formSubmitHandler(e)}}>Modify Search</button>                                
+                                <button className="btn p-2" onClick={(e) => {this.formSubmitHandler(e)}}>Modify Search</button>                                
                                 </div>
                             </div>
                         </form>
