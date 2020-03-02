@@ -21,7 +21,7 @@ class PassengerDetails extends React.Component {
                 <Breadcrumbs />
                 <Row className='content-wrapper'>
                     <Col lg={8}>
-                            <div className="card">
+                            <div className="card shadow-none">
                                         <div className="card-header">
                                             <h5 className="mb-2">Billing information</h5>
                                             <p className="text-muted mb-0">Fill the form below in order to send you the order's invoice.</p>

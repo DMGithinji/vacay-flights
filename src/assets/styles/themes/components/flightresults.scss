@@ -1,0 +1,81 @@
+.flight-card-sm {
+    width: 45rem;
+    height: auto;
+    padding: 0!important;
+  }
+  
+  .flight-details{
+    width: 100%;
+    height: auto;
+    .item1 { grid-area: header; }
+    .item2 { grid-area: menu; }
+    .item3 { grid-area: main; }
+    .item4 { grid-area: right; }
+    .item5 { grid-area: footer; }
+    .item6 { grid-area: departtime; }
+    .item7 { grid-area: period; }
+    .item8 { grid-area: arrivetime; }
+    .grid-container {
+    display: grid;
+    text-align: left;
+    grid-template-areas:
+      'header header header header header header header header'
+      'menu departtime departtime right right right right right'
+      'menu period period main main main main main'
+      'menu arrivetime arrivetime footer footer footer footer footer';
+    grid-gap: 10px;
+    // background-color: #2196F3;
+  }
+  
+  .grid-container > div {
+    // background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    // padding: 5px 0;
+    font-size: 12px;
+  }
+
+
+
+  }
+  
+
+  .flight-card-lg {
+    padding: 16px 16px 10px;
+
+    .trip-locations{
+      font-weight: 500;
+      font-size: 16px;
+      color: #222;
+    }
+
+    .price{
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .passenger-count {
+      font-size: 13px;
+    }
+
+    .time {
+      color: #444;
+      font-size: 20px;
+      padding: 7px 0 8px;
+      font-weight: 600;
+    }
+
+    .date, 
+    .location-details,
+    .detail-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    .middle-col {
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+}

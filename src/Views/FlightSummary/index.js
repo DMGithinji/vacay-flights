@@ -11,7 +11,7 @@ const FlightSummary = () => {
     
     return (
         <div>
-<Card>
+<Card  className="shadow-none">
                             <Card.Header>
                                 <h5>Booking Summary</h5>
                             </Card.Header>

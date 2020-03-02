@@ -24,14 +24,14 @@ export default {
                     id: 'passenger-details',
                     title: 'Passenger Data',
                     type: 'item',
-                    icon: 'feather icon-shopping-cart',
+                    icon: 'feather icon-clipboard',
                     url: '/passenger-details'
                 },
                 {
                     id: 'booking-payment',
                     title: 'Flight Payment',
                     type: 'item',
-                    icon: 'feather icon-shopping-cart',
+                    icon: 'feather icon-menu',
                     url: '/booking-payment'
                 },
                 {
