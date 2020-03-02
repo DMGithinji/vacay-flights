@@ -12,11 +12,19 @@ class SearchResults extends Component {
                                 childrenNumber: this.props.childrenNumber, 
                                 infantNumber: this.props.infantNumber, 
                             };
-        console.log(flightResults);
 
         return (
             <div>
-                <Typography className="mb-2">Select a Flight</Typography>            
+                {
+                    this.props.fetchState === 'error' ? (
+                        <div>
+                            <Typography className="mb-2">{this.props.message}</Typography>
+                            <Typography className="mb-2">Please update your search</Typography>
+                        </div>
+                    ) : (
+                        null
+                    )
+                }            
                 {   
                     flightResults.map((flightDetails) => {
                         return (
@@ -34,8 +42,8 @@ class SearchResults extends Component {
 }
 
 const mapStateToProps = state => {
-    const { querry: { flightResults, adultNumber, childrenNumber, infantNumber} } = state;
-    return { flightResults, adultNumber, childrenNumber, infantNumber }
+    const { querry: { flightResults, adultNumber, childrenNumber, infantNumber, fetchState, message} } = state;
+    return { flightResults, adultNumber, childrenNumber, infantNumber, fetchState, message }
 }
 
 

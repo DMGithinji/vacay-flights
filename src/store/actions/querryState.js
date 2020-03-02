@@ -40,44 +40,44 @@ export const setFlightClass = flightClass => {
     return { type: SET_QUERRY.FLIGHT_CLASS, flightClass: flightClass }
 }
 
-
 export const setQuerry = flightClass => {
     return { type: SET_QUERRY.FLIGHT_CLASS, flightClass: flightClass }
 }
 
-
+//Action called on redirect from messenger bot
 export const fetchQueryData = sessionId => dispatch => {
     console.log('SessionID', sessionId);
     console.log('Loading...');
     dispatch({ type: QUERY_DATA.FETCHING, loading: true });
     return fetch(`${API_URL}/api/${sessionId}`)
-    .then(response => {
-        if (response.status !== 200 ) {
-            console.log('Error! Unsuccessful request to server')
-            throw new Error ('Unsuccessful request to server')
-        }
-        return response.json()
-    })
-    .then(json => {
-        console.log('Query Data ', json);
-        console.log('Loading Complete!');
-        dispatch({
-            type: QUERY_DATA.FETCH_SUCCESS,
-            origin: json.result.details.from,
-            destination: json.result.details.to,
-            departDate: json.result.details.start,
-            returnDate: json.result.details.end,
-            adultNumber: json.result.details.adults,
-            childrenNumber: json.result.details.child,
-            infantNumber: json.result.details.infant,
-            flightType: json.result.details.triptype,
-            // flightClass: json.result.detail.flightClass,
-            flightResults: json.result.flights,
-            loading: false
+        .then(response => {
+            if (response.status !== 200 ) {
+                console.log('Error! Unsuccessful request to server')
+                throw new Error ('Unsuccessful request to server')
+            }
+            return response.json()
+        })
+        .then(json => {
+            console.log('Query Data ', json);
+            console.log('Loading Complete!');
+            dispatch({
+                type: QUERY_DATA.FETCH_SUCCESS,
+                sessionId: sessionId,
+                origin: json.result.details.from,
+                destination: json.result.details.to,
+                departDate: json.result.details.start,
+                returnDate: json.result.details.end,
+                adultNumber: json.result.details.adults,
+                childrenNumber: json.result.details.child,
+                infantNumber: json.result.details.infant,
+                flightType: json.result.details.triptype,
+                // flightClass: json.result.detail.flightClass,
+                flightResults: json.result.flights,
+                loading: false
+            });
+        })
+        .catch(error => {
+            console.log('Error while getting query data with error ', error );
+            dispatch({ type: QUERY_DATA.FETCH_ERROR, message: error.message, loading: false })
         });
-    })
-    .catch(error => {
-        console.log('Error while getting query data with error ', error );
-        dispatch({ type: QUERY_DATA.FETCH_ERROR, message: error.message })
-    });
-}
+    }

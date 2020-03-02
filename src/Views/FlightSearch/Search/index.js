@@ -41,7 +41,7 @@ class Search extends Component {
                 value: this.props.infantNumber,
             },
             flightClass: {
-                value: this.props.flightClass,
+                value: 'Any',
                 options: [
                     { value: "Any", displayValue: 'Any' },
                     { value: 'Economy', displayValue: 'Economy' },

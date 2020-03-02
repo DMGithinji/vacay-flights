@@ -13,6 +13,13 @@ export const QUERY_DATA = {
     FETCHING: 'FETCH_AWAITING_RESPONSE',
 };
 
+//To set the results of selecting a flight
+export const SELECT_FLIGHT = {
+    SUCCESS: 'SELECT_FLIGHT_SUCCESS',
+    ERROR: 'SELECT_FLIGHT_ERROR',
+    AWAITING: 'AWAITING_SELECT_RESPONSE',
+};
+
 //To set user querry parameters
 export const SET_QUERRY = {
     ORIGIN: 'SET_ORIGIN',
@@ -25,9 +32,3 @@ export const SET_QUERRY = {
     CHILDREN_NO: 'CHILDREN_NO',
     INFANT_NO: 'SET_INFANT_NO',
 }; 
-
-
-export const FLIGHTS = {
-    FETCH_SUCCESS: 'FETCH_FLIGHTS_SUCCESS',
-    FETCH_ERROR: 'FETCH_FLIGHTS_ERROR',
-};

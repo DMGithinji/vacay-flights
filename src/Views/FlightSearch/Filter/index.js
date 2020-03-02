@@ -6,10 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Slider from '@material-ui/core/Slider';
 
-import filters from '../../../Shared/utils/filters';
-import FilterOption from './FilterOption';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+// import filters from '../../../Shared/utils/filters';
+// import FilterOption from './FilterOption';
+// import Select from '@material-ui/core/Select';
+// import MenuItem from '@material-ui/core/MenuItem';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -26,7 +26,7 @@ const Filter = (props) => {
     return (
 
         <div>            
-            <Typography className="mb-2">Filter Results</Typography>            
+            <Typography className="mb-2">Filter Options</Typography>            
             <div className="card shadow-none p-4">
 
             <ExpansionPanel className="filter-panel" >
@@ -86,21 +86,21 @@ const Filter = (props) => {
                             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
                                 <FormControlLabel 
                                     className="small-text" 
-                                    value="female"
-                                    label="Female"
+                                    value="none"
+                                    label="None"
                                     control={<Radio color="primary" className="small-text"  />}
                                 />
                                 <FormControlLabel 
                                     className="small-text" 
-                                    value="male" 
+                                    value="Carry-on" 
                                     control={<Radio color="primary" className="small-text"  />}
-                                    label="Male" 
+                                    label="Carry-on" 
                                 />
                                 <FormControlLabel 
                                     className="small-text"  
-                                    value="other" 
+                                    value="Baggage and Carry-on" 
                                     control={<Radio color="primary" className="small-text"  />}
-                                    label="Other" 
+                                    label="Baggage and Carry-on" 
                                 />
                             </RadioGroup>
                         </FormControl>

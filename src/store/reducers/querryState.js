@@ -1,6 +1,7 @@
 //Reducer to handle action cases
 
 import { SET_QUERRY, QUERY_DATA } from '../actions/types';
+import fetchStates from './fetchStates';
 
 const DEFAULT_QUERRY_PARAMETERS = {
     origin: "",
@@ -14,6 +15,7 @@ const DEFAULT_QUERRY_PARAMETERS = {
     flightClass: "Any",
     flightResults: [],
     loading: false,
+    fetchState: "",
 }
 
 const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
@@ -41,6 +43,7 @@ const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
         case QUERY_DATA.FETCH_SUCCESS:
             return {
                 ...state,
+                sessionId: action.sessionId,
                 origin: action.origin,
                 destination: action.destination,
                 departDate: action.departDate,
@@ -52,13 +55,19 @@ const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
                 flightClass: action.flightClass,
                 flightResults: action.flightResults,
                 loading: action.loading,
+                fetchState: fetchStates.success
             }
         //Reducer to configure set appState to 'loading'
         case QUERY_DATA.FETCHING:
+            return { ...state,  loading: action.loading }
+        //Reducer to configure set appState to 'loading'
+        case QUERY_DATA.FETCH_ERROR:
             return {
                 ...state,
+                message: action.message,
                 loading: action.loading,
-            }       
+                fetchState: fetchStates.error
+            }     
         default:
             return state;
     }

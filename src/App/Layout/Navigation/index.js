@@ -11,7 +11,11 @@ class Navigation extends Component {
     };
     
     render() {
-    const pathName = window.location.href.split('/').pop();
+    const pathName = window.location.href.split('/');
+    const isActive = (pathName, url ) => {
+        console.log ('isActive', pathName.includes(url.slice(1)));
+        return pathName.includes(url.slice(1));
+    }
     const items = navigation.items[0].children;
 
     const navContent = (
@@ -19,7 +23,7 @@ class Navigation extends Component {
             {   
                 items.map((child) => {
                     return (
-                        <NavItem key = {child.id} item={child} isActive = { pathName === child.url ? true : false} />
+                        <NavItem key = {child.id} item={child} isActive = {isActive(pathName, child.url)} />
                     )
                 })
             }

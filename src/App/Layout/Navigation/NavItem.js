@@ -3,9 +3,15 @@ import {NavLink} from 'react-router-dom';
 import Aux from '../../../hoc/_Aux';
 
 const NavItem = (props) => {
-    const { title, icon, url, isActive } = props.item;
+
+    const { title, icon, url } = props.item;
+    const pathName = window.location.href.split('/');
+    const isActive = (pathName, url ) => {
+        return pathName.includes(url.slice(1));
+    }  
+    
     let navLinkClass = ['navlink'];
-    if (isActive) {
+    if (isActive(pathName, url)) {
         navLinkClass = [...navLinkClass, 'active'];
     }
     return  (

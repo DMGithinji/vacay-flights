@@ -22,7 +22,7 @@ export default {
                 },
                 {
                     id: 'passenger-details',
-                    title: 'Passenger Data',
+                    title: 'Passenger Details',
                     type: 'item',
                     icon: 'feather icon-clipboard',
                     url: '/passenger-details'

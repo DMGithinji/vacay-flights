@@ -34,8 +34,13 @@ class Breadcrumbs extends Component {
     getCollapse = (item) => {
         if (item.children) {
             (item.children).filter( pageDetail => {
+                const pathName = window.location.href.split('/');
+                const isActive = (pathName, url ) => {
+                    return pathName.includes(url.slice(1));
+                } 
                 if (pageDetail.type && pageDetail.type === 'item') {
-                    if (document.location.pathname === config.basename+pageDetail.url) {
+                    console.log(document.location.pathname, )
+                    if (isActive(pathName, pageDetail.url)) {
                         this.setState({item: pageDetail, main: item});
                     }
                 }
@@ -61,7 +66,7 @@ class Breadcrumbs extends Component {
             if(this.state.item.breadcrumbs !== false) {
                 breadcrumb = (
                             <div className="row align-items-center content-wrapper breadcrumbs">
-                                <div className="col-md-12 pb-0">
+                                <div className="col-md-12 pb-0 pt-2">
                                     <div className="page-header-title">
                                         <h5 className="m-b-10">{pageTitle}</h5>
                                     </div>
