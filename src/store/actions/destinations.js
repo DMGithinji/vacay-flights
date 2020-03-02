@@ -24,3 +24,4 @@ export const getDestinationOptions = () => dispatch  => {
             dispatch({ type: SET_DESTINATIONS.FETCH_ERROR, message: error.message })
         });
 }
+

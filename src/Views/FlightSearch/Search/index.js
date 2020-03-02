@@ -43,6 +43,7 @@ class Search extends Component {
             flightClass: {
                 value: this.props.flightClass,
                 options: [
+                    { value: "Any", displayValue: 'Any' },
                     { value: 'Economy', displayValue: 'Economy' },
                     { value: 'Business', displayValue: 'Business'}
                 ]
@@ -50,15 +51,16 @@ class Search extends Component {
             flightType: {
                 value: this.props.flightType,
                 options: [
-                    { value: 'Return', displayValue: 'Return' },
-                    { value: 'One-way', displayValue: 'One-Way'}
+                    { value: "Any", displayValue: 'Any' },
+                    { value: 'RT', displayValue: 'Return' },
+                    { value: 'OW', displayValue: 'One-Way'}
                 ]
             },
     };
 
-    componentDidMount(){
-        this.props.getDestinationOptions();
-    }
+    // componentDidMount(){
+    //     this.props.getDestinationOptions();
+    // }
 
     handleChange = (event) => {
         const name = event.target.name;
@@ -158,7 +160,7 @@ class Search extends Component {
                             <OptionSelect className="option-select-form"
                                         name="flightType"
                                         placeholder={form.flightType.placeholder}
-                                        value={form.flightType.value}
+                                        value={this.props.flightType}
                                         options={form.flightType.options}
                                         handleSelect={this.handleChange}
                                         />
@@ -184,18 +186,18 @@ class Search extends Component {
                                                 getOptionLabel={option => option.name}
                                                 renderOption={option => (
                                                     <React.Fragment>
-                                                    {option.name} ({option.country}) +{option.countryiso}
+                                                        {option.name} ({option.country}) +{option.countryiso}
                                                     </React.Fragment>
                                                 )}
                                                 renderInput={params => (
                                                     <TextField
-                                                    {...params}
-                                                    label="Origin"
-                                                    variant="outlined"
-                                                    inputProps={{
-                                                        ...params.inputProps,
-                                                        autoComplete: 'new-password', // disable autocomplete and autofill
-                                                    }}
+                                                        {...params}
+                                                        label="Origin"
+                                                        variant="outlined"
+                                                        inputProps={{
+                                                            ...params.inputProps,
+                                                            autoComplete: 'new-password', // disable autocomplete and autofill
+                                                        }}
                                                     />
                                                 )}
                                             />
@@ -209,18 +211,18 @@ class Search extends Component {
                                                 getOptionLabel={option => option.name}
                                                 renderOption={option => (
                                                     <React.Fragment>
-                                                    {option.name} ({option.country}) +{option.countryiso}
+                                                        {option.name} ({option.country}) +{option.countryiso}
                                                     </React.Fragment>
                                                 )}
                                                 renderInput={params => (
                                                     <TextField
-                                                    {...params}
-                                                    label="Destination"
-                                                    variant="outlined"
-                                                    inputProps={{
-                                                        ...params.inputProps,
-                                                        autoComplete: 'new-password', // disable autocomplete and autofill
-                                                    }}
+                                                        {...params}
+                                                        label="Destination"
+                                                        variant="outlined"
+                                                        inputProps={{
+                                                            ...params.inputProps,
+                                                            autoComplete: 'new-password', // disable autocomplete and autofill
+                                                        }}
                                                     />
                                                 )}
                                             />
@@ -236,7 +238,7 @@ class Search extends Component {
                                                     label="Departure date"
                                                     id="date-picker-dialog"
                                                     format="dd/MM/yyyy"
-                                                    value={form.departDate.value}
+                                                    value={this.props.departDate}
                                                     onChange={this.handleDepartDateChange}
                                                     KeyboardButtonProps={{
                                                         'aria-label': 'change date',
@@ -251,7 +253,7 @@ class Search extends Component {
                                                     label="Return date"
                                                     id="date-picker-dialog"
                                                     format="dd/MM/yyyy"
-                                                    value={form.returnDate.value}
+                                                    value={this.props.returnDate}
                                                     placeholder = "dd/mm/yyyy"
                                                     onChange={this.handleReturnDateChange}
                                                     KeyboardButtonProps={{

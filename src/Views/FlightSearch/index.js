@@ -2,41 +2,53 @@ import React, { Component } from 'react';
 import Search from './Search';
 import Filter from './Filter';
 import FilterResults from './FlightResults';
-// import connect from 'react-redux';
+import {connect} from 'react-redux';
+import { fetchQueryData } from '../../store/actions/querryState';
+import Loader from '../../App/Loader';
 
 
 class FlightSearch extends Component {
 
     componentDidMount(){
-        this.getDestinations();
+        const { sessionId } = this.props.match.params;
+        this.props.fetchQueryData(sessionId);
+        console.log('props', this.props);
     }
 
-    getDestinations = () => {
-        
-    }
 
     render() {
         return (
-            <div>
-                <Search />
-                <div className='content-wrapper row'>
-                    <div className='col-3 mr-5'>
-                        <Filter className='search-content-wrapper'/>
+                !this.props.loading ? (
+                    <div>
+                        <Search />
+                        <div className='content-wrapper row'>
+                            <div className='col-lg-3 mr-5'>
+                                <Filter className='search-content-wrapper'/>
+                            </div>
+                            <div className='col-lg-8'>
+                                <FilterResults  className='filter-content-wrapper'/>
+                            </div>
+                        </div>
                     </div>
-                    <div className='col-8'>
-                        <FilterResults  className='filter-content-wrapper'/>
-                    </div>
-                </div>
-                
-                
-            </div>
+                ) : (
+                    <Loader />
+                )
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     const { gameState: { guess } } = state;
-//     return { guess }
-// }
+const mapStateToProps = state => {
+    const { querry: { loading } } = state;
+    return { loading }
+}
 
-export default FlightSearch;
+const mapDispatchToProps = dispatch => {
+    return {
+            fetchQueryData: session_id => dispatch(fetchQueryData(session_id))
+        };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FlightSearch);

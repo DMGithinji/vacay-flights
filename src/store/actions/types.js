@@ -6,6 +6,13 @@ export const SET_DESTINATIONS = {
     FETCH_ERROR: 'SET_DESTINATIONS_FETCH_ERROR',
 };
 
+//To set querry parameters and get initial flight results
+export const QUERY_DATA = {
+    FETCH_SUCCESS: 'FETCH_QUERY_SUCCESS',
+    FETCH_ERROR: 'FETCH_QUERY_ERROR',
+    FETCHING: 'FETCH_AWAITING_RESPONSE',
+};
+
 //To set user querry parameters
 export const SET_QUERRY = {
     ORIGIN: 'SET_ORIGIN',
@@ -18,9 +25,6 @@ export const SET_QUERRY = {
     CHILDREN_NO: 'CHILDREN_NO',
     INFANT_NO: 'SET_INFANT_NO',
 }; 
-
-//To set user querry parameters
-export const RESET_QUERRY = "RESET_QUERRY";
 
 
 export const FLIGHTS = {
