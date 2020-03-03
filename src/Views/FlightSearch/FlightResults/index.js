@@ -17,7 +17,8 @@ class SearchResults extends Component {
             <div>
                 {
                     this.props.fetchState === 'error' ? (
-                        <div>
+                        <div className="alert alert-danger mt-4" role="alert">
+                            <br></br>
                             <Typography className="mb-2">{this.props.message}</Typography>
                             <Typography className="mb-2">Please update your search</Typography>
                         </div>

@@ -105,7 +105,7 @@ const OneWayFlight = ({ flightDetails }) => {
             <div className="col-6 middle-col">
                 <img src={TakeOffIcon} className="height-45" alt="plane" />
                 <div className="detail-text mt-1">Duration: {getFlightDuration(flightDetails.departure, flightDetails.arrival)}</div>
-                <img src={HorizontalDivider} className="height-45" alt="divider" />
+                <img src={HorizontalDivider} className="horizontal-divider height-45" alt="divider" />
                 <div className="detail-text">Cabin Class: {flightDetails.classname}</div>            
                 <div className="detail-text">{flightDetails.airline}</div>            
             </div>

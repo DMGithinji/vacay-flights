@@ -1,108 +1,77 @@
 import React from 'react';
-import CONSTANTS from "../../store/constants";
-
+import {connect} from 'react-redux';
+import { getTime, getDate, pluralize } from '../../Shared/utils/dateTimeFormatter'
 import {
-    Table,
     Card,
 } from 'react-bootstrap';
 
 
-const FlightSummary = () => {
-    
+const FlightSummary = ({ flightDetails, flights }) => {
+    console.log('flightDetails', flightDetails);
     return (
         <div>
-<Card  className="shadow-none">
-                            <Card.Header>
-                                <h5>Booking Summary</h5>
-                            </Card.Header>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item py-0">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless mb-0">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Origin to Destination</a>
-                                                        <br/>
-                                                        <small>Flight Number</small>
-                                                    </p>
-                                                </td>
-                                                <td className="text-right">
-                                                    KES Price
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Destination to Origin</a>
-                                                        <br/>
-                                                        <small>Flight Number</small>
-                                                    </p>
-                                                </td>
-                                                <td className="text-right">
-                                                    KES Price
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                                <li className="list-group-item py-0">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless mb-0">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className="m-0 d-inline-block align-middle">
-                                                    <a href={CONSTANTS.BLANK_LINK} className="text-body font-weight-semibold">Flight Details</a>
-                                                    </p>
-                                                        <br/>
-                                                    <ul>
-                                                        <li>Flight Detail</li>
-                                                        <li>Flight Detail</li>
-                                                        <li>Flight Detail</li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                            </ul>
-                            <Card.Body className="py-2">
-                                <Table responsive className="table-borderless mb-0 w-auto table-sm float-right text-right">
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <h6 className="m-0">Summary:</h6>
-                                        </td>
-                                        <td>
-                                            Return ticket for 1 Adult
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h6 className="m-0">Taxes:</h6>
-                                        </td>
-                                        <td>
-                                            FREE
-                                        </td>
-                                    </tr>
-                                    <tr className="border-top">
-                                        <td>
-                                            <h5 className="m-0">Total:</h5>
-                                        </td>
-                                        <td className="font-weight-semibold">
-                                            $1070
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+            <Card  className="shadow-none">
+                <Card.Header>
+                    <h5 className="mb-2">Booking Summary</h5>
+                    <p className="text-muted card-header-detail">Please confirm that the details are in order</p>
+                </Card.Header>
+                
+                <Card.Body className="py-2">
+                    {
+                        flights.map(flight => (
+                            <div className="row  mt-2 mb-4">
+                                <div className="col-12">
+                                    <span className = "places"> {flight.from} to {flight.to}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations"> {getDate(flight.departure)}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations">  {getDate(flight.arrival)}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations"> {getTime(flight.departure)}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations">  {getTime(flight.arrival)}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations"> {flight.fromcode}</span>
+                                </div>
+                                <div className="col-6">
+                                    <span className = "trip-locations">  {flight.tocode}</span>
+                                </div>                            
+                            </div>
+                        ))
+                    }
+                </Card.Body>
+                <Card.Footer>
+                    <div className="row  mt-2 mb-4">
+                        <div className="col-12">
+                            <div className = "places text-center"> Total Price</div>
+                            <div className = "text-center mb-4"> {flightDetails.currency} {' '} {flightDetails.cost}</div>
+                        </div>
+                        <div className="col-12 text-center">
+                            <span className = ""> Flight Tickets for </span>
+                            <span className = "">
+                                {flightDetails.adults > 0 ? (<span>{flightDetails.adults} {' '} Adult{pluralize('Adult', flightDetails.adults)}{', '}</span>) : null}
+                                {flightDetails.child > 0 ? (<span>{flightDetails.child} {' '} Child{pluralize('Child', flightDetails.child)}</span>) : null}
+                                {flightDetails.infant > 0 ? (<span>{', '}{flightDetails.infant} {' '} Infant{pluralize('Infant', flightDetails.infant)}</span>) : null}
+                            </span>
+                        </div>
+                    </div>
+                </Card.Footer>
+            </Card>
         </div>
     )
 }
 
-export default FlightSummary;
+
+const mapStateToProps = state => {
+    const { selectedFlight: { flights, flightDetails } } = state;
+    return { flights, flightDetails }
+}
+
+export default connect(
+    mapStateToProps,
+)(FlightSummary);

@@ -25,7 +25,7 @@ const Filter = (props) => {
       };
     return (
 
-        <div>            
+        <div className="disappear">            
             <Typography className="mb-2">Filter Options</Typography>            
             <div className="card shadow-none p-4">
 

@@ -19,7 +19,7 @@ class Navigation extends Component {
     const items = navigation.items[0].children;
 
     const navContent = (
-        <div className={'navbar'}>
+        <div className='navbar navigation-overflow'>
             {   
                 items.map((child) => {
                     return (

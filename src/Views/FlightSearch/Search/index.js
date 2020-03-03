@@ -11,7 +11,7 @@ import {
     setInfantNumber,
     setFlightClass,
     setFlightType,
-    setQuerry 
+    setQuery 
 } from '../../../store/actions/querryState';
 import places from '../../../Shared/utils/places';
 
@@ -23,6 +23,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import PaxNumber from './PaxNumber';
 import OptionSelect from './OptionSelect';
+import { Link } from 'react-router-dom';
 
 
 class Search extends Component {
@@ -139,11 +140,10 @@ class Search extends Component {
         this.props.setReturnDate(value);
     };
 
-    formSubmitHandler = (e) => {
-        e.preventDefault();
+    formSubmitHandler = () => {
         const querry = this.state;
         console.log('querry ', querry);
-        setQuerry(querry); //dispatch the SEARCH action creator
+        this.props.setQuery(querry); //dispatch the SEARCH action creator
     }
 
 
@@ -173,11 +173,11 @@ class Search extends Component {
                                         />
                             <PaxNumber handleChange={this.handleChange} />
                         </div>
-                        <form className="mt-4">
+                        <div className="mt-4">
                             <div className="row"> 
                                 <div className="col-md-5 col-sm-12 p-0 pr-4">
                                     <div className="row">
-                                        <div className="col-md-6 col-sm-12">
+                                        <div className="col-md-6 col-sm-12 pb-3 pr-2">
                                             <Autocomplete
                                                 id="origin-select"
                                                 onChange={this.handleOriginSelect}
@@ -202,7 +202,7 @@ class Search extends Component {
                                                 )}
                                             />
                                         </div>
-                                        <div className="col-md-6 col-sm-12">
+                                        <div className="col-md-6 col-sm-12 pb-3 ">
                                             <Autocomplete
                                                 id="destination-select"
                                                 onChange={this.handleDestinationSelect}
@@ -231,7 +231,8 @@ class Search extends Component {
                                 </div>
                                 <div className="col-md-5 col-sm-12 p-0 pr-5">
                                     <div className="row">
-                                        <div className="col-md-6 col-sm-12 d-flex flex-column">
+                                        
+                                        <div className="col-md-6 col-sm-12 pb-3 d-flex flex-column">
                                             <MuiPickersUtilsProvider utils={DateFnsUtils} className="searchDate">
                                                 <KeyboardDatePicker
                                                     inputVariant="outlined"
@@ -246,7 +247,7 @@ class Search extends Component {
                                                 />
                                             </MuiPickersUtilsProvider>
                                         </div>
-                                        <div className="col-md-6 col-sm-12  d-flex flex-column">
+                                        <div className="col-md-6 col-sm-12 pb-3   d-flex flex-column">
                                             <MuiPickersUtilsProvider utils={DateFnsUtils} className="searchDate">
                                                 <KeyboardDatePicker
                                                     inputVariant="outlined"
@@ -262,13 +263,16 @@ class Search extends Component {
                                                 />
                                             </MuiPickersUtilsProvider>                                   
                                         </div>
+
                                     </div>
                                 </div>
                                 <div className="col-md-2 col-sm-12 search-btn p-0">
-                                <button className="btn p-2" onClick={(e) => {this.formSubmitHandler(e)}}>Modify Search</button>                                
+                                    <Link to={`/new-search`}>
+                                        <span className="btn p-2" onClick={ this.formSubmitHandler}> Modify Search </span>
+                                    </Link>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,7 +300,7 @@ const mapDispatchToProps = dispatch => {
         setFlightType: flightType => dispatch(setFlightType(flightType)),
         setFlightClass: flightClass => dispatch(setFlightClass(flightClass)),
 
-        setQuerry: querry => () => dispatch(setQuerry(querry)), //To initiate search for flights
+        setQuery: querry => dispatch(setQuery(querry)), //To initiate search for flights
         };
 }
 

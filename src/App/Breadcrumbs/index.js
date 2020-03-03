@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import config from '../../config';
 import navigation from '../../menu-items';
 import CONSTANTS from "../../store/constants";
 import Aux from "../../hoc/_Aux";
@@ -39,7 +38,6 @@ class Breadcrumbs extends Component {
                     return pathName.includes(url.slice(1));
                 } 
                 if (pageDetail.type && pageDetail.type === 'item') {
-                    console.log(document.location.pathname, )
                     if (isActive(pathName, pageDetail.url)) {
                         this.setState({item: pageDetail, main: item});
                     }

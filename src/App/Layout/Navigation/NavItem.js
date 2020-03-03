@@ -10,14 +10,14 @@ const NavItem = (props) => {
         return pathName.includes(url.slice(1));
     }  
     
-    let navLinkClass = ['navlink'];
+    let navLinkClass = ['navlink', 'd-flex', 'flex-fill', 'inline', 'align-items-center'];
     if (isActive(pathName, url)) {
         navLinkClass = [...navLinkClass, 'active'];
     }
     return  (
         <Aux>
             <NavLink to={url} exact={true} className={navLinkClass.join(' ')}  >
-                <span className="icon mr-2"><i className={icon} /></span>
+                <span className="icon-styling mr-2"><i class="material-icons"> {icon} </i></span>
                 <span className="text">{title}</span> 
             </NavLink>
         </Aux>

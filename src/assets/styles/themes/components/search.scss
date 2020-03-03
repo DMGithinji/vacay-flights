@@ -21,6 +21,7 @@
             margin-top: 0; //Realigns the search button with input forms due to label introd misalignment
             @media only screen and (max-width: 1000px) {
                 width: 100%;
+                margin-left: 12px;
             }
             .btn{
                 background-color: yellow;
@@ -76,10 +77,10 @@
 }
 
 .search-content-wrapper{
-    display: block;
-    position: relative;
-    width: 250px;
-    margin: 60px 0;
+    // display: block;
+    // position: relative;
+    // width: 250px;
+    // margin: 60px 0;
     @media only screen and (max-width: 1000px) {
         display: none;
     }
@@ -107,4 +108,11 @@
 .filter-text {
     font-size: 14px !important;
     color: #444 !important;
+}
+
+.searchDate{
+    @media only screen and (max-width: 1000px) {
+        width: 110%!important;
+        margin: 0 auto;
+    }
 }

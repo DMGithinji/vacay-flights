@@ -12,13 +12,23 @@
     }
 
     .navlink {
-        display: flex;
+        display: inline;
         justify-content: center;
         align-items: center;
         flex-wrap: nowrap;
         color: #fff !important;
         font-size: 16px;
         padding-top: 5px;
+        @media only screen and (max-width: 600px) {
+            font-size: 12px;
+            margin-right: 8px;
+        }
+    }
+
+    .navigation-overflow{
+        @media only screen and (max-width: 600px) {
+            overflow-x: hidden!important;
+        }
     }
 
     .active {
@@ -26,4 +36,8 @@
         font-weight: 600;
     }
 
+}
+.material-icons{
+    font-size: 17px;
+    padding-top: 4px !important;
 }

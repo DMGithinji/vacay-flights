@@ -86,3 +86,30 @@
     }
 
 }
+
+
+.horizontal-divider  {
+  @media only screen and (max-width: 1000px) {
+    width: 50%!important;
+}
+}
+
+// <i class="material-icons">
+// search
+// </i>
+
+// <i class="material-icons">
+// flight_takeoff
+// </i>
+
+// <i class="material-icons">
+// assignment
+// </i>
+
+// <i class="material-icons">
+// check
+// </i>
+
+// <i class="material-icons">
+// account_balance_wallet
+// </i>

@@ -40,9 +40,58 @@ export const setFlightClass = flightClass => {
     return { type: SET_QUERRY.FLIGHT_CLASS, flightClass: flightClass }
 }
 
-export const setQuerry = flightClass => {
-    return { type: SET_QUERRY.FLIGHT_CLASS, flightClass: flightClass }
-}
+
+/**
+ * 
+ * @param {
+ * "from" : <city>, 
+ * "to" : <city>, 
+ * "start" :<timestamp>, 
+ * "end" :<timestamp>, 
+ * "adults" :<adults>, 
+ * "child":<child>, 
+ * "infant":<child>, 
+ * "triptype" : <RT or OW>} 
+ */
+
+export const setQuery = query => dispatch => {
+    console.log('Loading New Search...');
+    const start =  (Date.parse(query.departDate.value))/1000;
+    const end =  (Date.parse(query.returnDate.value))/1000;
+    console.log("end", end, "start", start);
+    dispatch({ type: QUERY_DATA.FETCHING, loading: true });
+    return fetch(`${API_URL}/api/search/?from=${query.origin.value}&to=${query.destination.value}&start=${start}&end=${end}&adults=${query.adultNumber.value}&child=${query.childrenNumber.value}&infant=${query.infantNumber.value}&triptype=${query.flightType.value}`)
+        .then(response => {
+            if (response.status !== 200 ) {
+                console.log('Error! Unsuccessful request to server')
+                throw new Error ('Unsuccessful request to server')
+            }
+            return response.json()
+        })
+        .then(json => {
+            console.log('New Search Response ', json);
+            console.log('Loading Complete!');
+            dispatch({
+                type: QUERY_DATA.FETCH_SUCCESS,
+                sessionId: json.result.session,
+                origin: json.result.details.from,
+                destination: json.result.details.to,
+                departDate: json.result.details.start,
+                returnDate: json.result.details.end,
+                adultNumber: json.result.details.adults,
+                childrenNumber: json.result.details.child,
+                infantNumber: json.result.details.infant,
+                flightType: json.result.details.triptype,
+                // flightClass: json.result.detail.flightClass,
+                flightResults: json.result.flights,
+                loading: false
+            });
+        })
+        .catch(error => {
+            console.log('Error while getting query data with error ', error );
+            dispatch({ type: QUERY_DATA.FETCH_ERROR, message: error.message, loading: false })
+        });
+    }
 
 //Action called on redirect from messenger bot
 export const fetchQueryData = sessionId => dispatch => {

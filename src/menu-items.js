@@ -7,39 +7,32 @@ export default {
             icon: 'icon-monitor',
             children: [
                 {
-                    id: 'search',
-                    title: 'Search',
-                    type: 'item',
-                    icon: 'feather icon-search',
-                    url: '/search'
-                },
-                {
                     id: 'select',
                     title: 'Select Flight',
                     type: 'item',
-                    icon: 'feather icon-search',
+                    icon: 'flight_takeoff',
                     url: '/select'
                 },
                 {
                     id: 'passenger-details',
                     title: 'Passenger Details',
                     type: 'item',
-                    icon: 'feather icon-clipboard',
+                    icon: 'assignment',
                     url: '/passenger-details'
                 },
                 {
                     id: 'booking-payment',
                     title: 'Flight Payment',
                     type: 'item',
-                    icon: 'feather icon-menu',
+                    icon: 'account_balance_wallet',
                     url: '/booking-payment'
                 },
                 {
                     id: 'booking-confirmation',
                     title: 'Confirmation',
                     type: 'item',
-                    icon: 'feather icon-shopping-cart',
-                    url: '/booking-confirmation',
+                    icon: 'check',
+                    url: '/#',
                 },
             ]
         },

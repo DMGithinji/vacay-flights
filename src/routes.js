@@ -10,6 +10,7 @@ const BookingConfirmation = React.lazy(() => import('./Views/BookingConfirmation
 const routes = [
     { path: '#', exact: true, name: 'Flight Search', component: FlightSearch },
     { path: '/select/:sessionId', exact: false, name: 'Flight Select', component: FlightSearch },
+    { path: '/new-search', exact: false, name: 'Flight Select', component: FlightSearch },
     { path: '/passenger-details/:sessionId', exact: false, name: 'Passenger Details', component: PassengerDetails },
     { path: '/booking-payment', exact: true, name: 'Booking Payments', component: BookingPayments },
     { path: '/booking-confirmation', exact: true, name: 'Booking Confirmation', component: BookingConfirmation },
