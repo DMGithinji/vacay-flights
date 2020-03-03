@@ -59,7 +59,7 @@ export const setQuery = query => dispatch => {
     const start =  (Date.parse(query.departDate.value))/1000;
     const end =  (Date.parse(query.returnDate.value))/1000;
     console.log("end", end, "start", start);
-    dispatch({ type: QUERY_DATA.FETCHING, loading: true, flightResults: [] }); //On new search, set loading true and clear current results
+    dispatch({ type: QUERY_DATA.FETCHING, loading: false, flightResults: [] }); //On new search, set loading true and clear current results
     return fetch(`${API_URL}/api/search/?from=${query.origin.value}&to=${query.destination.value}&start=${start}&end=${end}&adults=${query.adultNumber.value}&child=${query.childrenNumber.value}&infant=${query.infantNumber.value}&triptype=${query.flightType.value}`)
         .then(response => {
             // if (response.status !== 200 ) {

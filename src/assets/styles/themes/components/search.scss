@@ -24,9 +24,10 @@
                 margin-left: 12px;
             }
             .btn{
-                background-color: yellow;
+                background-color: yellow !important;
                 padding: 16px !important;
-                border-radius: 5px;
+                border-radius: 5px !important;
+                font-size: 16px !important;
             }
         }
 
@@ -115,4 +116,75 @@
         width: 110%!important;
         margin: 0 auto;
     }
+}
+
+
+.search-form{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 50px 0 20px;
+    position: sticky;
+
+    .search-grid-container {
+        display: grid;
+        grid-template-columns: 3fr 3fr 3fr 3fr 2fr;
+        // grid-auto-rows: 50px; /* for demo */
+        grid-gap: 10px;
+        grid-template-areas: "column-1 column-2 column-3 column-4 column-5";
+    }
+
+    .grid-item:nth-child(1) { grid-area: column-1; }
+    .grid-item:nth-child(2) { grid-area: column-2; }
+    .grid-item:nth-child(3) { grid-area: column-3; }
+    .grid-item:nth-child(4) { grid-area: column-4; }
+    .grid-item:nth-child(5) { grid-area: column-5; }
+
+    @media ( max-width: 1000px ) {  
+        .search-grid-container { 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-areas: " column-1 column-2 " 
+                                " column-3 column-4 "
+                                " column-5 column-5 ";
+        }
+    }     
+    @media ( max-width: 600px ) {  
+        .search-grid-container { 
+            grid-template-columns: 1fr; 
+            grid-template-areas:    " column-1 " 
+                                    " column-2 "
+                                    " column-3 "
+                                    " column-4 "
+                                    " column-5 ";
+    } 
+}
+
+.search-grid-container > div {
+    text-align: left;
+    font-size: 12px;
+}
+
+
+.search-btn{ 
+    margin-top: 0; //Realigns the search button with input forms due to label introd misalignment
+    @media only screen and (max-width: 1000px) {
+        width: 100%;
+        margin-left: 12px;
+    }
+    .btn{
+        background-color: yellow !important;
+        color: #444;
+        padding: 15px !important;
+        border-radius: 5px !important;
+        font-size: 15px !important;
+        max-width: 180px;
+        min-width: 135px;
+        height: 56px;
+        @media only screen and (max-width: 1000px) {
+            margin-left: -12px;
+        }
+    }
+}
+
+
 }
