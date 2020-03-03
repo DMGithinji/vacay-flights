@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDestinationOptions } from '../../../store/actions/destinations';
-import {
-    setOrigin,
-    setDestination,
-    setDepartDate,
-    setReturnDate,
-    setAdultNumber,
-    setChildrenNumber,
-    setInfantNumber,
-    setFlightClass,
-    setFlightType,
-    setQuery 
-} from '../../../store/actions/querryState';
+import { setQuery } from '../../../store/actions/querryState';
 import places from '../../../Shared/utils/places';
 
 import TextField from '@material-ui/core/TextField';
@@ -32,15 +21,9 @@ class Search extends Component {
             destination: { value: this.props.destination },
             departDate: { value: this.props.departDate },
             returnDate: { value: this.props.returnDate },
-            adultNumber: {
-                value: this.props.adultNumber,
-            },
-            childrenNumber: {
-                value: this.props.childrenNumber,
-            },
-            infantNumber: {
-                value: this.props.infantNumber,
-            },
+            adultNumber: { value: this.props.adultNumber },
+            childrenNumber: { value: this.props.childrenNumber },
+            infantNumber: { value: this.props.infantNumber },
             flightClass: {
                 value: 'Any',
                 options: [
@@ -59,16 +42,13 @@ class Search extends Component {
             },
     };
 
-    // componentDidMount(){
-    //     this.props.getDestinationOptions();
-    // }
-
     handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        this.updateStore(name, value);
-        console.log('value', value);
-    };
+        this.updateState(name, value);
+        console.log('event',event);
+        console.log('state', this.state);
+        };
 
     handleOriginSelect = (event, newValue) => {
         let selected = {
@@ -85,27 +65,28 @@ class Search extends Component {
         console.log(selected);
         this.handleChange(selected);
     }
-    updateStore = (fieldName, value) => {
+    updateState = (fieldName, value) => {
         switch(fieldName) {
             case 'origin':
                 this.setState({ origin: { value } });
-                this.props.setOrigin(value);
                 return;
             case 'destination':
-                this.setState({ destination: {value} });
-                this.props.setDestination(value);
+                this.setState({ destination: { value } });
+                return;
+            case 'departDate':
+                this.setState({ departDate: { value } });
+                return;
+            case 'returnDate':
+                this.setState({ returnDate: { value } });
                 return;
             case 'adultNumber':
-                this.setState({ adultNumber: {value} });
-                this.props.setAdultNumber(value);
+                this.setState({ adultNumber: { value } });
                 return;
             case 'childrenNumber':
-                this.setState({ childrenNumber: {value} });
-                this.props.setChildrenNumber(value);
+                this.setState({ childrenNumber: { value } });
                 return;
             case 'infantNumber':
-                this.setState({ infantNumber: {value} });
-                this.props.setInfantNumber(value);
+                this.setState({ infantNumber: { value } });
                 return;
             case 'flightType':
                 this.setState({
@@ -114,7 +95,6 @@ class Search extends Component {
                         value
                         }
                 });
-                this.props.setFlightType(value);
                 return;
             case 'flightClass':
                 this.setState({
@@ -123,7 +103,6 @@ class Search extends Component {
                         value
                         }
                 });
-                this.props.setFlightClass(value);
                 return;
             default:
                 return;
@@ -131,13 +110,11 @@ class Search extends Component {
     }
 
     handleDepartDateChange = value => {
-        this.setState({ departDate: { value } });
-        this.props.setDepartDate(value);
+        this.updateState( 'departDate', value);
     };
 
     handleReturnDateChange = value => {
-        this.setState({ returnDate: { value } });
-        this.props.setReturnDate(value);
+        this.updateState( 'returnDate', value);
     };
 
     formSubmitHandler = () => {
@@ -171,7 +148,7 @@ class Search extends Component {
                                         options={form.flightClass.options}
                                         handleSelect={this.handleChange}
                                         />
-                            <PaxNumber handleChange={this.handleChange} />
+                            <PaxNumber handleChange={this.handleChange} adultNumber={form.adultNumber} childrenNumber = {form.childrenNumber} infantNumber = {form.infantNumber} />
                         </div>
                         <div className="mt-4">
                             <div className="row"> 
@@ -282,24 +259,13 @@ class Search extends Component {
 
 
 const mapStateToProps = state => {
-    const { querry: { origin, destination, departDate, returnDate, flightType, flightClass  } } = state;
-    return { origin, destination, departDate, returnDate, flightType, flightClass   }
+    const { querry: { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber  } } = state;
+    return { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber   }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getDestinationOptions: () => dispatch(getDestinationOptions()), //To get origin/destination options
-
-        setOrigin: origin =>  dispatch(setOrigin(origin)),
-        setDestination: destination => dispatch(setDestination(destination)),
-        setDepartDate: departDate => dispatch(setDepartDate(departDate)),
-        setReturnDate: returnDate => dispatch(setReturnDate(returnDate)),
-        setAdultNumber: adultNumber => dispatch(setAdultNumber(adultNumber)),
-        setChildrenNumber: childrenNumber => dispatch(setChildrenNumber(childrenNumber)),
-        setInfantNumber: infantNumber => dispatch(setInfantNumber(infantNumber)),
-        setFlightType: flightType => dispatch(setFlightType(flightType)),
-        setFlightClass: flightClass => dispatch(setFlightClass(flightClass)),
-
         setQuery: querry => dispatch(setQuery(querry)), //To initiate search for flights
         };
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 // import Breadcrumb from './../../App/layout/AdminLayout/Breadcrumb'
-import CONSTANTS from "../../store/constants";
 import { connect } from 'react-redux';
 import countries from '../../Shared/utils/countries';
 import {
@@ -174,9 +173,9 @@ class PassengerDetails extends React.Component {
 
 
                                                     <Col md={6} className = "pt-4">
-                                                        <a href={CONSTANTS.BLANK_LINK} className="btn btn-outline-secondary">
+                                                        <Link to={`/select/${this.props.sessionId}`} className="btn btn-primary text-sm-right mt-md-0 mt-2">
                                                             Back to Search
-                                                        </a>
+                                                        </Link>
                                                     </Col>
                                                     <Col md={6} className = "pt-4">
                                                         <div className="text-sm-right">
@@ -202,8 +201,11 @@ class PassengerDetails extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const { selectedFlight: { loading } } = state;
-    return { loading }
+    const { 
+        selectedFlight: { loading },
+        querry: { sessionId }
+     } = state;
+    return { loading, sessionId }
 }
 
 

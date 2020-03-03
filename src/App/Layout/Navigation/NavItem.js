@@ -17,7 +17,7 @@ const NavItem = (props) => {
     return  (
         <Aux>
             <NavLink to={url} exact={true} className={navLinkClass.join(' ')}  >
-                <span className="icon-styling mr-2"><i class="material-icons"> {icon} </i></span>
+                <span className="icon-styling mr-2"><i className="material-icons"> {icon} </i></span>
                 <span className="text">{title}</span> 
             </NavLink>
         </Aux>
