@@ -19,8 +19,11 @@ class SearchResults extends Component {
                     this.props.fetchState === 'error' ? (
                         <div className="alert alert-danger mt-4" role="alert">
                             <br></br>
-                            <Typography className="mb-2">{this.props.message}</Typography>
-                            <Typography className="mb-2">Please update your search</Typography>
+                            <Typography className="mb-2">{
+                                this.props.message==="Unexpected end of JSON input" ?
+                                ( <span>No results for that particular flight booking currently!</span>) :
+                                ( <span> {this.props.message} <br /> Please update your search</span>)
+                            }</Typography>
                         </div>
                     ) : (
                         null

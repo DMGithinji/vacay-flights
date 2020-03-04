@@ -55,12 +55,25 @@ export const setFlightClass = flightClass => {
  */
 
 export const setQuery = query => dispatch => {
-    console.log('Loading New Search...');
-    const start =  (Date.parse(query.departDate.value))/1000;
-    const end =  (Date.parse(query.returnDate.value))/1000;
+    console.log('Loading New Search...', query);
+    const start =  (Date.parse(query.departDate))/1000;
+    const end =  (Date.parse(query.returnDate))/1000;
     console.log("end", end, "start", start);
-    dispatch({ type: QUERY_DATA.FETCHING, loading: false, flightResults: [] }); //On new search, set loading true and clear current results
-    return fetch(`${API_URL}/api/search/?from=${query.origin.value}&to=${query.destination.value}&start=${start}&end=${end}&adults=${query.adultNumber.value}&child=${query.childrenNumber.value}&infant=${query.infantNumber.value}&triptype=${query.flightType.value}`)
+    dispatch({ 
+        type: QUERY_DATA.FETCHING, 
+        loading: true, 
+        searchType: "NEW", 
+        flightResults: [],
+        origin: query.origin,
+        destination: query.destination,
+        departDate: query.departDate,
+        returnDate: query.returnDate,
+        adultNumber: query.adultNumber,
+        childrenNumber: query.childrenNumber,
+        infantNumber: query.infantNumber,
+        flightType: query.flightType, 
+    }); //On new search, update query parameters, set loading true and clear current flight results
+    return fetch(`${API_URL}/api/search/?from=${query.origin}&to=${query.destination}&start=${start}&end=${end}&adults=${query.adultNumber}&child=${query.childrenNumber}&infant=${query.infantNumber}&triptype=${query.flightType}`)
         .then(response => {
             // if (response.status !== 200 ) {
             //     console.log('Error! Unsuccessful request to server')
@@ -84,7 +97,8 @@ export const setQuery = query => dispatch => {
                 flightType: json.result.details.triptype,
                 // flightClass: json.result.detail.flightClass,
                 flightResults: json.result.flights,
-                loading: false
+                loading: false,
+                searchType: null
             });
         })
         .catch(error => {
@@ -96,8 +110,8 @@ export const setQuery = query => dispatch => {
 //Action called on redirect from messenger bot
 export const fetchQueryData = sessionId => dispatch => {
     console.log('SessionID', sessionId);
-    console.log('Loading...');
-    dispatch({ type: QUERY_DATA.FETCHING, loading: true });
+    console.log('Loading from Redirect...');
+    dispatch({ type: QUERY_DATA.FETCHING, loading: true, searchType: "REDIRECT" });
     return fetch(`${API_URL}/api/${sessionId}`)
         .then(response => {
             if (response.status !== 200 ) {
@@ -122,11 +136,12 @@ export const fetchQueryData = sessionId => dispatch => {
                 flightType: json.result.details.triptype,
                 // flightClass: json.result.detail.flightClass,
                 flightResults: json.result.flights,
-                loading: false
+                loading: false,
+                searchType: null
             });
         })
         .catch(error => {
             console.log('Error while getting query data with error ', error );
-            dispatch({ type: QUERY_DATA.FETCH_ERROR, message: error.message, loading: false })
+            dispatch({ type: QUERY_DATA.FETCH_ERROR, message: error.message, loading: false, searchType: null })
         });
     }

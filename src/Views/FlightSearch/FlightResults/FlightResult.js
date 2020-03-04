@@ -5,36 +5,8 @@ import TakeOffIcon from '../../../assets/images/TakeOffIcon.png';
 import {connect} from 'react-redux';
 import { selectFlight } from '../../../store/actions/selectFlight';
 import { Link } from 'react-router-dom';
+import { getDate, getTime, pluralize } from '../../../Shared/utils/dateTimeFormatter';
 
-const pluralize = (passengerType, number) => {
-    if (passengerType === 'Adult'  || passengerType === 'Infant'){
-        return number !== 1 ? ('s') : null;
-    } else {
-        return number !== 1 ? ('ren') : null;
-    }
-}
-
-// const setRedirect = (sessionId, outboundFlightid, inboundFlightid) => {
-//     selectFlight(sessionId, outboundFlightid, inboundFlightid);
-//     return  <Redirect to='/target' />
-//   }
-
-const getDate = (unixTimeStamp) => {
-    const dateTime = new Date( unixTimeStamp*1000);
-    const day = dateTime.getDate();
-    const month = dateTime.getMonth();
-    const year = dateTime.getFullYear();
-    const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-    return `${months[month]} ${day}, ${year}`;
-}
-
-const getTime = (unixTimeStamp) => {
-    const dateTime = new Date( unixTimeStamp*1000);
-    const hours = dateTime.getHours();
-    const minutes = '0'+dateTime.getMinutes();
-    const am_pm = (hours <= 11 ) ? "AM" : "PM";
-    return `${hours}:${minutes} ${am_pm}`;
-}
 
 const getFlightDuration = (depart, arrive) => {
     const departTime = new Date( depart*1000);
@@ -100,7 +72,7 @@ const OneWayFlight = ({ flightDetails }) => {
                 </div>
                 <span className="time">{getTime(flightDetails.departure)}</span>
                 <div className="date">{getDate(flightDetails.departure)}</div>
-                <div className="location-details">{flightDetails.fromcode}, {flightDetails.from}</div>
+                <div className="location-details">{flightDetails.from_airport}</div>
             </div>
             <div className="col-6 middle-col">
                 <img src={TakeOffIcon} className="height-45" alt="plane" />
@@ -115,7 +87,7 @@ const OneWayFlight = ({ flightDetails }) => {
                 </div>
                 <span className="time">{getTime(flightDetails.arrival)}</span>
                 <div className="date">{getDate(flightDetails.departure)}</div>
-                <div className="location-details">{flightDetails.tocode}, {flightDetails.to}</div>
+                <div className="location-details">{flightDetails.to_airport}</div>
             </div>
         </div>
     )
@@ -130,9 +102,9 @@ const FlightResultLG = ({ flightDetails, queryDetails, selectFlight, sessionId})
                 <div className= "d-flex flex-column" >
                     <span className = "trip-locations"> {flightDetails.outbound.from} to {flightDetails.outbound.to}</span>
                     <span className = "passenger-count">
-                        {queryDetails.adultNumber > 0 ? (<span>{queryDetails.adultNumber} {' '} Adult{pluralize('Adult', queryDetails.adultNumber)}{', '}</span>) : null}
-                        {queryDetails.childrenNumber > 0 ? (<span>{queryDetails.childrenNumber} {' '} Child{pluralize('Child', queryDetails.childrenNumber)}</span>) : null}
-                        {queryDetails.infantNumber > 0 ? (<span>{', '}{queryDetails.infantNumber} {' '} Infant{pluralize('Infant', queryDetails.infantNumber)}</span>) : null}
+                        {queryDetails.adultNumber > 0 ? (<span>{queryDetails.adultNumber} {' '} Adult{pluralize('Adult', parseInt(queryDetails.adultNumber))}</span>) : null}
+                        {queryDetails.childrenNumber > 0 ? (<span>{', '} {queryDetails.childrenNumber} {' '} Child{pluralize('Child', parseInt(queryDetails.childrenNumber))}</span>) : null}
+                        {queryDetails.infantNumber > 0 ? (<span>{', '}{queryDetails.infantNumber} {' '} Infant{pluralize('Infant', parseInt(queryDetails.infantNumber))}</span>) : null}
                     </span>
                 </div>
                 <div className="price text-primary d-flex  align-items-center">

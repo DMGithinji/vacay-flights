@@ -11,35 +11,65 @@ class FlightSearch extends Component {
 
     componentDidMount(){
         const { sessionId } = this.props.match.params;
-        this.props.fetchQueryData(sessionId);
+        if (!!sessionId) this.props.fetchQueryData(sessionId);
         console.log('props', this.props);
     }
 
 
     render() {
         return (
-                !this.props.loading ? (
-                    <div>
-                        <Search />
-                        <div className='content-wrapper row'>
-                            <div className='col-lg-3 mr-5'>
-                                <Filter className='search-content-wrapper'/>
+                <div>
+                    {
+                        this.props.searchType === "REDIRECT" ? (
+                            <div>
+                                {
+                                    !this.props.loading ? (
+                                        <div>
+                                            <Search />
+                                            <div className='content-wrapper row'>
+                                                <div className='col-lg-3 mr-5'>
+                                                    <Filter className='search-content-wrapper'/>
+                                                </div>
+                                                <div className='col-lg-8'>
+                                                    <FilterResults  className='filter-content-wrapper'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <Loader />
+                                    )
+                                }
                             </div>
-                            <div className='col-lg-8'>
-                                <FilterResults  className='filter-content-wrapper'/>
+                        ) : (
+                            <div>
+                                <Search />
+                                {
+                                    !this.props.loading ? (
+                                        <div>
+                                            <div className='content-wrapper row'>
+                                                <div className='col-lg-3 mr-5'>
+                                                    <Filter className='search-content-wrapper'/>
+                                                </div>
+                                                <div className='col-lg-8'>
+                                                    <FilterResults  className='filter-content-wrapper'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <Loader />
+                                    )
+                                }
                             </div>
-                        </div>
-                    </div>
-                ) : (
-                    <Loader />
-                )
+                        )
+                    }
+                </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    const { querry: { loading } } = state;
-    return { loading }
+    const { querry: { loading, searchType } } = state;
+    return { loading, searchType }
 }
 
 const mapDispatchToProps = dispatch => {

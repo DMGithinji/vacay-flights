@@ -20,20 +20,38 @@ export const SearchForm = (props) => {
     const handleChange = props.handleChange;
     const { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber } = props.values;
     console.log("Search Form Props", props);
-    // const {
-    //     values: { origin, destination, departDate, returnDate },
-    //     handleSubmit,
-    //     handleChange,
-    //     // isValid,
-    //     // setFieldTouched
-    // } = props;
-        
-        
-    const change = (name, e) => {
-        e.persist();
-        handleChange(e);
-        // setFieldTouched(name, true, false);
-        };
+
+    const handleOriginSelect = (event, newValue) => {
+        if (!!newValue) {
+            event.target = {name:'origin', value: newValue.code };
+        } else {
+            event.target = {name:'origin', value: "" };
+        }
+        handleChange(event);
+    }
+    const handleDestinationSelect = (event, newValue) => {
+        if (!!newValue) {
+            event.target = {name:'destination', value: newValue.code };
+        } else {
+            event.target = {name:'destination', value: "" };
+        }
+        handleChange(event);
+    }
+    const handleDepartDateChange = value => {
+        const event = {target: {name:'departDate', value: value }};
+        handleChange(event);
+    }
+
+    const handleReturnDateChange = value => {
+        const event = {target: {name:'returnDate', value: value }};
+        handleChange(event);
+    }
+
+    // const change = (name, e) => {
+    //     e.persist();
+    //     handleChange(e);
+    //     // setFieldTouched(name, true, false);
+    //     };
 
     const placeOptions = places.aerocrs.destinations.destination;
 
@@ -69,9 +87,10 @@ export const SearchForm = (props) => {
                 <Autocomplete
                     id="origin"
                     options={placeOptions}
+                    onChange={handleOriginSelect}
                     getOptionLabel={option => option.name}
                     style={{ marginBottom: 0 }}
-                    renderInput={params => <TextField {...params} label="Origin" variant="outlined" />}
+                    renderInput={params => <TextField {...params} label="Origin"  variant="outlined" />}
                     />
                 </div>
 
@@ -80,7 +99,7 @@ export const SearchForm = (props) => {
                     id="destination"
                     options={placeOptions}
                     getOptionLabel={option => option.name}
-                    // style={{ width: 300 }}
+                    onChange={handleDestinationSelect}
                     renderInput={params => <TextField {...params} label="Destination" variant="outlined" />}
                     />
                 </div>
@@ -92,10 +111,10 @@ export const SearchForm = (props) => {
                         label="Departure date"
                         id="date-picker-dialog"
                         name="departTime"
-                        // format="dd/MM/yyyy"
+                        format="dd/MM/yyyy"
                         fullWidth
                         value={departDate}
-                        // onChange={this.handleDepartDateChange}
+                        onChange={handleDepartDateChange}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}
@@ -110,10 +129,10 @@ export const SearchForm = (props) => {
                         label="Return date"
                         id="date-picker-dialog"
                         name="returnDate"
-                        // format="dd/MM/yyyy"
+                        format="dd/MM/yyyy"
                         fullWidth
                         value={returnDate}
-                        // onChange={this.handleDepartDateChange}
+                        onChange={handleReturnDateChange}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}

@@ -1,22 +1,15 @@
 
 import React, { Component } from "react";
 import { SearchForm } from "./searchForm";
+import { connect } from 'react-redux';
+import { getDestinationOptions } from '../../../store/actions/destinations';
+import { setQuery } from '../../../store/actions/querryState';
 
-const minimumPassengers = (adultNumber, childrenNumber, infantNumber ) => {
-    return (adultNumber + childrenNumber + infantNumber > 0)
-}
+// const minimumPassengers = (adultNumber, childrenNumber, infantNumber ) => {
+//     return (adultNumber + childrenNumber + infantNumber > 0)
+// }
 const formValid = ({ formErrors, ...rest }) => {
     let valid = true;
-
-    //validate form errors being empty
-    Object.values(formErrors).forEach(val=> {
-        val.length > 0 && (valid = false);
-    });
-
-    //validate form was filled out
-    Object.values(rest).forEach(val=> {
-        val === null && (valid = false);
-    });
 
     return valid;
 }
@@ -26,15 +19,15 @@ class Search extends Component {
         super(props);
 
         this.state = {
-                origin: null, 
-                destination: null, 
-                departDate: new Date(), 
-                returnDate: null,
-                flightType: "RT", 
+                origin: this.props.origin, 
+                destination: this.props.destination, 
+                departDate: this.props.departDate, 
+                returnDate: this.props.returnDate,
+                flightType: this.props.flightType, 
                 flightClass: "Economy", 
-                adultNumber: 1, 
-                childrenNumber: 0, 
-                infantNumber: 0,
+                adultNumber: this.props.adultNumber, 
+                childrenNumber: this.props.childrenNumber, 
+                infantNumber: this.props.infantNumber,
                 formErrors: {
                     origin: "", 
                     destination: "", 
@@ -51,7 +44,7 @@ class Search extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
+        const querry = this.state;
         if (formValid(this.state)) {
             console.log(`
                 --SUBMITTING--
@@ -65,38 +58,17 @@ class Search extends Component {
                 ChildrenNumber: ${this.state.childrenNumber}
                 InfantNumber: ${this.state.infantNumber}
             `)
+            this.props.setQuery(querry);
         } else {
             console.log("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
     }
 
     handleChange = e => {
-        e.preventDefault();
         const { name, value } = e.target;
+        console.log("Name", name, "Value", value);
 
-        let formErrors = { ...this.state.formErrors };
-
-        switch (name) {
-            case "origin":
-                formErrors.origin = 
-                    value.length < 0 ? "Place of origin is required" : "";
-                    break;
-            case "destination":
-                formErrors.destination = 
-                    value.length < 0 ? "Place of destination is required" : "";
-                    break;
-            case "departDate":
-                formErrors.departDate = 
-                    value.length < 0 ? "Date of departure is required" : "";
-                    break;
-            case "returnDate":
-                formErrors.returnDate = "";
-                    break;        
-            default:
-                break;
-        }
-
-        this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+        this.setState({ [name]: value }, () => console.log('Updated state', this.state));
     };
 
     render() {
@@ -109,4 +81,19 @@ class Search extends Component {
     }
 }
 
-export default Search;
+const mapStateToProps = state => {
+    const { querry: { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber  } } = state;
+    return { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber   }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getDestinationOptions: () => dispatch(getDestinationOptions()), //To get origin/destination options
+        setQuery: querry => dispatch(setQuery(querry)), //To initiate search for flights
+        };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Search);

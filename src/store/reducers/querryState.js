@@ -15,6 +15,7 @@ const DEFAULT_QUERRY_PARAMETERS = {
     flightClass: "Economy",
     flightResults: [],
     loading: false,
+    searchType: null,
     fetchState: "",
 }
 
@@ -59,7 +60,21 @@ const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
             }
         //Reducer to configure set appState to 'loading'
         case QUERY_DATA.FETCHING:
-            return { ...state,  loading: action.loading }
+            return { 
+                ...state,  
+                origin: action.origin,
+                destination: action.destination,
+                departDate: action.departDate,
+                returnDate: action.returnDate,
+                adultNumber: action.adultNumber,
+                childrenNumber: action.childrenNumber,
+                infantNumber: action.infantNumber,
+                flightType: action.flightType,
+                flightClass: action.flightClass,
+                flightResults: action.flightResults,
+                loading: action.loading,
+                searchType: action.searchType, 
+            }
         //Reducer to configure set appState to 'loading'
         case QUERY_DATA.FETCH_ERROR:
             return {

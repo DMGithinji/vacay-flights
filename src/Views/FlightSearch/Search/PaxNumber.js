@@ -26,10 +26,11 @@ class PaxNumber extends Component {
         this.props.handleChange(event);
     }
 
-    getTotalPassengers = (adults, children, infants) => (adults + children + infants);
+    getTotalPassengers = (adults, children, infants) => (parseInt(adults) + parseInt(children) + parseInt(infants));
 
     render() {
         const passenger = this.props;
+        console.log("Passengers", passenger);
         const passengerNumber = this.getTotalPassengers(passenger.adultNumber, passenger.childrenNumber, passenger.infantNumber);
         return (
             <div>
@@ -43,19 +44,19 @@ class PaxNumber extends Component {
 
                             <div className = "d-flex inline justify-content-between mb-2">
                                 <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber)} fontSize="small" />
-                                    <span>{passenger.adultNumber} {passenger.adultNumber === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
+                                    <span>{passenger.adultNumber} {parseInt(passenger.adultNumber) === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
                                 <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
                                 <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber)} fontSize="small" />
-                                    <span>{passenger.childrenNumber} {passenger.childrenNumber === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
+                                    <span>{passenger.childrenNumber} {parseInt(passenger.childrenNumber) === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
                                 <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
                                 <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
-                                    <span>{passenger.infantNumber} {passenger.infantNumber === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
+                                    <span>{passenger.infantNumber} {parseInt(passenger.infantNumber) === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
                                 <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
                             </div>
 
