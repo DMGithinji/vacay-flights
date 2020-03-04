@@ -30,33 +30,33 @@ class PaxNumber extends Component {
 
     render() {
         const passenger = this.props;
-        const passengerNumber = this.getTotalPassengers(passenger.adultNumber.value, passenger.childrenNumber.value, passenger.infantNumber.value);
+        const passengerNumber = this.getTotalPassengers(passenger.adultNumber, passenger.childrenNumber, passenger.infantNumber);
         return (
             <div>
                 <Dropdown>
                     <Dropdown.Toggle variant="default" className="dropdownToggle label" id="dropdown-basic">
-                        <span className="dropdown-styling">{passengerNumber} {passengerNumber === 1 ? (<span>Passenger</span>) : (<span>Passengers</span>)}</span>
+                        <span className="dropdown-styling">{passengerNumber} {passengerNumber === 1 ? ("Passenger") : ("Passengers")}</span>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className="p-2">
                     <div className = "container">
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber.value)} fontSize="small" />
-                                    <span>{passenger.adultNumber.value} {passenger.adultNumber === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber.value)} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber)} fontSize="small" />
+                                    <span>{passenger.adultNumber} {passenger.adultNumber === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber.value)} fontSize="small" />
-                                    <span>{passenger.childrenNumber.value} {passenger.childrenNumber === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber.value)} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber)} fontSize="small" />
+                                    <span>{passenger.childrenNumber} {passenger.childrenNumber === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber)} fontSize="small" />
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber.value)} fontSize="small" />
-                                    <span>{passenger.infantNumber.value} {passenger.infantNumber.value === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber.value)} fontSize="small" />
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
+                                    <span>{passenger.infantNumber} {passenger.infantNumber === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
                             </div>
 
                     </div>

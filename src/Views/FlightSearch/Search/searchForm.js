@@ -16,21 +16,23 @@ import places from '../../../Shared/utils/places';
 
 export const SearchForm = (props) => {
 
-    const {
-        values: { origin, destination, departDate, returnDate },
-        errors,
-        touched,
-        handleSubmit,
-        handleChange,
-        isValid,
-        setFieldTouched
-    } = props;
+    const handleSubmit = props.handleSubmit;
+    const handleChange = props.handleChange;
+    const { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber } = props.values;
+    console.log("Search Form Props", props);
+    // const {
+    //     values: { origin, destination, departDate, returnDate },
+    //     handleSubmit,
+    //     handleChange,
+    //     // isValid,
+    //     // setFieldTouched
+    // } = props;
         
         
     const change = (name, e) => {
         e.persist();
         handleChange(e);
-        setFieldTouched(name, true, false);
+        // setFieldTouched(name, true, false);
         };
 
     const placeOptions = places.aerocrs.destinations.destination;
@@ -38,67 +40,49 @@ export const SearchForm = (props) => {
 
     return (
         <form onSubmit={handleSubmit} className="search-form">
-
+            <div className = "dropdownSearchContent mb-3">
+                <OptionSelect
+                    name="flightClass"
+                    value={flightClass}
+                    options = {[
+                        { value: "Any", displayValue: 'Any' },
+                        { value: 'Economy', displayValue: 'Economy' },
+                        { value: 'Business', displayValue: 'Business'}
+                    ]}
+                    handleSelect={handleChange}
+                />
+                <OptionSelect className="mr-5"
+                    name="flightType"
+                    value={flightType}
+                    options= {[
+                        { value: "Any", displayValue: 'Any' },
+                        { value: 'RT', displayValue: 'Return' },
+                        { value: 'OW', displayValue: 'One-Way'}
+                    ]}
+                    handleSelect={handleChange}
+                />
+                <PaxNumber handleChange={handleChange} adultNumber={adultNumber} childrenNumber = {childrenNumber} infantNumber = {infantNumber} />
+            </div>
             <div className="search-grid-container">
 
                 <div className="grid-item">
-                    <Autocomplete
-                        id="origin-select"
-                        // onChange={this.handleOriginSelect}
-                        options={placeOptions}
-                        autoHighlight
-                        getOptionLabel={option => option.name}
-                        renderOption={option => (
-                            <React.Fragment>
-                                {option.name} ({option.country}) +{option.countryiso}
-                            </React.Fragment>
-                        )}
-                        renderInput={params => (
-                            <TextField
-                                {...params}
-                                name="origin"
-                                label="Origin"
-                                variant="outlined"
-                                fullWidth
-                                value={origin}
-                                inputProps={{
-                                    ...params.inputProps,
-                                    autoComplete: 'new-password', // disable autocomplete and autofill
-                                }}
-                            />
-                        )}
+                <Autocomplete
+                    id="origin"
+                    options={placeOptions}
+                    getOptionLabel={option => option.name}
+                    style={{ marginBottom: 0 }}
+                    renderInput={params => <TextField {...params} label="Origin" variant="outlined" />}
                     />
-                    <div>{Boolean(errors.origin) ? errors.origin : ""}</div>
                 </div>
 
                 <div className="grid-item">
                 <Autocomplete
-                        id="destination-select"
-                        // onChange={this.handleDestinationSelect}
-                        options={placeOptions}
-                        // autoHighlight
-                        getOptionLabel={option => option.name}
-                        renderOption={option => (
-                            <React.Fragment>
-                                {option.name} ({option.country}) +{option.countryiso}
-                            </React.Fragment>
-                        )}
-                        renderInput={params => (
-                            <TextField
-                                {...params}
-                                name="destination"
-                                label="Destination"
-                                variant="outlined"
-                                fullWidth
-                                value={destination}
-                                inputProps={{
-                                    ...params.inputProps,
-                                    autoComplete: 'new-password', // disable autocomplete and autofill
-                                }}
-                            />
-                        )}
+                    id="destination"
+                    options={placeOptions}
+                    getOptionLabel={option => option.name}
+                    // style={{ width: 300 }}
+                    renderInput={params => <TextField {...params} label="Destination" variant="outlined" />}
                     />
-                    <div>{Boolean(errors.destination) ? errors.destination : ""}</div>
                 </div>
 
             <div className="grid-item">
@@ -117,7 +101,6 @@ export const SearchForm = (props) => {
                         }}
                     />
                 </MuiPickersUtilsProvider>
-                <div>{errors.departDate}</div>
             </div>
 
             <div className="grid-item">
@@ -136,7 +119,6 @@ export const SearchForm = (props) => {
                         }}
                     />
                 </MuiPickersUtilsProvider>
-                <div>{errors.returnDate}</div>
             </div>
 
             <div className="grid-item">
@@ -147,7 +129,7 @@ export const SearchForm = (props) => {
                         type="submit"
                         fullWidth
                         color="primary"
-                        disabled={!isValid}
+                        // disabled={!isValid}
                     >
                         Modify Search
                     </Button>                    
