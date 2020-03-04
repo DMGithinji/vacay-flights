@@ -122,7 +122,10 @@ const FlightResultLG = ({ flightDetails, queryDetails, selectFlight, sessionId})
         <div className="row">
             <div className="col-12 d-flex justify-content-center">
                 <Link to={`/passenger-details/${sessionId}`}>
-                    <h5 className="text-primary call-to-action pt-3" onClick = {selectFlight(sessionId, flightDetails.outbound.flightid, flightDetails.inbound.flightid)}>BOOK NOW! </h5>
+                    <button className="btn btn-primary call-to-action" 
+                        onClick = {selectFlight(sessionId, flightDetails.outbound.flightid, flightDetails.inbound.flightid)}>
+                        BOOK NOW! 
+                    </button>
                 </Link>
             </div>
         </div>
