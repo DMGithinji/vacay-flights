@@ -32,3 +32,11 @@ export const SET_QUERRY = {
     CHILDREN_NO: 'CHILDREN_NO',
     INFANT_NO: 'SET_INFANT_NO',
 }; 
+
+
+//To set user querry parameters
+export const PASSENGER = {
+    SUBMIT_PAX_DETAILS: 'SUBMIT_PASSENGER_BOOKING_DETAILS',
+    SUBMIT_CONTACT: 'SUBMIT_CONTACT_DETAILS',
+
+}; 

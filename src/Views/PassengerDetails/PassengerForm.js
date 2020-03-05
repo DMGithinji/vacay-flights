@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Formik } from "formik";
 import { PassengerDetailsInput } from "./passengerDetailsInput";
 import * as Yup from "yup";
-
+import { connect } from 'react-redux';
+import { submitPassenger } from '../../store/actions/passengers';
 
 
 const validationSchema = Yup.object({
@@ -24,21 +25,20 @@ class PassengerForm extends Component {
 
   submit = data => {
     console.log(data);
+    this.props.submitPassenger(data, this.props.formIndex);
   };
 
   render() {
-
     const values = { 
-      title: this.props.details.title,
-      firstName:  this.props.details.firstName,
-      lastName:  this.props.details.lastName,
-      nationality: this.props.details.nationality,
-      docNumber:  this.props.details.docNumber,
-      docExpiry:  this.props.details.docExpiry,
-      birthdate:  this.props.details.birthdate,
+      title: !!this.props.details.title ?  this.props.details.title : "Mr",
+      firstName: !!this.props.details.firstName ? this.props.details.firstName : "",
+      lastName: !!this.props.details.lastName ? this.props.details.lastName : "",
+      nationality: !!this.props.details.nationality ? this.props.details.nationality : "",
+      docNumber: !!this.props.details.docNumber ? this.props.details.docNumber : "",
+      docExpiry: !!this.props.details.docExpiry ? this.props.details.docExpiry : "",
+      birthdate: !!this.props.details.birthdate ? this.props.details.birthdate : "",
     };
 
-    console.log(`Key - ${this.props.componentId}`)
     return (
       <React.Fragment>
 
@@ -54,4 +54,13 @@ class PassengerForm extends Component {
   }
 }
 
-export default PassengerForm;
+  const mapDispatchToProps = dispatch => {
+    return {
+      submitPassenger: (passenger, formIndex) => dispatch(submitPassenger (passenger, formIndex))
+    };
+  }
+
+  export default connect(
+    null,
+    mapDispatchToProps
+)(PassengerForm);

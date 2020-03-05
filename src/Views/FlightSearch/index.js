@@ -12,9 +12,7 @@ class FlightSearch extends Component {
     componentDidMount(){
         const { sessionId } = this.props.match.params;
         if (!!sessionId) this.props.fetchQueryData(sessionId);
-        console.log('props', this.props);
     }
-
 
     render() {
         return (
@@ -30,7 +28,7 @@ class FlightSearch extends Component {
                                                 <div className='col-lg-3 mr-5'>
                                                     <Filter className='search-content-wrapper'/>
                                                 </div>
-                                                <div className='col-lg-8'>
+                                                <div className='col-lg-8  p-0'>
                                                     <FilterResults  className='filter-content-wrapper'/>
                                                 </div>
                                             </div>
@@ -50,7 +48,7 @@ class FlightSearch extends Component {
                                                 <div className='col-lg-3 mr-5'>
                                                     <Filter className='search-content-wrapper'/>
                                                 </div>
-                                                <div className='col-lg-8'>
+                                                <div className='col-lg-8 p-0'>
                                                     <FilterResults  className='filter-content-wrapper'/>
                                                 </div>
                                             </div>

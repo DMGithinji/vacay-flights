@@ -30,7 +30,6 @@ class PaxNumber extends Component {
 
     render() {
         const passenger = this.props;
-        console.log("Passengers", passenger);
         const passengerNumber = this.getTotalPassengers(passenger.adultNumber, passenger.childrenNumber, passenger.infantNumber);
         return (
             <div>

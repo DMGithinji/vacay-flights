@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import configReducer from './config';
 import destinationsReducer from './destinations';
 import querryReducer from './querryState';
+import passengersReducer from './passengers';
 import selectFlightReducer from './selectFlight';
 import { reducer as formReducer } from 'redux-form';
 
@@ -13,6 +14,7 @@ export default combineReducers({
     destinations: destinationsReducer,
     querry: querryReducer,
     selectedFlight: selectFlightReducer,
-    form: formReducer,
+    form: formReducer, //redux-form
+    passengers: passengersReducer
 
 });

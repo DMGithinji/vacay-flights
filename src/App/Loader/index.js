@@ -6,23 +6,23 @@ const Loader = () => {
     return (
         <div className="app-loader">
             <h1 className="text-center pt-4 mb-4">Please Wait As We Get Your Flight Details</h1>
-            <div class="d-flex justify-content-center mt-5">
-                <div className="spinner-grow text-primary" role="status">
+            <div className="d-flex justify-content-center mt-5">
+                <div className="spinner-grow spinner-grow-sm m-2 text-primary" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
-                <div className="spinner-grow text-secondary" role="status">
+                <div className="spinner-grow spinner-grow-sm m-2 text-secondary" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
-                <div className="spinner-grow text-success" role="status">
+                <div className="spinner-grow spinner-grow-sm m-2 text-success" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
-                <div className="spinner-grow text-danger" role="status">
+                <div className="spinner-grow spinner-grow-sm m-2 text-danger" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
-                <div className="spinner-grow text-warning" role="status">
+                <div className="spinner-grow spinner-grow-sm m-2 text-warning" role="status">
                     <span className="sr-only">Loading...</span>
                     </div>
-                <div className="spinner-grow text-info" role="status">
+                <div className="spinner-grow spinner-grow-sm m-2 text-info" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>

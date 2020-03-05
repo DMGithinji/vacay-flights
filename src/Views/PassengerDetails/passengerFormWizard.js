@@ -5,7 +5,7 @@ import Loki from 'react-loki';
 import Aux from "../../hoc/_Aux";
 import PassengerForm from './PassengerForm';
 import { connect } from 'react-redux';
-
+import { submitPassenger } from '../../store/actions/passengers';
 
 const defaultFormValues = { 
     title: "Mr.",
@@ -22,7 +22,6 @@ class FormsWizard extends React.Component {
         super(props);
         this.state = {
             passengersFormComponents: [],
-            passengersFormData: [],
             isFinished: false
         };      
     }
@@ -73,24 +72,17 @@ class FormsWizard extends React.Component {
 
     render() {
 
-        const { adultNumber, childrenNumber, infantNumber } = this.props;
-
+        const { adultNumber, childrenNumber, infantNumber, nextHandler } = this.props;
         const passengerNumbers = parseInt(adultNumber) +  parseInt(childrenNumber) + parseInt(infantNumber);
-        console.log("Passenger Number", passengerNumbers);
 
         for (let i = 0; i < passengerNumbers; i++){
-
-            this.state.passengersFormData.push(defaultFormValues);
+            this.props.submitPassenger(defaultFormValues, i);
             let component = {
                 label: `Passenger ${i+1}`,
-                component: <PassengerForm componentId = {i} details = { this.state.passengersFormData[i]} />
+                component: <PassengerForm formIndex = {i} details = { this.props.passengerForms[i] } handleNext = { nextHandler } />
             }
             this.state.passengersFormComponents.push(component);
-
         }
-
-        console.log("Passengers' Components", this.state.passengersFormComponents);
-        console.log("Passengers' Forms", this.state.passengersFormData);
 
 
         return (
@@ -110,13 +102,19 @@ class FormsWizard extends React.Component {
 
 const mapStateToProps = state => {
     const { 
-        querry: { adultNumber, childrenNumber, infantNumber }
+        querry: { adultNumber, childrenNumber, infantNumber },
+        passengers: { passengerForms }
     } = state;
-    return { adultNumber, childrenNumber, infantNumber }
+    return { adultNumber, childrenNumber, infantNumber, passengerForms }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+            submitPassenger: (passenger, formIndex) => dispatch(submitPassenger (passenger, formIndex))
+        };
+}
 
 export default connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(FormsWizard);

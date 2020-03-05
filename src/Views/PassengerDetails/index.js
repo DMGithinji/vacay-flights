@@ -26,8 +26,8 @@ class PassengerDetails extends React.Component {
                         <Col lg={8} className="p-0 m-0">
                                 <div className="card shadow-none">
                                     <div className="card-header">
-                                        <h5 className="mb-2">Billing information</h5>
-                                        <p className="text-muted card-header-detail">Fill the form below in order to send you the order's invoice.</p>
+                                        <h5 className="mb-2">Passenger information</h5>
+                                        <p className="text-muted card-header-detail">Fill in the form below to enable us get your booking details.</p>
                                     </div>
 
                                     <div className="card-body">

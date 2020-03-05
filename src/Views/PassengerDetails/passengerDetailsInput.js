@@ -13,7 +13,7 @@ export const PassengerDetailsInput = props => {
   const {
     values: { title, firstName, lastName, nationality, birthdate, docNumber, docExpiry },
     errors,
-    // touched,
+    touched,
     handleSubmit,
     handleChange,
     isValid,
@@ -30,6 +30,7 @@ const handleExpiryDateChange = value => {
     const event = {target: {name:'docExpiry', value: value }};
     handleChange(event);
 }
+
 
 return (
     <Row>
@@ -49,7 +50,7 @@ return (
                                         id="title"
                                         name="title"
                                         placeholder="Title"
-                                        error={Boolean(errors.firstName)}
+                                        error={Boolean(errors.title && touched.title)}
                                         value={title}
                                         options = {[
                                             { value: 'Mr.', name: 'Mr.' },
@@ -65,7 +66,7 @@ return (
                                 <label id="title-label" className="text-muted">First Name</label>
                                 <TextField
                                     name="firstName"
-                                    error={Boolean(errors.firstName)}
+                                    error={Boolean(errors.firstName  && touched.firstName)}
                                     placeholder="First Name"
                                     value={firstName}
                                     onChange={handleChange}
@@ -73,13 +74,13 @@ return (
                                     fullWidth
                                     size="small"                                                               
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.firstName) ? errors.firstName : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.firstName &&  touched.firstName) ? errors.firstName : ""}</div>
                             </Col>
                             <Col md={5} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Last Name</label>
                                 <TextField
                                     name="lastName"
-                                    error={Boolean(errors.lastName)}
+                                    error={Boolean(errors.lastName && touched.lastName)}
                                     placeholder="Last Name"
                                     value={lastName}
                                     onChange={handleChange}
@@ -87,7 +88,7 @@ return (
                                     fullWidth
                                     size="small"                                                              
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.lastName) ? errors.lastName : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.lastName && touched.lastName) ? errors.lastName : ""}</div>
                             </Col>
                             
                             <Col md={6} className = "passenger-input-field">
@@ -95,12 +96,12 @@ return (
                                     <CustomSelect
                                         name="nationality"
                                         placeholder="Nationality"
-                                        error={Boolean(errors.firstName)}
+                                        error={Boolean(errors.nationality && touched.nationality)}
                                         value={nationality}
                                         options = {countries}
                                         handleSelect={handleChange}
                                     />   
-                                <div className="text-danger pl-2">{Boolean(errors.nationality) ? errors.nationality : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.nationality && touched.nationality) ? errors.nationality : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Date of Birth</label>   
@@ -112,8 +113,9 @@ return (
                                         id="date-picker-dialog"
                                         name="birthdate"
                                         format="dd/MM/yyyy"
+                                        error={Boolean(errors.birthdate && touched.birthdate)}
                                         fullWidth
-                                        size="small"                                                              
+                                        size="small"                                     
                                         value={birthdate}
                                         onChange={handleBirthDateChange}
                                         KeyboardButtonProps={{
@@ -121,21 +123,21 @@ return (
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="text-danger pl-2">{Boolean(errors.birthdate) ? errors.birthdate : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.birthdate && touched.birthdate) ? errors.birthdate : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport or ID Number</label>   
                                 <TextField
                                     name="docNumber"
                                     placeholder="Passport or ID number"
-                                    error={Boolean(errors.docNumber)}
+                                    error={Boolean(errors.docNumber && touched.docNumber)}
                                     value={docNumber}
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
                                     size="small"                                                              
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.docNumber) ? errors.docNumber : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.docNumber && touched.docNumber) ? errors.docNumber : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport Expiration Date</label>   
@@ -145,6 +147,7 @@ return (
                                         placeholder="Passport expiration date"
                                         id="date-picker-dialog"
                                         name="docExpiry"
+                                        error={Boolean(errors.docExpiry && touched.docExpiry)}
                                         format="dd/MM/yyyy"
                                         fullWidth
                                         size="small"                                                              
@@ -155,11 +158,11 @@ return (
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="text-danger pl-2">{Boolean(errors.docExpiry) ? errors.docExpiry : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.docExpiry  && touched.docExpiry) ? errors.docExpiry : ""}</div>
                             </Col>
                             </Row>
                             <Row className="mt-3">
-                            {/* <Col md={6} className = "passenger-input-field">
+                            <Col md={6} className = "passenger-input-field">
                                 <Button
                                     type="button"
                                     fullWidth
@@ -177,7 +180,7 @@ return (
                                     disabled={!isValid}>
                                     Next
                                 </Button>
-                            </Col> */}
+                            </Col>
                         </Row>
                         </form>
 

@@ -5,23 +5,17 @@
     padding: 60px;
     background: #fff;
 
-      h1, h2 {
+      h1 {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        color: rgb(28, 159, 211);
+        color: #477EFA;
         text-transform: uppercase;
         letter-spacing: 2px;
-      }
-      
-      h1 {
         top: 24px;
-        font-size: 18px;
+        font-size: 18px;  
+        padding-bottom: 20px;   
       }
- 
-      
-
-
 }
 
 .main-wrapper{

@@ -795,3 +795,11 @@ pre[class*=language-]:before {
         margin-top: 20px;
     }
 }
+
+
+.card {
+    @media only screen and (max-width: 1000px) {
+        margin-left: -10px !important;
+        margin-right: -10px !important;
+    }
+}
