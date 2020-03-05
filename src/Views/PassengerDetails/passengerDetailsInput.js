@@ -5,10 +5,7 @@ import countries from '../../Shared/data/countries';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import {
-    Row,
-    Col,
-} from 'react-bootstrap';
+import { Row,  Col, } from 'react-bootstrap';
 import CustomSelect from "../../Shared/components/SelectInputField";
 
 
@@ -41,7 +38,7 @@ return (
                     <form onSubmit={handleSubmit}>
                         <Row>
                             <Col md={12} className = "p-0">
-                            <div class="alert alert-primary" role="alert">
+                            <div className="alert alert-primary" role="alert">
                                 Please ensure that the details entered are as they appear in your passport/ID to avoid boarding complications
                             </div>
                             </Col>
@@ -162,7 +159,7 @@ return (
                             </Col>
                             </Row>
                             <Row className="mt-3">
-                            <Col md={6} className = "passenger-input-field">
+                            {/* <Col md={6} className = "passenger-input-field">
                                 <Button
                                     type="button"
                                     fullWidth
@@ -180,7 +177,7 @@ return (
                                     disabled={!isValid}>
                                     Next
                                 </Button>
-                            </Col>
+                            </Col> */}
                         </Row>
                         </form>
 

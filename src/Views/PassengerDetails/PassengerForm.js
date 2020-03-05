@@ -21,20 +21,24 @@ class PassengerForm extends Component {
     this.state = {};
   }
 
+
   submit = data => {
     console.log(data);
   };
 
   render() {
+
     const values = { 
-      title: "Mr.",
-      firstName: "", 
-      lastName: "", 
-      nationality: "KE", 
-      docNumber: "", 
-      docExpiry: null, 
-      birthdate: null, 
+      title: this.props.details.title,
+      firstName:  this.props.details.firstName,
+      lastName:  this.props.details.lastName,
+      nationality: this.props.details.nationality,
+      docNumber:  this.props.details.docNumber,
+      docExpiry:  this.props.details.docExpiry,
+      birthdate:  this.props.details.birthdate,
     };
+
+    console.log(`Key - ${this.props.componentId}`)
     return (
       <React.Fragment>
 
@@ -44,7 +48,7 @@ class PassengerForm extends Component {
             validationSchema={validationSchema}
             onSubmit={this.submit}
           />
-          
+
       </React.Fragment>
     );
   }
