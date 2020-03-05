@@ -1,0 +1,7 @@
+//Styling related to pasenger details page components
+.passenger-input-field {
+    padding: 16px 14px;
+    @media only screen and (max-width: 1000px) {
+        padding: 16px 0px;
+    }
+}
