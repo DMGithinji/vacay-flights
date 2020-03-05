@@ -9,7 +9,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        color: #477EFA;
+        color: rgb(76, 127, 245);
         text-transform: uppercase;
         letter-spacing: 2px;
         top: 24px;
@@ -25,6 +25,7 @@
     min-height: 100vh;
     position: relative;
     margin-top: 100px; //compensates for the navbar height
+    padding-top: 10px; //compensates for the navbar height
 }
 
 
@@ -32,6 +33,7 @@
 .content-wrapper{
     width: 85%;
     margin: 30px auto 0;
+    
 }
 
 .breadcrumbs{

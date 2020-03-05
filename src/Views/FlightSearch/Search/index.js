@@ -19,15 +19,15 @@ class Search extends Component {
         super(props);
 
         this.state = {
-                origin: this.props.origin, 
-                destination: this.props.destination, 
-                departDate: this.props.departDate, 
+                origin: this.props.origin ? this.props.origin : "", 
+                destination: this.props.destination ?  this.props.destination : "", 
+                departDate: this.props.departDate ? this.props.departDate : new Date(), 
                 returnDate: this.props.returnDate,
-                flightType: this.props.flightType, 
+                flightType: this.props.flightType ? this.props.flightType : "Return", 
                 flightClass: "Economy", 
-                adultNumber: this.props.adultNumber, 
-                childrenNumber: this.props.childrenNumber, 
-                infantNumber: this.props.infantNumber,
+                adultNumber: this.props.adultNumber ? this.props.adultNumber : 1, 
+                childrenNumber: this.props.childrenNumber ? this.props.childrenNumber : 0, 
+                infantNumber: this.props.infantNumber ? this.props.infantNumber : 0,
                 formErrors: {
                     origin: "", 
                     destination: "", 

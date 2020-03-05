@@ -10,8 +10,8 @@ import Aux from "../../hoc/_Aux";
 import Breadcrumbs from '../../App/Breadcrumbs';
 import FlightSummary from '../FlightSummary';
 import Loader from '../../App/Loader';
-import { ContactDetails } from './contactDetails';
-import FormsWizard from './passengerFormWizard';
+import { ContactDetails } from './ContactForm';
+import FormsWizard from './PassengerFormWizard';
 
 
 class PassengerDetails extends React.Component {
@@ -21,7 +21,7 @@ class PassengerDetails extends React.Component {
         return (
             !this.props.loading ? (
                 <Aux>
-                    <Breadcrumbs />
+                    {/* <Breadcrumbs /> */}
                     <Row className='content-wrapper'>
                         <Col lg={8} className="p-0 m-0">
                                 <div className="card shadow-none">
@@ -33,8 +33,8 @@ class PassengerDetails extends React.Component {
                                     <div className="card-body">
 
                                         <FormsWizard />
-                                        <hr />
-                                        <ContactDetails sessionId={this.props.sessionId}></ContactDetails>
+                                        {/* <hr />
+                                        <ContactDetails sessionId={this.props.sessionId}></ContactDetails> */}
                                         
                                     </div>
                                 </div>           

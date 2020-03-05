@@ -17,9 +17,9 @@ export const PassengerDetailsInput = props => {
     handleSubmit,
     handleChange,
     isValid,
-    // setFieldTouched
 } = props;
-console.table(props);
+// console.table(props);
+// console.table("formIndex ", formIndex);
 
 const handleBirthDateChange = value => {
     const event = {target: {name:'birthdate', value: value }};
@@ -31,14 +31,19 @@ const handleExpiryDateChange = value => {
     handleChange(event);
 }
 
+const handlePreviousStep = () => {
+    console.log('Previous clicked');
+    props.previousStep();
+}
+
 
 return (
     <Row>
         <Col lg={12}>
-            <div className="card-body">
+            <div className="card p-4 m-0 shadow-none">
                     <form onSubmit={handleSubmit}>
                         <Row>
-                            <Col md={12} className = "p-0">
+                            <Col md={12} className = "p-0 m-0">
                             <div className="alert alert-primary" role="alert">
                                 Please ensure that the details entered are as they appear in your passport/ID to avoid boarding complications
                             </div>
@@ -55,6 +60,7 @@ return (
                                         options = {[
                                             { value: 'Mr.', name: 'Mr.' },
                                             { value: 'Mrs.', name: 'Mrs.' },
+                                            { value: 'Miss.', name: 'Miss.' },
                                             { value: 'Child', name: 'Child'},
                                             { value: 'Infant', name: 'Infant'}
                                         ]}
@@ -163,23 +169,31 @@ return (
                             </Row>
                             <Row className="mt-3">
                             <Col md={6} className = "passenger-input-field">
-                                <Button
-                                    type="button"
-                                    fullWidth
-                                    className = "btn btn-default"
-                                    >
-                                    Previous Passenger
-                                </Button>                                                    
+                                {
+                                    !props.currentStep === 1 ? (
+                                        <Button
+                                            type="button"
+                                            fullWidth
+                                            className = "btn btn-default"
+                                            onClick = {handlePreviousStep}
+                                            >
+                                            Previous Passenger
+                                        </Button> ) : null
+                                }                                                    
                             </Col>
                             <Col md={6} className = "passenger-input-field">
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    className = "btn btn-primary"
-                                    color =  "primary"
-                                    disabled={!isValid}>
-                                    Next
-                                </Button>
+                            {
+                                !props.currentStep !== props.totalSteps ? (                                
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        // className = "btn btn-primary"
+                                        color =  "primary"
+                                        disabled={!isValid}>
+                                        Next
+                                    </Button>
+                                ) : null
+                            }
                             </Col>
                         </Row>
                         </form>

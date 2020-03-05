@@ -17,6 +17,7 @@
     "formik": "^2.1.4",
     "history": "^4.10.1",
     "material-ui": "^0.20.2",
+    "mdbreact": "^4.25.3",
     "node-sass": "^4.13.1",
     "rc-slider": "^9.2.1",
     "rc-tooltip": "^4.0.0-alpha.3",

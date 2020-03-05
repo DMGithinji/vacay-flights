@@ -13,6 +13,7 @@ const passengersReducer = (state = DEFAULT_SELECTED_FLIGHT, action ) => {
             const { passengerForms } = state;
             console.log("Reducer", action.passengerDetails, action.formIndex);
             passengerForms[action.formIndex] = action.passengerDetails;
+            passengerForms[action.formIndex].id = action.formIndex;
             return {...state, 
                 passengerForms: passengerForms,
             }

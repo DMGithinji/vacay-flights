@@ -26,20 +26,32 @@ class SearchResults extends Component {
                             }</Typography>
                         </div>
                     ) : (
-                        null
-                    )
-                }            
-                {   
-                    flightResults.map((flightDetails) => {
-                        return (
-                            <div key={flightDetails.outbound.flightid}>
-                                <FlightResult 
-                                    queryDetails = {queryDetails} 
-                                    flightDetails={flightDetails} />
+                        !!flightResults ? (
+                            <div>
+                            {
+                                flightResults.map(flightDetails => {
+                                    return(
+                                        <div key={flightDetails.outbound.flightid}>
+                                            <FlightResult 
+                                                queryDetails = {queryDetails} 
+                                                flightDetails={flightDetails} />
+                                    </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        ) : (
+                            <div className="alert alert-danger mt-4" role="alert">
+                                <br></br>
+                                <Typography className="mb-2">{
+                                    this.props.message==="Unexpected end of JSON input" ?
+                                    ( <span>No results for that particular flight booking currently!</span>) :
+                                    ( <span> {this.props.message} <br /> Please update your search</span>)
+                                }</Typography>
                             </div>
+                            )
                         )
-                    })
-                }
+                    }            
             </div>
         )
     }
