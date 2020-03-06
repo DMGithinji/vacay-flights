@@ -114,25 +114,25 @@ const ContactDetailsInput = (props) => {
                 <Row>
 
                     <Col md={6} className="pt-4">
-                        <Button
+                        <button
                             type="button"
                             fullWidth
-                            className = "btn btn-default"
+                            className = "btn btn-default btn-previous  w-100"
                             onClick = {props.previousStep}
                             >
                             Previous Passenger
-                        </Button>
+                        </button>
                     </Col>
                     
                     <Col md={6} className="pt-4">
-                            <Button
+                            <button
                                 type="submit"
                                 fullWidth
-                                // className = "btn btn-primary"
-                                color =  "primary"
+                                className = "btn btn-primary w-100"
+                                // color =  "primary"
                                 disabled={!isValid}>
                                 Submit
-                            </Button>
+                            </button>
                         </Col>
                     </Row>
                     </form>

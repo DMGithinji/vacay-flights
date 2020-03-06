@@ -171,27 +171,26 @@ return (
                             <Col md={6} className = "passenger-input-field">
                                 {
                                     currentStep !== 1 ? (
-                                        <Button
+                                        <button
                                             type="button"
                                             fullWidth
-                                            className = "btn btn-default"
+                                            className = "btn btn-default btn-previous  w-100"
                                             onClick = {handlePreviousStep}
                                             >
                                             Previous Passenger
-                                        </Button> ) : null
+                                        </button> ) : null
                                 }                                                    
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                             {
                                 !props.currentStep !== props.totalSteps ? (                                
-                                    <Button
+                                    <button
                                         type="submit"
                                         fullWidth
-                                        // className = "btn btn-primary"
-                                        color =  "primary"
+                                        className =  "btn btn-primary w-100"
                                         disabled={!isValid}>
                                         Next
-                                    </Button>
+                                    </button>
                                 ) : null
                             }
                             </Col>
