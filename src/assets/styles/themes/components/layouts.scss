@@ -46,7 +46,14 @@
     padding-top: 5px;
 }
 
-.disappear {
+.form-column { //FOr the cards to be wider in mobile
+    @media only screen and (max-width: 1000px) {
+        margin: 0 !important;
+        padding: 0 !important;
+    } 
+}
+
+.disappear { //for the filter in mobile
     @media only screen and (max-width: 1000px) {
         display: none !important;
     } 

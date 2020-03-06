@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import countries from '../../Shared/data/countries';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -10,16 +9,15 @@ import CustomSelect from "../../Shared/components/SelectInputField";
 
 
 export const PassengerDetailsInput = props => {
-  const {
-    values: { title, firstName, lastName, nationality, birthdate, docNumber, docExpiry },
-    errors,
-    touched,
-    handleSubmit,
-    handleChange,
-    isValid,
-    currentStep
-} = props;
-console.log("currentStep", currentStep);
+    const {
+        values: { title, firstname, lastname, nationality, birthdate, docnumber, docexpiry },
+        errors,
+        touched,
+        handleSubmit,
+        handleChange,
+        isValid,
+        currentStep
+    } = props;
 // console.table("formIndex ", formIndex);
 
 const handleBirthDateChange = value => {
@@ -28,7 +26,7 @@ const handleBirthDateChange = value => {
 }
 
 const handleExpiryDateChange = value => {
-    const event = {target: {name:'docExpiry', value: value }};
+    const event = {target: {name:'docexpiry', value: value }};
     handleChange(event);
 }
 
@@ -71,30 +69,30 @@ return (
                             <Col md={5} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">First Name</label>
                                 <TextField
-                                    name="firstName"
-                                    error={Boolean(errors.firstName  && touched.firstName)}
+                                    name="firstname"
+                                    error={Boolean(errors.firstname  && touched.firstname)}
                                     placeholder="First Name"
-                                    value={firstName}
+                                    value={firstname}
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
                                     size="small"                                                               
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.firstName &&  touched.firstName) ? errors.firstName : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.firstname &&  touched.firstname) ? errors.firstname : ""}</div>
                             </Col>
                             <Col md={5} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Last Name</label>
                                 <TextField
-                                    name="lastName"
-                                    error={Boolean(errors.lastName && touched.lastName)}
+                                    name="lastname"
+                                    error={Boolean(errors.lastname && touched.lastname)}
                                     placeholder="Last Name"
-                                    value={lastName}
+                                    value={lastname}
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
                                     size="small"                                                              
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.lastName && touched.lastName) ? errors.lastName : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.lastname && touched.lastname) ? errors.lastname : ""}</div>
                             </Col>
                             
                             <Col md={6} className = "passenger-input-field">
@@ -105,6 +103,7 @@ return (
                                         error={Boolean(errors.nationality && touched.nationality)}
                                         value={nationality}
                                         options = {countries}
+                                        fullWidth
                                         handleSelect={handleChange}
                                     />   
                                 <div className="text-danger pl-2">{Boolean(errors.nationality && touched.nationality) ? errors.nationality : ""}</div>
@@ -134,16 +133,16 @@ return (
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport or ID Number</label>   
                                 <TextField
-                                    name="docNumber"
+                                    name="docnumber"
                                     placeholder="Passport or ID number"
-                                    error={Boolean(errors.docNumber && touched.docNumber)}
-                                    value={docNumber}
+                                    error={Boolean(errors.docnumber && touched.docnumber)}
+                                    value={docnumber}
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
                                     size="small"                                                              
                                 />
-                                <div className="text-danger pl-2">{Boolean(errors.docNumber && touched.docNumber) ? errors.docNumber : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.docnumber && touched.docnumber) ? errors.docnumber : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport Expiration Date</label>   
@@ -152,19 +151,19 @@ return (
                                         inputVariant="outlined"
                                         placeholder="Passport expiration date"
                                         id="date-picker-dialog"
-                                        name="docExpiry"
-                                        error={Boolean(errors.docExpiry && touched.docExpiry)}
+                                        name="docexpiry"
+                                        error={Boolean(errors.docexpiry && touched.docexpiry)}
                                         format="dd/MM/yyyy"
                                         fullWidth
                                         size="small"                                                              
-                                        value={docExpiry}
+                                        value={docexpiry}
                                         onChange={handleExpiryDateChange}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="text-danger pl-2">{Boolean(errors.docExpiry  && touched.docExpiry) ? errors.docExpiry : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.docexpiry  && touched.docexpiry) ? errors.docexpiry : ""}</div>
                             </Col>
                             </Row>
                             <Row className="mt-3">

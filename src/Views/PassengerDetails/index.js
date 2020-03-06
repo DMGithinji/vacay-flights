@@ -22,7 +22,7 @@ class PassengerDetails extends React.Component {
                 <Aux>
                     {/* <Breadcrumbs /> */}
                     <Row className='content-wrapper'>
-                        <Col lg={8} className="p-0 m-0">
+                        <Col lg={8} className="form-column">
                                 <div className="card shadow-none">
                                     <div className="card-header">
                                         <h5 className="mb-2">Passenger information</h5>
@@ -33,7 +33,7 @@ class PassengerDetails extends React.Component {
                                     </div>
                                 </div>           
                         </Col>
-                        <Col lg={4}>
+                        <Col lg={4}  className="form-column">
                             <FlightSummary />
                         </Col>
                     </Row>

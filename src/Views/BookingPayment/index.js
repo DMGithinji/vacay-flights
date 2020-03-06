@@ -1,5 +1,4 @@
 import React from 'react';
-import Breadcrumbs from '../../App/Breadcrumbs';
 
 import {
     Row,
@@ -26,9 +25,8 @@ class Checkout extends React.Component {
 
         return (
             <Aux>
-                <Breadcrumbs />
                 <Row className='content-wrapper'>
-                    <Col md={8} className="mb-5">
+                    <Col md={8} className="form-column">
                     <div className="accordion">
                                         <Card className='mb-0 shadow-none'>
                                             <Card className="mb-0 shadow-none">
@@ -149,7 +147,7 @@ class Checkout extends React.Component {
                                         </Card>
                                     </div>
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} className = "form-column">
                         <FlightSummary />
                     </Col>
                 </Row>

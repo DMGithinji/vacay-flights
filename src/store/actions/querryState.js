@@ -1,4 +1,4 @@
-import { SET_QUERRY, QUERY_DATA } from './types';
+import { QUERY_DATA } from './types';
 import config from '../../config';
 
 const API_URL = config.API_URL;
@@ -20,7 +20,6 @@ export const setQuery = query => dispatch => {
     console.log('Loading New Search...', query);
     const start =  (Date.parse(query.departDate))/1000;
     const end =  (Date.parse(query.returnDate))/1000;
-    console.log("end", end, "start", start);
     dispatch({ 
         type: QUERY_DATA.FETCHING, 
         loading: true, 

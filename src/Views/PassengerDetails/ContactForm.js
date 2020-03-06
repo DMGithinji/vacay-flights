@@ -3,24 +3,23 @@ import { Row,  Col, } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import { MDBProgress } from 'mdbreact';
 import * as Yup from "yup";
-// import { connect } from 'react-redux';
-// import { submitPassenger } from '../../store/actions/passengers';
+import { connect } from 'react-redux';
+import { saveContactDetails } from '../../store/actions/passengers';
 import { Formik } from "formik";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import CustomSelect from "../../Shared/components/SelectInputField";
 
 const validationSchema = Yup.object({
     title: Yup.string("Select a title").required("Title is required"),
-    firstName: Yup.string("Enter firstname").required("Firstname is required"),
-    lastName: Yup.string("Enter lastname").required("Lastname is required"),
+    firstname: Yup.string("Enter firstname").required("Firstname is required"),
+    lastname: Yup.string("Enter lastname").required("Lastname is required"),
     email: Yup.string("Enter email").required("Email is required"),
     phone: Yup.string("Enter phone number").required("Phone number is required"),
 });
 
 const ContactDetailsInput = (props) => {
     const {
-        values: { title, firstName, lastName, phone, email },
+        values: { title, firstname, lastname, phone, email },
         errors,
         touched,
         handleChange,
@@ -57,30 +56,30 @@ const ContactDetailsInput = (props) => {
                         <Col md={5} className = "passenger-input-field">
                                     <label id="title-label" className="text-muted">First Name</label>
                                     <TextField
-                                        name="firstName"
-                                        error={Boolean(errors.firstName  && touched.firstName)}
+                                        name="firstname"
+                                        error={Boolean(errors.firstname  && touched.firstname)}
                                         placeholder="First Name"
-                                        value={firstName}
+                                        value={firstname}
                                         onChange={handleChange}
                                         variant="outlined"
                                         fullWidth
                                         size="small"                                                               
                                     />
-                                    <div className="text-danger pl-2">{Boolean(errors.firstName &&  touched.firstName) ? errors.firstName : ""}</div>
+                                    <div className="text-danger pl-2">{Boolean(errors.firstname &&  touched.firstname) ? errors.firstname : ""}</div>
                                 </Col>
                                 <Col md={5} className = "passenger-input-field">
                                     <label id="title-label" className="text-muted">Last Name</label>
                                     <TextField
-                                        name="lastName"
-                                        error={Boolean(errors.lastName && touched.lastName)}
+                                        name="lastname"
+                                        error={Boolean(errors.lastname && touched.lastname)}
                                         placeholder="Last Name"
-                                        value={lastName}
+                                        value={lastname}
                                         onChange={handleChange}
                                         variant="outlined"
                                         fullWidth
                                         size="small"                                                              
                                     />
-                                    <div className="text-danger pl-2">{Boolean(errors.lastName && touched.lastName) ? errors.lastName : ""}</div>
+                                    <div className="text-danger pl-2">{Boolean(errors.lastname && touched.lastname) ? errors.lastname : ""}</div>
                                 </Col>
                                 <Col md={6} className = "passenger-input-field">
                                     <label id="title-label" className="text-muted">Phone Number</label>   
@@ -111,9 +110,9 @@ const ContactDetailsInput = (props) => {
                                     <div className="text-danger pl-2">{Boolean(errors.email && touched.email) ? errors.email : ""}</div>
                                 </Col>
                 </Row>
-                <Row>
+                <Row className="mt-3">
 
-                    <Col md={6} className="pt-4">
+                    <Col md={6} className="passenger-input-field">
                         <button
                             type="button"
                             fullWidth
@@ -124,7 +123,7 @@ const ContactDetailsInput = (props) => {
                         </button>
                     </Col>
                     
-                    <Col md={6} className="pt-4">
+                    <Col md={6} className="passenger-input-field">
                             <button
                                 type="submit"
                                 fullWidth
@@ -154,16 +153,16 @@ class ContactForm extends Component {
 
     submit = data => {
         console.log(data);
-        // this.props.submitPassenger(data, this.props.formIndex);
-        this.props.lastStep()
+        this.props.saveContactDetails(data);
+        this.props.handleSubmit();
     };
 
 
     render() {
         const values = { 
             title : "Mr.",
-            firstName:  "",
-            lastName:  "",
+            firstname:  "",
+            lastname:  "",
             email: "",
             phone: "",
 
@@ -191,10 +190,21 @@ class ContactForm extends Component {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     submitPassenger: (passenger, formIndex) => dispatch(submitPassenger (passenger, formIndex))
-//   };
-// }
 
-export default ContactForm;
+const mapStateToProps = state => {
+    const { 
+        querry: { sessionId },
+    } = state;
+    return { sessionId }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    saveContactDetails: (contactDetails) => dispatch(saveContactDetails (contactDetails))
+  };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ContactForm);
