@@ -22,30 +22,37 @@ class FormsWizard extends React.Component {
         super(props);
         this.state = {
             passengersFormComponents: [],
+            passengersDetails: [],
         };      
     }
 
-
-
-    render() {
-
+    componentDidMount(){
         const { adultNumber, childrenNumber, infantNumber } = this.props;
         const passengerNumbers = parseInt(adultNumber) +  parseInt(childrenNumber) + parseInt(infantNumber);
 
         for (let i = 0; i < passengerNumbers; i++){
             this.props.submitPassenger(defaultFormValues, i);
         }
+        this.setState({ passengersDetails: this.props.passengerForms })
+        console.log("Passenger forms", this.props.passengerForms);
+    }
+
+
+    render() {
+
+
 
         return (
             <Aux>
                 
                 <StepWizard>
                     {
-                        this.props.passengerForms.map((passengerForm, index) => (
-                            <PassengerForm key = {index} formIndex = {index} details = { passengerForm } />
-                        ))
+                        this.state.passengersDetails.map((passenger, i) => {
+                            console.log(i);
+                            return <PassengerForm key = {i} details = {passenger} id = {i} />
+                        })
                     }
-                    <ContactForm />
+                    {/* <ContactForm /> */}
                 </StepWizard>
             </Aux>
         );

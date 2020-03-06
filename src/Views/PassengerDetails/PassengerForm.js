@@ -53,7 +53,7 @@ class PassengerForm extends Component {
 
   render() {
 
-    console.log("Passenger form index", this.props.details.id, "-", this.props);
+    console.log("Passenger key", this.props.id, "total steps", this.props.totalSteps);
 
     const values = { 
       title: !!this.props.details.title ?  this.props.details.title : "Mr",
@@ -71,12 +71,16 @@ class PassengerForm extends Component {
         <h6 className="pl-2 text-primary">{this.headerMessage(this.props.currentStep, this.props.totalSteps)}</h6>
         <MDBProgress className="progressBar" material value={this.progress(this.props.currentStep, this.props.totalSteps)} color="primary" />
         <Formik 
-            render={props => <PassengerDetailsInput {...props} currentStep={this.props.currentStep} totalSteps={this.props.totalSteps}  previousStep = {this.props.previousStep}/>}
-            initialValues={values}
-            validationSchema={validationSchema}
-            formIndex = {this.props.formIndex}
-            onSubmit={this.submit}
-          />
+            render={props => 
+              <PassengerDetailsInput 
+                {...props} currentStep={this.props.currentStep} 
+                totalSteps={this.props.totalSteps}  
+                previousStep = {this.props.previousStep}/>}
+                initialValues={values}
+                validationSchema={validationSchema}
+                formIndex = {this.props.formIndex}
+                onSubmit={this.submit}
+            />
       </React.Fragment>
     );
   }
