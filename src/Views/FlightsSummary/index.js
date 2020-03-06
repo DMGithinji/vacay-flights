@@ -61,7 +61,6 @@ const FlightSummary = (props) => (
 );
 
 
-
 const PassengersSummary = (props) => (
     <div>
         <div className="row mt-2 mb-2">
@@ -103,11 +102,10 @@ class FlightsSummary extends React.Component {
 
     const { flightDetails, flights, contactDetails, passengersDetails } = this.props;
 
-    console.log('flightDetails', flightDetails);
     
     return (
         <div>
-            <Card  className="shadow-none">
+            <Card className="shadow-none">
                 <Card.Header>
                     <h5 className="mb-2">Booking Summary</h5>
                     <p className="text-muted card-header-detail">Please confirm that the details are in order</p>

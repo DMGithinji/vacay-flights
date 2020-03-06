@@ -9,7 +9,6 @@ import {
 import Aux from "../../hoc/_Aux";
 // import Breadcrumbs from '../../App/Breadcrumbs';
 import FlightsSummary from '../FlightsSummary';
-import Loader from '../../App/Loader';
 import FormsWizard from './PassengerFormWizard';
 
 
@@ -18,7 +17,6 @@ class PassengerDetails extends React.Component {
     render() {
 
         return (
-            !this.props.loading ? (
                 <Aux>
                     {/* <Breadcrumbs /> */}
                     <Row className='content-wrapper'>
@@ -38,9 +36,6 @@ class PassengerDetails extends React.Component {
                         </Col>
                     </Row>
                 </Aux>                 
-                ) : (
-                    <Loader />
-                )
         )
     }
 }
