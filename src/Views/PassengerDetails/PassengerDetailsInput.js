@@ -17,8 +17,9 @@ export const PassengerDetailsInput = props => {
     handleSubmit,
     handleChange,
     isValid,
+    currentStep
 } = props;
-// console.table(props);
+console.log("currentStep", currentStep);
 // console.table("formIndex ", formIndex);
 
 const handleBirthDateChange = value => {
@@ -32,7 +33,6 @@ const handleExpiryDateChange = value => {
 }
 
 const handlePreviousStep = () => {
-    console.log('Previous clicked');
     props.previousStep();
 }
 
@@ -170,7 +170,7 @@ return (
                             <Row className="mt-3">
                             <Col md={6} className = "passenger-input-field">
                                 {
-                                    !props.currentStep === 1 ? (
+                                    currentStep !== 1 ? (
                                         <Button
                                             type="button"
                                             fullWidth

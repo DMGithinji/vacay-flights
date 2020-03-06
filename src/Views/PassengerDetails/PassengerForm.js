@@ -25,8 +25,8 @@ class PassengerForm extends Component {
 
   submit = data => {
       console.log(data);
-      this.props.submitPassenger(data, this.props.details.id);
-      this.props.nextStep()
+      this.props.submitPassenger(data, this.props.id);
+      this.props.nextStep(this.props.currentStep, this.props.totalSteps)
   };
 
   headerMessage = (currentStep, totalSteps) => {
@@ -47,13 +47,11 @@ class PassengerForm extends Component {
     }
   }
 
-  progress = (currentSteps, totalSteps) => {
-    return (currentSteps/totalSteps)*100;
+  progress = (currentStep, totalSteps) => {
+    return (currentStep/totalSteps)*100;
   }
 
   render() {
-
-    console.log("Passenger key", this.props.id, "total steps", this.props.totalSteps);
 
     const values = { 
       title: !!this.props.details.title ?  this.props.details.title : "Mr",
@@ -65,15 +63,19 @@ class PassengerForm extends Component {
       birthdate: !!this.props.details.birthdate ? this.props.details.birthdate : null,
     };
 
-
+    if (this.props.currentStep !== this.props.id + 1) {
+      return null
+    } 
     return (
+      
       <React.Fragment>
         <h6 className="pl-2 text-primary">{this.headerMessage(this.props.currentStep, this.props.totalSteps)}</h6>
         <MDBProgress className="progressBar" material value={this.progress(this.props.currentStep, this.props.totalSteps)} color="primary" />
-        <Formik 
+        <Formik
             render={props => 
               <PassengerDetailsInput 
-                {...props} currentStep={this.props.currentStep} 
+                {...props} 
+                currentStep={this.props.currentStep} 
                 totalSteps={this.props.totalSteps}  
                 previousStep = {this.props.previousStep}/>}
                 initialValues={values}

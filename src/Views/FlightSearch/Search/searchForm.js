@@ -19,7 +19,6 @@ export const SearchForm = (props) => {
     const handleSubmit = props.handleSubmit;
     const handleChange = props.handleChange;
     const { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber } = props.values;
-    // console.log("Search Form Props", props);
 
     const handleOriginSelect = (event, newValue) => {
         if (!!newValue) {

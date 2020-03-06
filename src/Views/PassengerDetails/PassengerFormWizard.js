@@ -1,7 +1,4 @@
 import React from 'react';
-import StepWizard from 'react-step-wizard';
-
-import Aux from "../../hoc/_Aux";
 import PassengerForm from './PassengerForm';
 import { connect } from 'react-redux';
 import { submitPassenger } from '../../store/actions/passengers';
@@ -21,40 +18,77 @@ class FormsWizard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            passengersFormComponents: [],
             passengersDetails: [],
+            currentStep: 1,
+            totalSteps: 2,
         };      
     }
 
     componentDidMount(){
+        //Set default values for passenger forms based on no. of passengers
         const { adultNumber, childrenNumber, infantNumber } = this.props;
         const passengerNumbers = parseInt(adultNumber) +  parseInt(childrenNumber) + parseInt(infantNumber);
 
         for (let i = 0; i < passengerNumbers; i++){
             this.props.submitPassenger(defaultFormValues, i);
         }
-        this.setState({ passengersDetails: this.props.passengerForms })
-        console.log("Passenger forms", this.props.passengerForms);
+        this.setState({ passengersDetails: this.props.passengerForms });
+        const totalSteps = this.props.passengerForms.length + 1;
+        this.setState({ totalSteps: totalSteps });
     }
 
+    handleSubmit = data => {
+        alert(`Your registration detail: \n 
+        ${data}`)
+    }
+
+    /*
+    * the functions for our button
+    */
+    previousButton =() => {
+
+        let currentStep = this.state.currentStep;
+        currentStep = currentStep <= 1 ? 1: currentStep - 1
+        this.setState({
+            currentStep: currentStep
+        })
+    }
+
+    nextStep = () => {
+        let currentStep = this.state.currentStep;
+        const totalSteps = this.state.totalSteps;
+        currentStep = currentStep >= totalSteps  ? totalSteps : currentStep + 1
+        this.setState({
+            currentStep: currentStep
+        })
+    }
 
     render() {
 
 
 
         return (
-            <Aux>
                 
-                <StepWizard>
+                <React.Fragment>
                     {
-                        this.state.passengersDetails.map((passenger, i) => {
-                            console.log(i);
-                            return <PassengerForm key = {i} details = {passenger} id = {i} />
+                        this.props.passengerForms.map((passenger, i) => {
+                            return <PassengerForm 
+                                key = {i} 
+                                details = {passenger} 
+                                currentStep={this.state.currentStep}
+                                totalSteps={this.state.totalSteps}
+                                previousStep={this.previousButton}
+                                nextStep={this.nextStep}
+                                id = {i} />
                         })
                     }
-                    {/* <ContactForm /> */}
-                </StepWizard>
-            </Aux>
+                    <ContactForm 
+                        currentStep={this.state.currentStep}
+                        totalSteps={this.state.totalSteps}
+                        previousStep={this.previousButton}
+                        handleSubmit={this.handleSubmit}
+                    />
+                </React.Fragment>        
         );
     }
 }

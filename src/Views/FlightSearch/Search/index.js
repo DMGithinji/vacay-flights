@@ -66,8 +66,6 @@ class Search extends Component {
 
     handleChange = e => {
         const { name, value } = e.target;
-        console.log("Name", name, "Value", value);
-
         this.setState({ [name]: value }, () => console.log('Updated state', this.state));
     };
 

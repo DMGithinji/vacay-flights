@@ -13,7 +13,6 @@ class Navigation extends Component {
     render() {
     const pathName = window.location.href.split('/');
     const isActive = (pathName, url ) => {
-        console.log ('isActive', pathName.includes(url.slice(1)));
         return pathName.includes(url.slice(1));
     }
     const items = navigation.items[0].children;

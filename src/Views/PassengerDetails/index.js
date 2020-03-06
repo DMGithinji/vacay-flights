@@ -7,10 +7,9 @@ import {
 } from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
-import Breadcrumbs from '../../App/Breadcrumbs';
+// import Breadcrumbs from '../../App/Breadcrumbs';
 import FlightSummary from '../FlightSummary';
 import Loader from '../../App/Loader';
-import { ContactDetails } from './ContactForm';
 import FormsWizard from './PassengerFormWizard';
 
 
@@ -29,13 +28,8 @@ class PassengerDetails extends React.Component {
                                         <h5 className="mb-2">Passenger information</h5>
                                         <p className="text-muted card-header-detail">Fill in the form below to enable us get your booking details.</p>
                                     </div>
-
                                     <div className="card-body">
-
                                         <FormsWizard />
-                                        {/* <hr />
-                                        <ContactDetails sessionId={this.props.sessionId}></ContactDetails> */}
-                                        
                                     </div>
                                 </div>           
                         </Col>

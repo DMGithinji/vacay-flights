@@ -4,24 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import places from '../../../Shared/utils/places';
 
-
-// handleChange(event, newValue){
-//     onChange={(event, newValue) => {
-//         console.log('newValue', newValue);
-//         if (newValue && newValue.inputValue) {
-//           setValue({
-//             title: newValue.inputValue,
-//           });
-
-//           return;
-//         }
-
-//         setValue(newValue);
-//       }}
-// }
-
-
-
 const PlaceSelect = () => {
 
   return (
