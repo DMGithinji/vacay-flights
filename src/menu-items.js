@@ -8,6 +8,13 @@ export default {
             children: [
                 {
                     id: 'select',
+                    title: 'Search Flight',
+                    type: 'item',
+                    icon: 'search',
+                    url: '/search'
+                },               
+                {
+                    id: 'select',
                     title: 'Select Flight',
                     type: 'item',
                     icon: 'flight_takeoff',

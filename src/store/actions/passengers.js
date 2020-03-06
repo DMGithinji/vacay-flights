@@ -25,7 +25,7 @@ export const sendPassengerData = (passengerData, sessionId) => dispatch => {
         type: PASSENGER.SEND_DATA, 
         loading: true,
     });
-    axios.post(`${API_URL}/api/confirm/${sessionId}`, passengerData)
+    axios.post(`${API_URL}/api/confirm/${sessionId}/`, passengerData)
         .then((res) => {
             console.log(res.data)
         }).catch((error) => {

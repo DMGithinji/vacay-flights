@@ -29,21 +29,26 @@ class FormsWizard extends React.Component {
     componentDidMount(){
         //Set default values for passenger forms based on no. of passengers
         const { adultNumber, childrenNumber, infantNumber } = this.props;
+        const passengersDetails = this.props.passengersDetails;
         const passengerNumbers = parseInt(adultNumber) +  parseInt(childrenNumber) + parseInt(infantNumber);
-
-        for (let i = 0; i < passengerNumbers; i++){
-            this.props.savePassengerDetails(defaultFormValues, i);
+        
+        //If app state has no passenger forms created/saved, create based on pax_no
+        if (!!passengersDetails ) {
+            for (let i = 0; i < passengerNumbers; i++){
+                this.props.savePassengerDetails(defaultFormValues, i);
+            }
         }
-        this.setState({ passengersDetails: this.props.passengerForms });
-        const totalSteps = this.props.passengerForms.length + 1;
+        this.setState({ passengersDetails: this.props.passengersDetails });
+
+        const totalSteps = this.props.passengersDetails.length + 1;
         this.setState({ totalSteps: totalSteps });
     }
 
     handleSubmit = () => {
         this.props.history.push('/booking-payment'); //Start redirect to payments page
         const contactDetails = this.props.contactDetails;
-        const passengerForms = this.props.passengerForms;
-        passengerForms.map(form => {
+        const passengersDetails = this.props.passengersDetails;
+        passengersDetails.map(form => {
             form.birthdate = formatDateYyyyMmDd(form.birthdate);
             form.docexpiry = formatDateYyyyMmDd(form.docexpiry);
             return form;
@@ -54,7 +59,7 @@ class FormsWizard extends React.Component {
                 "phone": contactDetails.phone,
                 "name": `${contactDetails.firstname} ${contactDetails.lastname}`
             },
-            passengers:  this.props.passengerForms
+            passengers:  this.props.passengersDetails
         }
         this.props.sendPassengerData(passengerData, this.props.sessionId);
     }
@@ -81,14 +86,11 @@ class FormsWizard extends React.Component {
     }
 
     render() {
-
-
-
         return (
                 
                 <React.Fragment>
                     {
-                        this.props.passengerForms.map((passenger, i) => {
+                        this.props.passengersDetails.map((passenger, i) => {
                             return <PassengerForm 
                                 key = {i} 
                                 details = {passenger} 
@@ -114,9 +116,9 @@ class FormsWizard extends React.Component {
 const mapStateToProps = state => {
     const { 
         querry: { adultNumber, childrenNumber, infantNumber, sessionId },
-        passengers: { passengerForms, contactDetails }
+        passengers: { passengersDetails, contactDetails }
     } = state;
-    return { adultNumber, childrenNumber, infantNumber, sessionId, passengerForms, contactDetails }
+    return { adultNumber, childrenNumber, infantNumber, sessionId, passengersDetails, contactDetails }
 }
 
 const mapDispatchToProps = dispatch => {

@@ -8,7 +8,7 @@ import {
 
 import Aux from "../../hoc/_Aux";
 // import Breadcrumbs from '../../App/Breadcrumbs';
-import FlightSummary from '../FlightSummary';
+import FlightsSummary from '../FlightsSummary';
 import Loader from '../../App/Loader';
 import FormsWizard from './PassengerFormWizard';
 
@@ -34,7 +34,7 @@ class PassengerDetails extends React.Component {
                                 </div>           
                         </Col>
                         <Col lg={4}  className="form-column">
-                            <FlightSummary />
+                            <FlightsSummary />
                         </Col>
                     </Row>
                 </Aux>                 
@@ -48,8 +48,8 @@ class PassengerDetails extends React.Component {
 const mapStateToProps = state => {
     const { 
         selectedFlight: { loading },
-        querry: { sessionId }
-     } = state;
+        querry: { sessionId },
+    } = state;
     return { loading, sessionId }
 }
 

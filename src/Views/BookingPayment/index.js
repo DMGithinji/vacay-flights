@@ -7,13 +7,14 @@ import {
     Collapse
 } from 'react-bootstrap';
 
-import Aux from "./../../hoc/_Aux";
+import Aux from "../../hoc/_Aux";
 
 import mpesa from '../../assets/images/Mpesa.png';
 import card from '../../assets/images/card.png';
 
 import CONSTANTS from "../../store/constants";
-import FlightSummary from '../FlightSummary';
+import FlightsSummary from '../FlightsSummary';
+import { connect } from 'react-redux';
 
 class Checkout extends React.Component {
     state = {
@@ -148,7 +149,7 @@ class Checkout extends React.Component {
                                     </div>
                     </Col>
                     <Col md={4} className = "form-column">
-                        <FlightSummary />
+                        <FlightsSummary passengersDetails = {this.props.passengersDetails} contactDetails = {this.props.passengersDetails}/>
                     </Col>
                 </Row>
             </Aux>
@@ -156,4 +157,15 @@ class Checkout extends React.Component {
     }
 }
 
-export default Checkout;
+
+const mapStateToProps = state => {
+    const { 
+        passengers: { passengersDetails, contactDetails }
+    } = state;
+    return { passengersDetails, contactDetails }
+}
+
+
+export default connect(
+    mapStateToProps,
+)(Checkout);

@@ -3,7 +3,7 @@ import { PASSENGER, QUERY_DATA } from '../actions/types';
 // import fetchStates from './fetchStates';
 
 const DEFAULT_SELECTED_FLIGHT = {
-    passengerForms: [],//array of objects of passenger details
+    passengersDetails: [],//array of objects of passenger details
     contactDetails: {},
     loading: false,
 }
@@ -11,10 +11,10 @@ const DEFAULT_SELECTED_FLIGHT = {
 const passengersReducer = (state = DEFAULT_SELECTED_FLIGHT, action ) => {
     switch(action.type) {
         case PASSENGER.SAVE_PAX_DETAILS:
-            const { passengerForms } = state;
-            passengerForms[action.formIndex] = action.passengerDetails;
+            const { passengersDetails } = state;
+            passengersDetails[action.formIndex] = action.passengerDetails;
             return {...state, 
-                passengerForms: passengerForms,
+                passengersDetails: passengersDetails,
             }
         case PASSENGER.SAVE_CONTACT:
             return {...state, 
@@ -25,7 +25,7 @@ const passengersReducer = (state = DEFAULT_SELECTED_FLIGHT, action ) => {
                 loading: action.loading,
             }
         case QUERY_DATA.FETCHING: //On  each new query, the passenger details are reset
-            return { ...state, passengerForms: [] } 
+            return { ...state, passengersDetails: [] } 
         default:
             return state;
     }
