@@ -5,7 +5,7 @@ import config from '../../config';
 const API_URL = config.API_URL;
 
 
-//Action called on redirect from messenger bot
+//Action called on selecting a particular flight
 export const selectFlight = (sessionId, outboundFlightId, inboundFlightId) => dispatch => {
     console.log('Loading...');
     dispatch({ type: SELECT_FLIGHT.AWAITING, loading: true });

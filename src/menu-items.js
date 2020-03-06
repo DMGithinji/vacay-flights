@@ -7,7 +7,7 @@ export default {
             icon: 'icon-monitor',
             children: [
                 {
-                    id: 'select',
+                    id: 'search',
                     title: 'Search Flight',
                     type: 'item',
                     icon: 'search',

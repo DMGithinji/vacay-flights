@@ -119,7 +119,7 @@ const ContactDetailsInput = (props) => {
                             className = "btn btn-default btn-previous  w-100"
                             onClick = {props.previousStep}
                             >
-                            Previous Passenger
+                            Previous
                         </button>
                     </Col>
                     

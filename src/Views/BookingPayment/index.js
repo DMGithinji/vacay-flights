@@ -29,7 +29,7 @@ class Checkout extends React.Component {
                 <Row className='content-wrapper'>
                     <Col md={8} className="form-column">
                     <div className="accordion">
-                            <Card className='mb-0 shadow-none'>
+                            <Card className='mb-0 shadow-none '>
                                 <Card className="mb-0 shadow-none">
                                     <Card.Header className="card-header">
                                         <h5 className="mb-2">Payment Selection</h5>

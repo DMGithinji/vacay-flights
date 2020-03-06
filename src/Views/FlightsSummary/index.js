@@ -5,12 +5,12 @@ import {
     Card,
 } from 'react-bootstrap';
 
-const encodeHTML = (text) => {
-    const terms = decodeURIComponent(text);
-    console.log("Terms - ", terms);
-    document.getElementById("terms").innerHTML = terms;
+// const encodeHTML = (text) => {
+//     const terms = decodeURIComponent(text);
+//     console.log("Terms - ", terms);
+//     document.getElementById("terms").innerHTML = terms;
 
-}
+// }
 
 const PriceSummary = (props) => (
     <div className="row  mt-2 mb-4">
@@ -111,23 +111,27 @@ class FlightsSummary extends React.Component {
                     <p className="text-muted card-header-detail">Please confirm that the details are in order</p>
                 </Card.Header>
                 
-                <Card.Body className="py-2">
-
-                    {
-                        !!contactDetails.firstname ? (
-                            <PassengersSummary contactDetails={contactDetails} passengersDetails={passengersDetails}></PassengersSummary>
-                        ) : null
-                    }
-                    
-                    {
-                        flights.map(flight => (
-                            <FlightSummary flight={flight}></FlightSummary>
-                        ))
-                    }
-                </Card.Body>
-                <Card.Footer>
-                    <PriceSummary flightDetails={flightDetails}></PriceSummary>
-                </Card.Footer>
+                {
+                    !!flightDetails.cost ? (
+                        <div>
+                            <Card.Body className="py-2">
+                                {
+                                    !!contactDetails.firstname ? (
+                                        <PassengersSummary contactDetails={contactDetails} passengersDetails={passengersDetails}></PassengersSummary>
+                                    ) : null
+                                }
+                                {
+                                    flights.map(flight => (
+                                        <FlightSummary flight={flight}></FlightSummary>
+                                    ))
+                                }
+                            </Card.Body>
+                            <Card.Footer>
+                                <PriceSummary flightDetails={flightDetails}></PriceSummary>
+                        </Card.Footer>
+                        </div>
+                    ) : (<h5 className="text-center p-5">Loading...</h5>)
+                }
             </Card>
         </div>
     )

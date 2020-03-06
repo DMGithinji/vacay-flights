@@ -72,7 +72,11 @@ export const setQuery = query => dispatch => {
 export const fetchQueryData = sessionId => dispatch => {
     console.log('SessionID', sessionId);
     console.log('Loading from Redirect...');
-    dispatch({ type: QUERY_DATA.FETCHING, loading: true, searchType: "REDIRECT" });
+    dispatch({ //to differentiate new query from query that's a redirect (used to render loader on flightSearchComponent)
+        type: QUERY_DATA.FETCHING, 
+        loading: true, 
+        searchType: "REDIRECT" 
+    });
     return fetch(`${API_URL}/api/${sessionId}/`)
         .then(response => {
             if (response.status !== 200 ) {

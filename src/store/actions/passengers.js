@@ -14,11 +14,9 @@ export const saveContactDetails= (contactDetails) => {
 
 /**
  * Sends passenger data to the backend
- * @param {} body 
  */
 export const sendPassengerData = (passengerData, sessionId) => dispatch => {
     console.log('Loading Payments...');
-
     console.log("Passenger Data", passengerData);
     console.log("Session ID", sessionId);
     dispatch({ 
@@ -26,9 +24,26 @@ export const sendPassengerData = (passengerData, sessionId) => dispatch => {
         loading: true,
     });
     axios.post(`${API_URL}/api/confirm/${sessionId}/`, passengerData)
-        .then((res) => {
-            console.log(res.data)
+        .then((response) => {
+            if (response.status !== 200 ) {
+                console.log('Error! Unsuccessful request to server')
+                throw new Error ('Unsuccessful request to server')
+            }
+
+            console.log('Loading Complete!', response.data);
+            const data = response.data;
+            dispatch({
+                type: PASSENGER.SEND_SUCCESS,
+                paymentLimit: data.result.booking_details.payment_limit,
+                ticketingLimit: data.result.booking_details.ticketing_limit,
+                loading: false,
+            });
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
+            dispatch({ 
+                type: PASSENGER.SEND_ERROR, 
+                message: error.message, 
+                loading: false
+            })
         });
 }
