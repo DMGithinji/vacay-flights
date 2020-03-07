@@ -15,11 +15,19 @@ import card from '../../assets/images/card.png';
 import CONSTANTS from "../../store/constants";
 import FlightsSummary from '../FlightsSummary';
 import { connect } from 'react-redux';
-
+import Timer from 'react-compound-timer';
 class Checkout extends React.Component {
     state = {
         accordionKey: 1
     };
+
+    calculateTime (deadline){
+        const currentTime = new Date();
+        const currentUnixTime = (Date.parse(currentTime));
+        console.log('currentUnixTime', currentUnixTime);
+        const difference = currentUnixTime - deadline;
+        return  difference/60/1000;
+    }
 
     render() {
         const { accordionKey } = this.state;
@@ -32,8 +40,31 @@ class Checkout extends React.Component {
                             <Card className='mb-0 shadow-none '>
                                 <Card className="mb-0 shadow-none">
                                     <Card.Header className="card-header">
-                                        <h5 className="mb-2">Payment Selection</h5>
-                                        <p className="text-muted mb-0">Fill up given form for your payment details.</p>
+                                        <h5 className="m-2">Payment Selection</h5>
+                                        {
+                                            !!this.props.paymentLimit ? (
+                                                <div className="alert alert-danger mb-0 mt-1" role="alert">
+                                                    Select a payment method and follow the steps given to complete your booking process. <br />
+                                                    Please do so within the next{ }
+                                                    <Timer
+                                                        initialTime={this.calculateTime (this.props.paymentLimit)}
+                                                        direction="backward"
+                                                    >
+                                                        {() => (
+                                                            <React.Fragment>
+                                                                <Timer.Minutes /> minutes { }
+                                                                <Timer.Seconds /> seconds { }
+                                                            </React.Fragment>
+                                                        )}
+                                                    </Timer>
+                                                    to confirm.
+                                                </div>
+                                            ) : (
+                                                <div className="alert alert-primary mb-0 mt-1" role="alert">
+                                                    Select a payment method and follow the steps given to complete your booking process.
+                                                </div>
+                                            )
+                                        }
                                     </Card.Header>
                                 </Card>
                             </Card>
@@ -160,9 +191,9 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => {
     const { 
-        passengers: { passengersDetails, contactDetails }
+        passengers: { passengersDetails, contactDetails, paymentLimit }
     } = state;
-    return { passengersDetails, contactDetails }
+    return { passengersDetails, contactDetails, paymentLimit }
 }
 
 
