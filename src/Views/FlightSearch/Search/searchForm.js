@@ -149,7 +149,7 @@ export const SearchForm = (props) => {
                         color="primary"
                         // disabled={!isValid}
                     >
-                        Modify Search
+                        Search Flights
                     </Button>                    
                 {/* </Link> */}
             </div>

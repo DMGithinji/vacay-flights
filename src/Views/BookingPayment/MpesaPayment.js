@@ -4,7 +4,6 @@ import mpesa from '../../assets/images/Mpesa.png';
 import axios from 'axios';
 import config from '../../config';
 import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 
 const API_URL = config.API_URL;
@@ -16,7 +15,7 @@ class MpesaPayment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayErrorMessage: false,
+            loading: false,
         };      
     }
 
@@ -28,9 +27,11 @@ class MpesaPayment extends React.Component {
             const body = {
                 phonenumber: contactDetails.phone
             }
+            this.setState({ loading: true });
             console.log("Body ", body);
             axios.post(`${API_URL}/api/payment/${sessionId}/mpesa/`, body)
             .then((response) => {
+                this.setState({ loading: false });
                 if (response.status !== 200 ) {
                     console.log('Error! Unsuccessful request to server')
                     throw new Error ('Unsuccessful request to server')
@@ -39,11 +40,13 @@ class MpesaPayment extends React.Component {
                 if (data.result.status === "successful"){
                     this.props.history.push('/booking-confirmation'); //Start redirect to payments page
                 } else {
-                    this.setState({ displayErrorMessage: true });
+                    this.props.showError();
                 }
             })
             .catch((error) => {
+                this.setState({ loading: false });
                 console.log(error);
+                this.props.showError();
             });
         
         }
@@ -84,7 +87,16 @@ class MpesaPayment extends React.Component {
                             className = "btn btn-primary w-100"
                             onClick = { postMpesaPayment(sessionId, contactDetails) }
                             >
-                            Submitted
+                            {
+                                this.state.loading ? (
+                                <div> 
+                                        <span>Confirming</span>
+                                        <div class="spinner-border spinner-border-sm float-right" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                </div>
+                                ) : (<span>Submitted?</span>)
+                            }
                         </button>
                     </Col>
                 </Row>

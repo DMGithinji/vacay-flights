@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import card from '../../assets/images/card.png';
-import CustomSelect from "../../Shared/components/SelectInputField";
 import axios from 'axios';
 import config from '../../config';
 import { withRouter } from 'react-router-dom';
@@ -64,74 +63,50 @@ const FormInput = (props) => {
                     />
                 </Col>
                 <Col md={4}>
-                    <label id="expiry-label" className="text-muted">Card Expiry</label>
-                    <div className="d-flex inline">
-                    <CustomSelect
-                        className="pr-2"
-                        name="month"
-                        error={Boolean(errors.month  && touched.month)}
-                        placeholder="Month"
-                        value={month}
-                        handleSelect={handleChange}
-                        variant="outlined"
-                        fullWidth
-                        size="small" 
-                        options = {[
-                            { value: 'January', name: 'January' },
-                            { value: 'February', name: 'February' },
-                            { value: 'March', name: 'March' },
-                            { value: 'April', name: 'April'},
-                            { value: 'May', name: 'May'},
-                            { value: 'June', name: 'June'},
-                            { value: 'July', name: 'July'},
-                            { value: 'August', name: 'August'},
-                            { value: 'September', name: 'September'},
-                            { value: 'October', name: 'October'},
-                            { value: 'November', name: 'November'},
-                            { value: 'December', name: 'December'}
-                            ]}                                                              
-                    />
-
-                    <CustomSelect
-                        name="date"
-                        className="flex-grow"
-                        error={Boolean(errors.date  && touched.date)}
-                        placeholder="Date"
-                        value={date}
-                        handleSelect={handleChange}
-                        variant="outlined"
-                        size="small"
-                        options = {[
-                            { value: '1', name: '1' },
-                            { value: '2', name: '2' },
-                            { value: '3', name: '3' },
-                            { value: '4', name: '4'},
-                            { value: '5', name: '5'},
-                            { value: '6', name: '6'},
-                            { value: '7', name: '7'},
-                            { value: '8', name: '8'},
-                            { value: '9', name: '9'},
-                            { value: '10', name: '10'},
-                            { value: '11', name: '11'},
-                            { value: '12', name: '12'},
-                            { value: '13', name: '13'},
-                            { value: '14', name: '14'}
-                            ]}                                                              
-                    />
-                    </div>
+                    <Row>
+                        <Col md={12}>
+                            <label id="expiry-label" className="text-muted">Card Expiry</label>
+                        </Col>
+                        <Col md={6}>
+                        {/* <label id="ccv-label" className="text-muted">CCV</label> */}
+                        <TextField
+                            name="month"
+                            error={Boolean(errors.month  && touched.month)}
+                            placeholder="mm"
+                            value={month}
+                            onChange={handleChange}
+                            variant="outlined"
+                            fullWidth
+                            size="small"
+                        />
+                        </Col>
+                        <Col md={6}>
+                        {/* <label id="ccv-label" className="text-muted">CCV</label> */}
+                        <TextField
+                            name="date"
+                            error={Boolean(errors.date  && touched.date)}
+                            placeholder="dd"
+                            value={date}
+                            onChange={handleChange}
+                            variant="outlined"
+                            fullWidth
+                            size="small"
+                        />
+                    </Col>
+                    </Row>
                 </Col>
                 <Col md={2}>
-                <label id="ccv-label" className="text-muted">CCV</label>
-                <TextField
-                    name="ccv"
-                    error={Boolean(errors.ccv  && touched.ccv)}
-                    placeholder="xxx"
-                    value={ccv}
-                    onChange={handleChange}
-                    variant="outlined"
-                    fullWidth
-                    size="small"
-                />
+                    <label id="ccv-label" className="text-muted">CCV</label>
+                    <TextField
+                        name="ccv"
+                        error={Boolean(errors.ccv  && touched.ccv)}
+                        placeholder="xxx"
+                        value={ccv}
+                        onChange={handleChange}
+                        variant="outlined"
+                        fullWidth
+                        size="small"
+                    />
                 </Col>
                 </Row>
                 <Row className="mt-5 mb-3">
@@ -171,10 +146,15 @@ const postCardPayment = (cardDetails, sessionId) => {
             throw new Error ('Unsuccessful request to server')
         }
         const data = response.data;
-        this.props.history.push('/booking-confirmation'); //Start redirect to payments page
+        if (data.result.status === "successful"){
+            this.props.history.push('/booking-confirmation'); //Start redirect to payments page
+        } else {
+            this.props.showError();
+        }
     })
     .catch((error) => {
         console.log(error);
+        this.props.showError();
     });
 
 }

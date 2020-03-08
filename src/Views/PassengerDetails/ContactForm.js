@@ -158,14 +158,26 @@ class ContactForm extends Component {
 
 
     render() {
-        const values = { 
-            title : "Mr.",
-            firstname:  "",
-            lastname:  "",
-            email: "",
-            phone: "",
 
-        };
+        let values
+        if (this.props.passengersDetails.length) {
+            const passengerOne = this.props.passengersDetails[0];
+            values = { 
+                title : passengerOne.title,
+                firstname:  passengerOne.firstname,
+                lastname:  passengerOne.lastname,
+                email: "",
+                phone: "",
+            };
+        } else {
+            values = { 
+                title : "",
+                firstname:  "",
+                lastname:  "",
+                email: "",
+                phone: "",
+            };
+        }
 
         if (this.props.currentStep !== this.props.totalSteps) {
             return null
@@ -193,8 +205,9 @@ class ContactForm extends Component {
 const mapStateToProps = state => {
     const { 
         querry: { sessionId },
+        passengers: { passengersDetails }
     } = state;
-    return { sessionId }
+    return { sessionId, passengersDetails }
 }
 
 const mapDispatchToProps = dispatch => {
