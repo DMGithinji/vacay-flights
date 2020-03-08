@@ -26,7 +26,7 @@ const Loader = () => {
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>
-            <div className = "d-flex justify-content-center mt-3" >
+            <div className = "d-flex justify-content-center" >
                 <img src={plane}  width = "450px" alt="loading..." />
             </div>
         </div>

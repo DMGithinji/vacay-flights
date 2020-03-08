@@ -13,7 +13,8 @@ const API_URL = config.API_URL;
  * "adults" :<adults>, 
  * "child":<child>, 
  * "infant":<child>, 
- * "triptype" : <RT or OW>} 
+ * "triptype" : <RT or OW>
+ * } 
  */
 
 export const setQuery = query => dispatch => {

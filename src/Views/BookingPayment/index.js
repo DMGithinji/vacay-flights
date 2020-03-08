@@ -1,26 +1,23 @@
 import React from 'react';
-
-import {
-    Row,
-    Col,
-    Card,
-    Collapse
-} from 'react-bootstrap';
-
-import Aux from "../../hoc/_Aux";
-
-import mpesa from '../../assets/images/Mpesa.png';
-import card from '../../assets/images/card.png';
-
-import CONSTANTS from "../../store/constants";
-import FlightsSummary from '../FlightsSummary';
 import { connect } from 'react-redux';
+import {Row,  Col,  Card,  Collapse } from 'react-bootstrap';
+import Aux from "../../hoc/_Aux";
+import FlightsSummary from '../FlightsSummary';
 import Timer from 'react-compound-timer';
-class Checkout extends React.Component {
-    state = {
-        accordionKey: 1
-    };
+import CardPayment from './CardPayment';
+import MpesaPayment from './MpesaPayment';
 
+
+
+class Checkout extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            accordionKey: 1
+        };
+    }
+
+    /**Timer for payment */
     calculateTime (deadline){
         const currentTime = new Date();
         const currentUnixTime = (Date.parse(currentTime));
@@ -31,7 +28,6 @@ class Checkout extends React.Component {
 
     render() {
         const { accordionKey } = this.state;
-
         return (
             <Aux>
                 <Row className='content-wrapper'>
@@ -45,9 +41,9 @@ class Checkout extends React.Component {
                                             !!this.props.paymentLimit ? (
                                                 <div className="alert alert-danger mb-0 mt-1" role="alert">
                                                     Select a payment method and follow the steps given to complete your booking process. <br />
-                                                    Please do so within the next{ }
+                                                    Please do so within the next { }
                                                     <Timer
-                                                        initialTime={this.calculateTime (this.props.paymentLimit)}
+                                                        initialTime={this.calculateTime(this.props.paymentLimit)}
                                                         direction="backward"
                                                     >
                                                         {() => (
@@ -76,6 +72,7 @@ class Checkout extends React.Component {
                                             id="BillingPaypal"
                                             onClick={() => this.setState({ accordionKey: (accordionKey !== 1) ? 1 : 0 })}
                                             name="billingOptions"
+                                            active
                                             className="custom-control-input"
                                             aria-controls="accordion1" />
                                         <label className="custom-control-label font-weight-bold" htmlFor="BillingPaypal">Pay with Mpesa</label>
@@ -83,23 +80,7 @@ class Checkout extends React.Component {
                                 </Card.Header>
                                 <Collapse in={this.state.accordionKey === 1}>
                                     <div id="accordion1">
-                                        <Card.Body>
-                                            <Row>
-                                                <Col sm={8}>
-                                                    <ol>
-                                                    <li>Go to Mpesa menu on your phone</li>
-                                                    <li>Select Pay Bill option</li>
-                                                    <li>Enter Business no. 220220</li>
-                                                    <li>Enter Account no. xxxxxxxx</li>
-                                                    <li>Enter the Amount KES 9,000</li>
-                                                    <li>Enter your M-PESA PIN and Send</li>
-                                                    </ol>
-                                                </Col>
-                                                <Col sm={4} className="text-sm-right mt-3 mt-sm-0">
-                                                    <img src={mpesa} className="hei-45" alt="payment-images"/>
-                                                </Col>
-                                            </Row>
-                                        </Card.Body>
+                                        <MpesaPayment />
                                     </div>
                                 </Collapse>
                             </Card>
@@ -118,64 +99,9 @@ class Checkout extends React.Component {
                                 </Card.Header>
                                 <Collapse in={this.state.accordionKey === 2}>
                                     <div id="accordion2">
-                                        <Card.Body className='bg-light'>
-                                            <Row>
-                                                <Col sm={8}>
-                                                    <p className="mb-0 pl-3 pt-1">Safe money transfer using your bank account. We support Mastercard and Visa.</p>
-                                                </Col>
-                                                <Col sm={4} className="text-sm-right mt-3 mt-sm-0">
-                                                    <img src={card} height="24" alt="payment-images"/>
-                                                </Col>
-                                            </Row>
-                                            <Row className="mt-4">
-                                                <Col md={12}>
-                                                    <div className="form-group fill">
-                                                        <label htmlFor="card-number">Card Number</label>
-                                                        <input type="text" id="card-number" className="form-control bg-transparent" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242"/>
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col md={6}>
-                                                    <div className="form-group fill">
-                                                        <label htmlFor="card-name-on">Name on card</label>
-                                                        <input type="text" id="card-name-on" className="form-control bg-transparent" placeholder="Cardholder's Name"/>
-                                                    </div>
-                                                </Col>
-                                                <Col md={3}>
-                                                    <div className="form-group fill">
-                                                        <label htmlFor="card-expiry-date">Expiry date</label>
-                                                        <input type="text" id="card-expiry-date" className="form-control bg-transparent" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM/YY"/>
-                                                    </div>
-                                                </Col>
-                                                <Col md={3}>
-                                                    <div className="form-group fill">
-                                                        <label htmlFor="card-cvv">CVV code</label>
-                                                        <input type="text" id="card-cvv" className="form-control bg-transparent" data-toggle="input-mask" data-mask-format="000" placeholder="012"/>
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </Card.Body>
+                                        <CardPayment />
                                     </div>
                                 </Collapse>
-                            </Card>
-                            <Card className="mb-0 shadow-none border-top">
-                                <Card.Body>
-                                    <Row>
-                                        <Col sm={6}>
-                                            <a href={CONSTANTS.BLANK_LINK} className="btn btn-outline-secondary">
-                                                Back to Passenger Details
-                                            </a>
-                                        </Col>
-                                        <Col sm={6}>
-                                            <div className="text-sm-right">
-                                                <a href={CONSTANTS.BLANK_LINK} className="btn btn-primary text-sm-right mt-md-0 mt-2">
-                                                    Complete Order
-                                                </a>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
                             </Card>
                         </div>
                     </Col>
@@ -183,11 +109,11 @@ class Checkout extends React.Component {
                         <FlightsSummary passengersDetails = {this.props.passengersDetails} contactDetails = {this.props.passengersDetails}/>
                     </Col>
                 </Row>
+
             </Aux>
         );
     }
 }
-
 
 const mapStateToProps = state => {
     const { 

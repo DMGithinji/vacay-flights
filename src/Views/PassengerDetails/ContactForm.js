@@ -31,7 +31,7 @@ const ContactDetailsInput = (props) => {
             <Row>
         <Col lg={12}>
             <div className="card p-4 m-0 shadow-none">
-                    <form onSubmit={props.handleSubmit}>
+                <form onSubmit={props.handleSubmit}>
                 <Row className="">
                     <Col md={2} className = "passenger-input-field">
                         <label id="title-label" className="text-muted">Title</label>
@@ -116,8 +116,8 @@ const ContactDetailsInput = (props) => {
                         <button
                             type="button"
                             fullWidth
-                            className = "btn btn-default btn-previous  w-100"
-                            onClick = {props.previousStep}
+                            className = "btn btn-default btn-previous w-100"
+                            // onClick = {props.previousStep}
                             >
                             Previous
                         </button>
@@ -128,7 +128,6 @@ const ContactDetailsInput = (props) => {
                                 type="submit"
                                 fullWidth
                                 className = "btn btn-primary w-100"
-                                // color =  "primary"
                                 disabled={!isValid}>
                                 Submit
                             </button>
@@ -178,8 +177,8 @@ class ContactForm extends Component {
                 <MDBProgress className="progressBar" material value={100} color="primary" />
                 <Formik 
                     render={props => <ContactDetailsInput {...props}  
-                    sessionId={this.props.sessionId} 
-                    previousStep = {this.props.previousStep} />}
+                        sessionId={this.props.sessionId} 
+                        previousStep = {this.props.previousStep} />}
                     initialValues={values}
                     validationSchema={validationSchema}
                     onSubmit={this.submit}
