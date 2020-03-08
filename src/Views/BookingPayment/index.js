@@ -89,7 +89,7 @@ class Checkout extends React.Component {
     }
 
     showError = () => {
-        this.setState({ showError: true })
+        this.setState({ showError: !this.state.showError })
     }
  
 
@@ -181,7 +181,7 @@ class Checkout extends React.Component {
                 </Row>
                 {
                     this.state.showError ? (
-                        <ModalPage showError={this.state.showError} />
+                        <ModalPage showModal={this.state.showError} showError={this.showError} />
                     ) : null
                 }
             </Aux>

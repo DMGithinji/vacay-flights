@@ -196,7 +196,6 @@ class ContactForm extends Component {
                     onSubmit={this.submit}
                 />
             </React.Fragment>
-
         );
     }
 }
@@ -211,9 +210,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    saveContactDetails: (contactDetails) => dispatch(saveContactDetails (contactDetails))
-  };
+    return {
+        saveContactDetails: (contactDetails) => dispatch(saveContactDetails (contactDetails))
+    };
 }
 
 export default connect(

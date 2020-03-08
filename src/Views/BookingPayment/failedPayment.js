@@ -8,16 +8,17 @@ state = {
 
 
 UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.showError !== nextProps.showError) {
-        this.setState({ showModal: nextProps.showError });
+    if (this.props.showModal !== nextProps.showModal) {
+        this.setState({ showModal: nextProps.showModal });
     }
 }
 
 
 toggle = () => () => {
-  this.setState({
-    showModal: !this.props.showError
-  });
+    this.setState({
+        showModal: !this.props.showModal
+    });
+    this.props.showError();
 }
 
 render() {

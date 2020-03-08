@@ -13,7 +13,7 @@ const routes = [
     { path: '/search', exact: false, name: 'Flight Search', component: FlightSearch },
     { path: '/select/:sessionId', exact: true, name: 'Flight Select', component: FlightSearch },
     { path: '/select', exact: true, name: 'Flight Select', component: FlightSearch },
-    { path: '/passenger-details/:sessionId', exact: false, name: 'Passenger Details', component: PassengerDetails },
+    { path: '/passenger-details/:sessionId', exact: true, name: 'Passenger Details', component: PassengerDetails },
     // { path: '/passenger-details', exact: false, name: 'Passenger Details', component: PassengerDetails },
     { path: '/booking-payment', exact: true, name: 'Booking Payments', component: BookingPayments },
     { path: '/booking-confirmation', exact: true, name: 'Booking Confirmation', component: BookingConfirmation },

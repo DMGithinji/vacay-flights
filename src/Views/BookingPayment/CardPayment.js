@@ -137,7 +137,6 @@ const FormInput = (props) => {
 
 
 const postCardPayment = (cardDetails, sessionId) => {
-
     console.log("Body ", cardDetails);
     axios.post(`${API_URL}/api/payment/${sessionId}/card/`, cardDetails)
     .then((response) => {
@@ -156,14 +155,10 @@ const postCardPayment = (cardDetails, sessionId) => {
         console.log(error);
         this.props.showError();
     });
-
 }
 
 
 class CardPayment extends React.Component {
-
-
-
     submit = ( data , sessionId ) => {
         console.log(data);
         postCardPayment(data, sessionId);
