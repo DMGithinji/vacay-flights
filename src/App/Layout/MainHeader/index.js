@@ -13,7 +13,7 @@ const MainHeader = () => {
                         <div className="navbar d-flex justify-content-between">
                             <img id="main-logo" src={logo} alt="logo" className="logo" />
                                 <div className="d-flex inline">
-                                    <div className= "d-flex  align-items-center mr-auto pr-4" >
+                                    <div className= "d-flex  align-items-center mr-auto pr-2" >
                                         <img id="main-logo" src={email} alt="email" height="30" width="40" className= "pr-2"/> &nbsp;
                                         <div className= "d-flex flex-column" >
                                             <span className="email">Email us at</span>
