@@ -20,11 +20,11 @@ const NavItem = (props) => {
     const modedUrl = (url) => {
         if(url === "/search" ){
             return url;
-        } else if ( url === "/passenger-details" && !!props.sessionId){
+        } else if ( url === "/passenger-details" && !!props.sessionId ){
             return `${url}/${props.sessionId}`;
         } else if(url==="/booking-payment" && !!props.sessionId && !!props.contactDetails.phone){
             return `${url}/${props.sessionId}`;
-        } else if (url === "/select" && props.flightResults.length > 0){
+        } else if (url === "/select" && !!props.sessionId ){
             return '/select';
         } else {
             return '/#';

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import Navigation from './Navigation';
 import MainHeader from './MainHeader';
+import Footer  from './Footer';
 import Loader from "../Loader";
 import routes from "../../routes";
 import Aux from "../../hoc/_Aux";
@@ -43,6 +44,7 @@ class Layout extends Component {
                         </Suspense>
                     </div>
                 </div>
+                <Footer />
             </Aux>
         )
     }
