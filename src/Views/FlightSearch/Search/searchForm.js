@@ -11,9 +11,6 @@ import TextField from "@material-ui/core/TextField";
 
 import places from '../../../Shared/data/places';
 
-
-
-
 export const SearchForm = (props) => {
 
     const handleSubmit = props.handleSubmit;
@@ -45,12 +42,6 @@ export const SearchForm = (props) => {
         const event = {target: {name:'returnDate', value: value }};
         handleChange(event);
     }
-
-    // const change = (name, e) => {
-    //     e.persist();
-    //     handleChange(e);
-    //     // setFieldTouched(name, true, false);
-    //     };
 
     const placeOptions = places.aerocrs.destinations.destination;
 

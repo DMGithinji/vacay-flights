@@ -85,7 +85,7 @@ const PassengersSummary = (props) => (
                 <span className="list-detail">Name :&nbsp; {props.contactDetails.firstname} {props.contactDetails.lastname}</span>
             </div>
             <div className="col-12">
-                <span className="list-detail">Phone :&nbsp; {props.contactDetails.phone}: </span>
+                <span className="list-detail">Phone :&nbsp; {props.contactDetails.phone}</span>
             </div>
             <div className="col-12">
                 <span className="list-detail"> Email :&nbsp; {props.contactDetails.email}</span>

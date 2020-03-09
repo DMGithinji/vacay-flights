@@ -16,7 +16,7 @@ const DEFAULT_QUERRY_PARAMETERS = {
     flightResults: [],
     loading: false,
     searchType: null,
-    fetchState: "",
+    fetchState: "default",
 }
 
 const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
@@ -55,7 +55,8 @@ const querryReducer = (state = DEFAULT_QUERRY_PARAMETERS, action) => {
                 flightClass: action.flightClass,
                 flightResults: action.flightResults,
                 loading: action.loading,
-                searchType: action.searchType, 
+                searchType: action.searchType,
+                fetchState: fetchStates.fetching
             }
         //If there is an error
         case QUERY_DATA.FETCH_ERROR:

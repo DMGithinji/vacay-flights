@@ -39,7 +39,7 @@ export default {
                     title: 'Confirmation',
                     type: 'item',
                     icon: 'check',
-                    url: '/#',
+                    url: '/booking-confirmation',
                 },
             ]
         },

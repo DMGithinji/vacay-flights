@@ -4,6 +4,7 @@ import { SearchForm } from "./searchForm";
 import { connect } from 'react-redux';
 import { getDestinationOptions } from '../../../store/actions/destinations';
 import { setQuery } from '../../../store/actions/querryState';
+import { withRouter } from "react-router-dom";
 
 // const minimumPassengers = (adultNumber, childrenNumber, infantNumber ) => {
 //     return (adultNumber + childrenNumber + infantNumber > 0)
@@ -41,6 +42,22 @@ class Search extends Component {
                 }
             };
         };
+
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+
+        //On NewSearch Page, if new search is successfully completed, redirect to select flight page
+
+        if (this.props.flightResults !== nextProps.flightResults) {
+            const pathName = window.location.href.split('/');
+            const currentPath = pathName[pathName.length-1];
+            console.log("currentPath ", currentPath);
+            console.log("fetchState ", this.props.fetchState);
+            if (this.props.fetchState === 'fetching' && currentPath === "search")
+                this.props.history.push('/select'); 
+        }
+    }
+
 
     handleSubmit = e => {
         e.preventDefault();
@@ -80,8 +97,10 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => {
-    const { querry: { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber  } } = state;
-    return { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber   }
+    const { 
+        querry: { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber, flightResults, fetchState  }
+     } = state;
+    return { origin, destination, departDate, returnDate, flightType, flightClass, adultNumber, childrenNumber, infantNumber, flightResults, fetchState   }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -91,7 +110,7 @@ const mapDispatchToProps = dispatch => {
         };
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Search);
+)(Search));
