@@ -14,6 +14,16 @@
     border: 1px solid rgb(192, 192, 192);
 }
 
-.payments{
-    overflow-y: scroll !important;
+.form-mask{
+    border-color: #bbb !important;
+    border-radius: 5px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    font-family: 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif';
+    &:hover, &:focus{
+        border-color: #000 !important;
+    }
+    // ::placeholder {
+    //     font-size: 16px !important;
+    // }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row,  Col, } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
 import { MDBProgress } from 'mdbreact';
 import * as Yup from "yup";
 import { connect } from 'react-redux';
@@ -8,6 +7,7 @@ import { saveContactDetails } from '../../store/actions/passengers';
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import CustomSelect from "../../Shared/components/SelectInputField";
+import InputMask from 'react-input-mask';
 
 const validationSchema = Yup.object({
     title: Yup.string("Select a title").required("Title is required"),
@@ -83,8 +83,10 @@ const ContactDetailsInput = (props) => {
                                 </Col>
                                 <Col md={6} className = "passenger-input-field">
                                     <label id="title-label" className="text-muted">Phone Number</label>   
-                                    <TextField
+                                    <InputMask 
                                         name="phone"
+                                        mask="+(999) 999-999999" 
+                                        className="form-control form-mask" 
                                         placeholder="Phone number"
                                         error={Boolean(errors.phone && touched.phone)}
                                         value={phone}
@@ -117,7 +119,7 @@ const ContactDetailsInput = (props) => {
                             type="button"
                             fullWidth
                             className = "btn btn-default btn-previous w-100"
-                            // onClick = {props.previousStep}
+                            onClick = {props.previousStep}
                             >
                             Previous
                         </button>
@@ -148,26 +150,37 @@ class ContactForm extends Component {
         this.state = {};
     }
     
-
+    // configure = (number) => {
+    //     let numberList = [];
+    //     for (let i = 0; i<number.length; i++){
+    //         if( range(0,9)
+    //         .includes(number[i])){
+    //             console.log("item ", number[i])
+    //             numberList.push(number[i]);
+    //         }
+    //     }
+    //     // return(numberList.join(""))
+    // }
 
     submit = data => {
         console.log(data);
+        // data.phone = this.configure(data.phone)
         this.props.saveContactDetails(data);
         this.props.handleSubmit();
     };
 
-
     render() {
 
-        let values
+        let values;
         if (this.props.passengersDetails.length) {
             const passengerOne = this.props.passengersDetails[0];
-            values = { 
-                title : passengerOne.title,
-                firstname:  passengerOne.firstname,
-                lastname:  passengerOne.lastname,
-                email: "",
-                phone: "",
+            const contactDetails = this.props.contactDetails;
+            values = { //Set saved details in app state if available else set first passenger as default
+                title : !!contactDetails.title ? contactDetails.title : passengerOne.title,
+                firstname:  !!contactDetails.firstname ? contactDetails.firstname : passengerOne.firstname,
+                lastname:  !!contactDetails.lastname ? contactDetails.lastname : passengerOne.lastname,
+                email: !!contactDetails.email ? contactDetails.email : "",
+                phone:  !!contactDetails.phone ? contactDetails.phone : "",
             };
         } else {
             values = { 
@@ -182,15 +195,14 @@ class ContactForm extends Component {
         if (this.props.currentStep !== this.props.totalSteps) {
             return null
         } 
-    
         return (
             <React.Fragment>
                 <h6 className="pl-2 text-primary">Where will we send your booking information?</h6>
                 <MDBProgress className="progressBar" material value={100} color="primary" />
                 <Formik 
-                    render={props => <ContactDetailsInput {...props}  
-                        sessionId={this.props.sessionId} 
-                        previousStep = {this.props.previousStep} />}
+                    render={ props => <ContactDetailsInput {...props}  
+                    sessionId={this.props.sessionId} 
+                    previousStep = {this.props.previousStep} />}
                     initialValues={values}
                     validationSchema={validationSchema}
                     onSubmit={this.submit}
@@ -204,9 +216,9 @@ class ContactForm extends Component {
 const mapStateToProps = state => {
     const { 
         querry: { sessionId },
-        passengers: { passengersDetails }
+        passengers: { passengersDetails, contactDetails }
     } = state;
-    return { sessionId, passengersDetails }
+    return { sessionId, passengersDetails, contactDetails }
 }
 
 const mapDispatchToProps = dispatch => {

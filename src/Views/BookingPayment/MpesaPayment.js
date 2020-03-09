@@ -19,7 +19,6 @@ class MpesaPayment extends React.Component {
         };      
     }
 
-
     render() {
         const { sessionId, contactDetails } = this.props;
 
@@ -53,34 +52,42 @@ class MpesaPayment extends React.Component {
 
         return (
             <Card.Body>
+                <Row className="pt-3">
+                    <Col sm={8} className="mr-4">
+                        <p className="mb-0 pl-3 pt-1">
+                            Mpesa Payment Steps.
+                        </p>
+                    </Col>
+                    <Col sm={3} className="text-sm-right mt-3 mt-sm-0">
+                        <img className="pl-3 " src={mpesa} height="45" alt="payment-images" />
+                    </Col>
+                </Row>
                 <Row>
-                    <Col sm={8}>
+                    <Col sm={12}>
                         <ol>
                         <li>Go to Mpesa menu on your phone</li>
                         <li>Select Pay Bill option</li>
                         <li>Enter Business no. 220220</li>
                         <li>Enter Account no. xxxxxxxx</li>
-                        <li>Enter the Amount KES 9,000</li>
+                        <li>Enter the Amount KES {this.props.flightDetails.cost}</li>
                         <li>Enter your M-PESA PIN and Send</li>
-                        <li>Click 'Submitted' to confirm</li>
+                        <li>Click 'Confirm Submission' on making payment</li>
                         </ol>
                     </Col>
-                    <Col sm={4} className="text-sm-right mt-3 mt-sm-0">
-                        <img src={mpesa} className="hei-45" alt="payment-images" />
-                    </Col>
+
                 </Row>
                 <Row className="m-2">
-                    <Col md={6}>
+                    <Col md={6}  className="mt-3">
                         <button
                             type="button"
                             fullWidth
                             className = "btn btn-default btn-previous  w-100"
-                            // onClick = {props.previousStep}
+                            onClick = {this.props.previousStep}
                             >
                             Previous Section
                         </button>
                     </Col>
-                    <Col md={6}>
+                    <Col md={6}  className="mt-3">
                         <button
                             type="submit"
                             fullWidth
@@ -92,10 +99,10 @@ class MpesaPayment extends React.Component {
                                 <div> 
                                         <span>Confirming</span>
                                         <div class="spinner-border spinner-border-sm float-right" role="status">
-                                            <span class="sr-only">Loading...</span>
+                                            <span className="sr-only">Loading...</span>
                                         </div>
                                 </div>
-                                ) : (<span>Submitted?</span>)
+                                ) : (<span>Confirm Submission</span>)
                             }
                         </button>
                     </Col>
@@ -109,9 +116,10 @@ class MpesaPayment extends React.Component {
 const mapStateToProps = state => {
     const { 
         querry: { sessionId },
-        passengers: { contactDetails }
+        passengers: { contactDetails },
+        selectedFlight: { flightDetails }
     } = state;
-    return { sessionId, contactDetails }
+    return { sessionId, contactDetails, flightDetails }
 }
 
 

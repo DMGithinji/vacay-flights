@@ -46,36 +46,34 @@ class Checkout extends React.Component {
         });
     
     }
-    
 
 
     postMpesaPayment = ( contactDetails) => () => {
-    const body = {
-        phonenumber: contactDetails.phone
-    }
-    this.setState({ loading: true });
-    console.log("Body ", body);
-    axios.post(`${API_URL}/api/payment/${this.props.sessionId}/mpesa/`, body)
-    .then((response) => {
-        this.setState({ loading: false });
-        if (response.status !== 200 ) {
-            console.log('Error! Unsuccessful request to server')
-            throw new Error ('Unsuccessful request to server')
+        const body = {
+            phonenumber: contactDetails.phone
         }
-        const data = response.data;
-        if (data.result.status === "successful"){
-            this.props.history.push('/booking-confirmation'); //Start redirect to payments page
-        } else {
+        this.setState({ loading: true });
+        console.log("Body ", body);
+        axios.post(`${API_URL}/api/payment/${this.props.sessionId}/mpesa/`, body)
+        .then((response) => {
+            this.setState({ loading: false });
+            if (response.status !== 200 ) {
+                console.log('Error! Unsuccessful request to server')
+                throw new Error ('Unsuccessful request to server')
+            }
+            const data = response.data;
+            if (data.result.status === "successful"){
+                this.props.history.push('/booking-confirmation'); //Start redirect to payments page
+            } else {
+                this.props.showError();
+            }
+        })
+        .catch((error) => {
+            this.setState({ loading: false });
+            console.log(error);
             this.props.showError();
-        }
-    })
-    .catch((error) => {
-        this.setState({ loading: false });
-        console.log(error);
-        this.props.showError();
-    });
-
-}
+        });
+    }
 
 
 
@@ -90,6 +88,10 @@ class Checkout extends React.Component {
 
     showError = () => {
         this.setState({ showError: !this.state.showError })
+    }
+
+    previousStep =() => {
+        this.props.history.push(`/passenger-details/${this.props.sessionId}`); //Start redirect to payments page
     }
  
 
@@ -142,12 +144,12 @@ class Checkout extends React.Component {
                                             name="billingOptions"
                                             className="custom-control-input"
                                             aria-controls="accordion1" />
-                                        <label className="custom-control-label font-weight-bold" htmlFor="BillingPaypal">Pay with Mpesa</label>
+                                        <label className="custom-control-label font-weight-bold cursor" htmlFor="BillingPaypal">Pay with Mpesa</label>
                                     </div>
                                 </Card.Header>
                                 <Collapse in={this.state.accordionKey === 1}>
                                     <div id="accordion1">
-                                        <MpesaPayment  showError={this.showError} />
+                                        <MpesaPayment  showError={this.showError} previousStep={this.previousStep}/>
                                     </div>
                                 </Collapse>
                             </Card>
@@ -161,18 +163,16 @@ class Checkout extends React.Component {
                                             name="billingOptions"
                                             className="custom-control-input"
                                             aria-controls="accordion2" />
-                                        <label className="custom-control-label font-weight-bold" htmlFor="BillingCard">Credit / Debit Card</label>
+                                        <label className="custom-control-label font-weight-bold cursor" htmlFor="BillingCard">Credit / Debit Card</label>
                                     </div>
                                 </Card.Header>
                                 <Collapse in={this.state.accordionKey === 2}>
                                     <div id="accordion2">
-                                        <CardPayment showError={this.showError} />
+                                        <CardPayment showError={this.showError}  previousStep={this.previousStep}/>
                                     </div>
                                 </Collapse>
                             </Card>
-                            <Card.Footer>
-                                
-                            </Card.Footer>
+
                         </div>
                     </Col>
                     <Col md={4} className = "form-column">

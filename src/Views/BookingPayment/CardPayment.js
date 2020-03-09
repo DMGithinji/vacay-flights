@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import { connect } from 'react-redux';
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
+import NumberFormat from 'react-number-format';
+import InputMask from 'react-input-mask';
 import card from '../../assets/images/card.png';
 import axios from 'axios';
 import config from '../../config';
@@ -15,15 +17,14 @@ const API_URL = config.API_URL;
 const validationSchema = Yup.object({
     number: Yup.string("Enter card number").required("Card number is required"),
     name: Yup.string("Enter name on card").required("Cardholder name is required"),
-    month: Yup.string("Card expiry date").required("Card expiry date is required"),
-    date: Yup.string("Card expiry date").required("Card expiry date is required"),
+    expiry: Yup.string("Card expiry date").required("Card expiry date is required"),
     ccv: Yup.string("Enter CVV code").required("CVV code is required"),
 });
 
 const FormInput = (props) => {
 
     const {
-        values: { number, name, month, date, ccv },
+        values: { number, name, expiry, ccv },
         errors,
         touched,
         handleChange,
@@ -33,13 +34,14 @@ const FormInput = (props) => {
     return (
     <Card.Body className="p-4">
         <form onSubmit={props.handleSubmit}>
-            <Row className="mb-4">
+            <Row className="">
                 <Col md={12}>
                 <label id="number-label" className="text-muted">Card Number</label>
                 <TextField
                     name="number"
                     error={Boolean(errors.number  && touched.number)}
                     placeholder="Card Number"
+                    type="number"
                     value={number}
                     onChange={handleChange}
                     variant="outlined"
@@ -49,7 +51,7 @@ const FormInput = (props) => {
                 </Col>
             </Row>
             <Row>
-                <Col md={6}>
+                <Col md={6} className="mt-4">
                     <label id="name-label" className="text-muted">Name on Card</label>
                     <TextField
                         name="name"
@@ -62,42 +64,21 @@ const FormInput = (props) => {
                         size="small"                                                               
                     />
                 </Col>
-                <Col md={4}>
-                    <Row>
-                        <Col md={12}>
-                            <label id="expiry-label" className="text-muted">Card Expiry</label>
-                        </Col>
-                        <Col md={6}>
-                        {/* <label id="ccv-label" className="text-muted">CCV</label> */}
-                        <TextField
-                            name="month"
-                            error={Boolean(errors.month  && touched.month)}
-                            placeholder="mm"
-                            value={month}
-                            onChange={handleChange}
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                        />
-                        </Col>
-                        <Col md={6}>
-                        {/* <label id="ccv-label" className="text-muted">CCV</label> */}
-                        <TextField
-                            name="date"
-                            error={Boolean(errors.date  && touched.date)}
-                            placeholder="dd"
-                            value={date}
-                            onChange={handleChange}
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                        />
-                    </Col>
-                    </Row>
+                <Col md={3} className="mt-4">
+                    <label id="ccv-label" className="text-muted">Card Expiry Date</label>
+                    <InputMask 
+                        name="expiry"
+                        className="form-control form-mask" 
+                        mask="99/99" 
+                        placeholder="dd/mm"
+                        value={expiry}
+                        error={Boolean(errors.expiry  && touched.expiry)}
+                        onChange={handleChange}
+                    />
                 </Col>
-                <Col md={2}>
+                <Col md={3} className="mt-4">
                     <label id="ccv-label" className="text-muted">CCV</label>
-                    <TextField
+                    {/* <TextField
                         name="ccv"
                         error={Boolean(errors.ccv  && touched.ccv)}
                         placeholder="xxx"
@@ -106,21 +87,30 @@ const FormInput = (props) => {
                         variant="outlined"
                         fullWidth
                         size="small"
+                    /> */}
+                    <NumberFormat 
+                        name="ccv"
+                        className="form-control form-mask" 
+                        format="###"
+                        placeholder="xxx"
+                        value={ccv}
+                        error={Boolean(errors.ccv  && touched.ccv)}
+                        onChange={handleChange}
                     />
                 </Col>
                 </Row>
-                <Row className="mt-5 mb-3">
-                    <Col md={6}>
+                <Row className="mt-4 mb-5">
+                    <Col md={6}  className="mt-3">
                         <button
                             type="button"
                             fullWidth
                             className = "btn btn-default btn-previous  w-100"
-                            // onClick = {props.previousStep}
+                            onClick = {props.previousStep}
                             >
                             Previous Section
                         </button>
                     </Col>
-                    <Col md={6}>
+                    <Col md={6}  className="mt-3">
                         <button
                             type="submit"
                             fullWidth
@@ -136,32 +126,36 @@ const FormInput = (props) => {
 )};
 
 
-const postCardPayment = (cardDetails, sessionId) => {
-    console.log("Body ", cardDetails);
-    axios.post(`${API_URL}/api/payment/${sessionId}/card/`, cardDetails)
-    .then((response) => {
-        if (response.status !== 200 ) {
-            console.log('Error! Unsuccessful request to server')
-            throw new Error ('Unsuccessful request to server')
-        }
-        const data = response.data;
-        if (data.result.status === "successful"){
-            this.props.history.push('/booking-confirmation'); //Start redirect to payments page
-        } else {
-            this.props.showError();
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-        this.props.showError();
-    });
-}
+
 
 
 class CardPayment extends React.Component {
+
+    postCardPayment = (cardDetails, sessionId) => {
+        console.log("Body ", cardDetails);
+        axios.post(`${API_URL}/api/payment/${sessionId}/card/`, cardDetails)
+        .then((response) => {
+            if (response.status !== 200 ) {
+                console.log('Error! Unsuccessful request to server')
+                throw new Error ('Unsuccessful request to server')
+            }
+            const data = response.data;
+            if (data.result.status === "successful"){
+                this.props.history.push('/booking-confirmation'); //Start redirect to payments page
+            } else {
+                this.props.showError();
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            this.props.showError();
+        });
+    }
+
+
     submit = ( data , sessionId ) => {
         console.log(data);
-        postCardPayment(data, sessionId);
+       this.postCardPayment(data, sessionId);
         // this.props.saveContactDetails(data);
         // this.props.handleSubmit();
     };
@@ -172,8 +166,7 @@ class CardPayment extends React.Component {
     const values = { 
         number : "",
         name:  "",
-        month:  "",
-        date:  "",
+        expiry: "",
         ccv: "",
     };
     return (

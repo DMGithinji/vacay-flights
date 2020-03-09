@@ -22,21 +22,21 @@ toggle = () => () => {
 }
 
 render() {
-  return (
-      <MDBContainer>
-        <MDBModal isOpen={this.state.showModal} toggle={this.toggle()} centered>
-          <MDBModalHeader toggle={this.toggle()} className="text-danger">Payment Error</MDBModalHeader>
-          <MDBModalBody>
-            Your payment seems to have failed. <br />
-            Please try again while ensuring your account has sufficient balance and details entered are correct.
-          </MDBModalBody>
-          <MDBModalFooter>
-            <MDBBtn className="m-2" color="primary" onClick={this.toggle()}>Close</MDBBtn>
-          </MDBModalFooter>
-        </MDBModal>
-      </MDBContainer>
-    );
-  }
+    return (
+        <MDBContainer>
+            <MDBModal isOpen={this.state.showModal} toggle={this.toggle()} centered>
+            <MDBModalHeader toggle={this.toggle()} className="text-danger">Payment Error</MDBModalHeader>
+            <MDBModalBody>
+                Your payment seems to have failed. <br />
+                Please try again while ensuring your account has sufficient balance and details entered are correct.
+            </MDBModalBody>
+            <MDBModalFooter>
+                <MDBBtn className="m-2" color="primary" onClick={this.toggle()}>Close</MDBBtn>
+            </MDBModalFooter>
+            </MDBModal>
+        </MDBContainer>
+        );
+    }
 }
 
 export default ModalPage;
