@@ -18,14 +18,16 @@ class Navigation extends Component {
     const items = navigation.items[0].children;
 
     const navContent = (
-        <div className='navbar navigation-overflow'>
-            {   
-                items.map((child) => {
-                    return (
-                        <NavItem key = {child.id} item={child} isActive = {isActive(pathName, child.url)} />
-                    )
-                })
-            }
+        <div className='scrollnav'>
+            <div className='scrollnav-top d-flex'>
+                {   
+                    items.map((child) => {
+                        return (
+                            <NavItem key = {child.id} item={child} isActive = {isActive(pathName, child.url)} />
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 

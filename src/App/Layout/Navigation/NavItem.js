@@ -10,7 +10,7 @@ const NavItem = (props) => {
         return pathName.includes(url.slice(1));
     }  
     
-    let navLinkClass = ['navlink', 'd-flex', 'flex-fill', 'inline', 'align-items-center'];
+    let navLinkClass = ['navlink', 'd-flex', 'flex-fill', 'inline', 'align-items-center', 'mr-4', 'ml-4'];
     if (isActive(pathName, url)) {
         navLinkClass = [...navLinkClass, 'active'];
     }
