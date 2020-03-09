@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
     title: Yup.string("Select a title").required("Title is required"),
     firstname: Yup.string("Enter firstname").required("Firstname is required"),
     lastname: Yup.string("Enter lastname").required("Lastname is required"),
-    email: Yup.string("Enter email").required("Email is required"),
+    email: Yup.string("Enter email").email('Please enter a valid email').required("Email is required"),
     phone: Yup.string("Enter phone number").required("Phone number is required"),
 });
 
@@ -85,7 +85,7 @@ const ContactDetailsInput = (props) => {
                                     <label id="title-label" className="text-muted">Phone Number</label>   
                                     <InputMask 
                                         name="phone"
-                                        mask="+(999) 999-999999" 
+                                        mask="+(999)-999-999999" 
                                         className="form-control form-mask" 
                                         placeholder="Phone number"
                                         error={Boolean(errors.phone && touched.phone)}

@@ -1,6 +1,8 @@
 import { PASSENGER } from './types';
 import config from '../../config';
 import axios from 'axios';
+import { returnNos } from '../../Shared/utils/dateTimeFormatter';
+
 
 const API_URL = config.API_URL;
 
@@ -18,6 +20,9 @@ export const saveContactDetails= (contactDetails) => {
 export const sendPassengerData = (passengerData, sessionId) => dispatch => {
     console.log('Loading Payments...');
     console.log("Passenger Data", passengerData);
+    passengerData.contact.phone = returnNos(passengerData.contact.phone);
+    console.log("Passenger Number", passengerData.contact.phone);
+
     console.log("Session ID", sessionId);
     dispatch({ 
         type: PASSENGER.SEND_DATA, 
@@ -47,3 +52,4 @@ export const sendPassengerData = (passengerData, sessionId) => dispatch => {
             })
         });
 }
+

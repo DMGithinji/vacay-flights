@@ -10,6 +10,7 @@ import card from '../../assets/images/card.png';
 import axios from 'axios';
 import config from '../../config';
 import { withRouter } from 'react-router-dom';
+import { returnNos } from '../../Shared/utils/dateTimeFormatter';
 
 const API_URL = config.API_URL;
 
@@ -71,7 +72,7 @@ const FormInput = (props) => {
                         name="expiry"
                         className="form-control form-mask" 
                         mask="99/99" 
-                        placeholder="dd/mm"
+                        placeholder="MM/YY"
                         value={expiry}
                         error={Boolean(errors.expiry  && touched.expiry)}
                         onChange={handleChange}
@@ -79,16 +80,6 @@ const FormInput = (props) => {
                 </Col>
                 <Col md={3} className="mt-4">
                     <label id="ccv-label" className="text-muted">CCV</label>
-                    {/* <TextField
-                        name="ccv"
-                        error={Boolean(errors.ccv  && touched.ccv)}
-                        placeholder="xxx"
-                        value={ccv}
-                        onChange={handleChange}
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                    /> */}
                     <NumberFormat 
                         name="ccv"
                         className="form-control form-mask" 
@@ -153,12 +144,10 @@ class CardPayment extends React.Component {
         });
     }
 
-
     submit = ( data , sessionId ) => {
+        data.expiry = returnNos(data.expiry);
         console.log(data);
-       this.postCardPayment(data, sessionId);
-        // this.props.saveContactDetails(data);
-        // this.props.handleSubmit();
+        this.postCardPayment(data, sessionId);
     };
 
 

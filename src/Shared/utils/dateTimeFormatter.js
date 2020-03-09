@@ -7,10 +7,9 @@ export const pluralize = (passengerType, number) => {
     }
 }
 
-// const setRedirect = (sessionId, outboundFlightid, inboundFlightid) => {
-//     selectFlight(sessionId, outboundFlightid, inboundFlightid);
-//     return  <Redirect to='/target' />
-//   }
+export const returnNos = (str) => {
+    return parseFloat(str.split(/ /)[0].replace(/[^\d]/g, ''));
+}
 
 export const getDate = (unixTimeStamp) => {
     const dateTime = new Date( unixTimeStamp*1000);
