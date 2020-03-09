@@ -33,7 +33,7 @@ class FormsWizard extends React.Component {
         const passengerNumbers = parseInt(adultNumber) +  parseInt(childrenNumber) + parseInt(infantNumber);
         
         //If app state has no passenger forms created/saved, create based on pax_no
-        if (!!passengersDetails ) {
+        if (passengersDetails.length === 0) {
             for (let i = 0; i < passengerNumbers; i++){
                 this.props.savePassengerDetails(defaultFormValues, i);
             }

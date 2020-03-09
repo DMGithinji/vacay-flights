@@ -29,6 +29,7 @@ const FormInput = (props) => {
         touched,
         handleChange,
         isValid,
+        previousStep,
     } = props;
 
     return (
@@ -105,7 +106,7 @@ const FormInput = (props) => {
                             type="button"
                             fullWidth
                             className = "btn btn-default btn-previous  w-100"
-                            onClick = {props.previousStep}
+                            onClick = {previousStep}
                             >
                             Previous Section
                         </button>
@@ -182,7 +183,7 @@ class CardPayment extends React.Component {
                 </Col>
             </Row>
             <Formik 
-                    render={props =><FormInput {...props}  />} 
+                    render={props =><FormInput {...props} previousStep={this.props.previousStep} />} 
                     values={values}
                     initialValues={values}
                     validationSchema={validationSchema}
