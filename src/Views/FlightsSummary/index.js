@@ -21,9 +21,9 @@ const PriceSummary = (props) => (
                         <div className="col-12 text-center">
                             <span className=""> Flight Tickets for </span>
                             <span className="">
-                                {props.flightDetails.adults > 0 ? <span>{props.flightDetails.adults} {' '} Adult{pluralize('Adult', props.flightDetails.adults)}{', '}</span> : null}
-                                {props.flightDetails.child > 0 ? <span>{props.flightDetails.child} {' '} Child{pluralize('Child', props.flightDetails.child)}</span> : null}
-                                {props.flightDetails.infant > 0 ? <span>{', '}{props.flightDetails.infant} {' '} Infant{pluralize('Infant', props.flightDetails.infant)}</span> : null}
+                                {props.flightDetails.adults > 0 ? <span>{props.flightDetails.adults} {' '} Adult{pluralize('Adult', parseInt(props.flightDetails.adults))}{', '}</span> : null}
+                                {props.flightDetails.child > 0 ? <span>{props.flightDetails.child} {' '} Child{pluralize('Child', parseInt(props.flightDetails.child))}</span> : null}
+                                {props.flightDetails.infant > 0 ? <span>{', '}{props.flightDetails.infant} {' '} Infant{pluralize('Infant', parseInt(props.flightDetails.infant))}</span> : null}
                             </span>
                         </div>
                     </div>
@@ -104,8 +104,8 @@ class FlightsSummary extends React.Component {
 
     
     return (
-        <div>
-            <Card className="shadow-none">
+        <div className=""  id="style-1">
+            <Card className="shadow-none summary-container">
                 <Card.Header>
                     <h5 className="mb-2">Booking Summary</h5>
                     <p className="text-muted card-header-detail">Please confirm that the details are in order</p>

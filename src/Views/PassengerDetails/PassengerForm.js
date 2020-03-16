@@ -19,18 +19,17 @@ const validationSchema = Yup.object({
 class PassengerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isValid: false
+    };
   }
 
+  //Submit function for an individual form
   submit = data => {
       console.log(data);
-      this.props.savePassengerDetails(data, this.props.id);
       this.props.nextStep(this.props.currentStep, this.props.totalSteps)
+      this.props.savePassengerDetails(data, this.props.formIndex);
   };
-
-  progress = (currentStep, totalSteps) => {
-    return (currentStep/totalSteps)*100;
-  }
 
   render() {
 
@@ -44,24 +43,23 @@ class PassengerForm extends Component {
       birthdate: !!this.props.details.birthdate ? this.props.details.birthdate : null,
     };
 
-    console.log('Props ',this.props.formIndex)
-    return (
-      
-      <React.Fragment>
-        <Formik
-            render={props => 
-              <PassengerDetailsInput 
-                {...props} 
-                formIndex = {this.props.formIndex}
-                currentStep={this.props.currentStep} 
-                totalSteps={this.props.totalSteps}  
-                previousStep = {this.props.previousStep}/>}
-                initialValues={values}
-                validationSchema={validationSchema}
-                onSubmit={this.submit}
-            />
-      </React.Fragment>
-    );
+      return (
+            <React.Fragment>
+              <Formik
+                  render={props => 
+                    <PassengerDetailsInput 
+                      {...props} 
+                      formIndex = {this.props.formIndex}
+                      currentStep={this.props.currentStep} 
+                      totalSteps={this.props.totalSteps}  
+                      previousStep = {this.props.previousStep}/>}
+                      initialValues={values}
+                      validationSchema={validationSchema}
+                      onSubmit={this.submit}
+                  />
+            </React.Fragment>
+          );
+
   }
 }
 

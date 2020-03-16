@@ -28,11 +28,11 @@ const ContactDetailsInput = (props) => {
 
     return (
         <div>
-            <Row>
+        <Row>
         <Col lg={12}>
             <div className="card p-4 m-0 shadow-none">
                 <form onSubmit={props.handleSubmit}>
-                <Row className="">
+                <Row className="border-bottom pb-3">
                     <Col md={2} className = "passenger-input-field">
                         <label id="title-label" className="text-muted">Title</label>
                         <CustomSelect
@@ -149,18 +149,6 @@ class ContactForm extends Component {
         super(props);
         this.state = {};
     }
-    
-    // configure = (number) => {
-    //     let numberList = [];
-    //     for (let i = 0; i<number.length; i++){
-    //         if( range(0,9)
-    //         .includes(number[i])){
-    //             console.log("item ", number[i])
-    //             numberList.push(number[i]);
-    //         }
-    //     }
-    //     // return(numberList.join(""))
-    // }
 
     submit = data => {
         console.log(data);
@@ -191,13 +179,9 @@ class ContactForm extends Component {
                 phone: "",
             };
         }
-
-        if (this.props.currentStep !== this.props.totalSteps) {
-            return null
-        } 
         return (
             <React.Fragment>
-                <h6 className="pl-2 text-primary">Where will we send your booking information?</h6>
+                <h6 className="pt-1 pl-2 text-primary">Where will we send your booking information?</h6>
                 <MDBProgress className="progressBar" material value={100} color="primary" />
                 <Formik 
                     render={ props => <ContactDetailsInput {...props}  

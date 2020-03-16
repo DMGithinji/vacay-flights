@@ -5,6 +5,7 @@ import { savePassengerDetails, sendPassengerData } from '../../store/actions/pas
 import ContactForm from './ContactForm';
 import { withRouter } from 'react-router-dom';
 import { formatDateYyyyMmDd } from '../../Shared/utils/dateTimeFormatter';
+import { Row,  Col, } from 'react-bootstrap';
 
 const defaultFormValues = { 
     title: "Mr.",
@@ -22,7 +23,8 @@ class FormsWizard extends React.Component {
         this.state = {
             passengersDetails: [],
             currentStep: 1,
-            totalSteps: 2,
+            currentSection: 1,
+            isValid: false, //determines validity of passenger info to enable movement to next page
         };      
     }
 
@@ -68,26 +70,29 @@ class FormsWizard extends React.Component {
     * the functions for our button
     */
     previousButton =() => {
-
-        let currentStep = this.state.currentStep;
-        currentStep = currentStep <= 1 ? 1: currentStep - 1
-        this.setState({
-            currentStep: currentStep
-        })
+        this.setState({ currentSection: 1 })
     }
 
     nextStep = () => {
         let currentStep = this.state.currentStep;
         const totalSteps = this.state.totalSteps;
         currentStep = currentStep >= totalSteps  ? totalSteps : currentStep + 1
-        this.setState({
-            currentStep: currentStep
-        })
+        this.setState({ currentStep: currentStep })
+        if (currentStep === totalSteps){
+            this.setState({ isValid: true })
+        }
+    }
+
+    //Function to go to the next section ie contact section
+    toContact = () => {
+        if (true){ //check if all forms submitted
+            this.setState({ currentSection: 2 })
+        }
     }
 
     render() {
-        return (
-                
+        if (this.state.currentSection === 1) {
+            return (
                 <React.Fragment>
                     {
                         this.props.passengersDetails.map((passenger, i) => {
@@ -98,17 +103,49 @@ class FormsWizard extends React.Component {
                                 totalSteps={this.state.totalSteps}
                                 previousStep={this.previousButton}
                                 nextStep={this.nextStep}
+                                currentSection={this.state.currentSection}
+                                toContact = {this.toContact}
                                 formIndex = {i} />
                         })
                     }
-                    <ContactForm 
-                        currentStep={this.state.currentStep}
-                        totalSteps={this.state.totalSteps}
-                        previousStep={this.previousButton}
-                        handleSubmit={this.handleSubmit}
-                    />
-                </React.Fragment>        
-        );
+                    <Row className="mt-3">
+                            <Col md={6} className = "passenger-input-field">
+                                {
+                                    <button
+                                        type="button"
+                                        fullWidth
+                                        className = "btn btn-default btn-previous  w-100"
+                                        >
+                                        Previous Section
+                                    </button>
+                                }                                                    
+                            </Col>
+                            <Col md={6} className = "passenger-input-field">
+                            {
+                                <button
+                                    type="button"
+                                    fullWidth
+                                    disabled={!this.state.isValid}
+                                    className = "btn btn-outline-primary btn-previous  w-100"
+                                    onClick = {this.toContact}
+                                    >
+                                    Next
+                                </button>
+                            }
+                            </Col>
+                        </Row>
+                </React.Fragment>
+        )} else{
+            return (
+                <ContactForm 
+                    currentStep={this.state.currentStep}
+                    totalSteps={this.state.totalSteps}
+                    previousStep={this.previousButton}
+                    currentSection = {this.state.currentSection}
+                    handleSubmit={this.handleSubmit}
+                />
+            );
+        }
     }
 }
 

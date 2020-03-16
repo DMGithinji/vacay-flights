@@ -10,7 +10,12 @@ import { MDBProgress } from 'mdbreact';
 import {connect} from 'react-redux';
 
 class PassengerDetailsInput extends React.Component {
-
+    constructor(){
+        super()
+        this.state = {
+            submitted: false,
+        }
+    }
     render(){
     const {
         values: { title, firstname, lastname, nationality, birthdate, docnumber, docexpiry },
@@ -26,6 +31,14 @@ class PassengerDetailsInput extends React.Component {
         currentStep
     } = this.props;
 
+
+    const handleSubmission = (event) => {
+        event.preventDefault();
+        if (isValid){
+            this.setState({ submitted : true })
+        }
+        handleSubmit();
+    }
 
 
     const handleBirthDateChange = value => {
@@ -63,13 +76,12 @@ class PassengerDetailsInput extends React.Component {
             return `${paxType} ${paxNumber}`;
         }
     }
-    console.log('Props ',this.props)
 
     return (
         <Row>
             <Col lg={12}>
-                <div className="card p-4 m-0 shadow-none">
-                    <form onSubmit={handleSubmit}>
+                <div className="card border-bottom p-4 m-0 shadow-none">
+                    <form onSubmit={handleSubmission}>
                         <Row>
                             <Col md={12} className = "p-0 m-0">
                             <h6 className="pl-2 text-primary">Passenger Details For {paxHeader(this.props.formIndex)}</h6>
@@ -197,7 +209,7 @@ class PassengerDetailsInput extends React.Component {
                                 <div className="text-danger pl-2">{Boolean(errors.docexpiry  && touched.docexpiry) ? errors.docexpiry : ""}</div>
                             </Col>
                             </Row>
-                            <Row className="mt-3">
+                            <Row className="mt-1">
                             {/* <Col md={6} className = "passenger-input-field">
                                 {
                                     currentStep !== 1 ? (
@@ -213,15 +225,15 @@ class PassengerDetailsInput extends React.Component {
                             </Col> */}
                             <Col md={12} className = "passenger-input-field">
                             {
-                                !this.props.currentStep !== this.props.totalSteps ? (                                
                                     <button
                                         type="submit"
                                         fullWidth
                                         className =  "btn btn-primary w-100"
                                         disabled={!isValid}>
-                                        Submit
+                                        {
+                                            !this.state.submitted || !isValid ? (<span>Submit</span>) : (<span>Submitted</span>)
+                                        }
                                     </button>
-                                ) : null
                             }
                             </Col>
                         </Row>

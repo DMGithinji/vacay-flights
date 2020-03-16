@@ -64,12 +64,12 @@ class PaxNumber extends Component {
                             </div>
                             <div className = "d-flex inline justify-content-between mb-2">
                                 <span>Infants<br />Below 2yrs)</span>
-                                <div>
-                                    <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
-                                    <span> {passenger.infantNumber} </span>
-                                    <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
-                                </div>
+                            <div>
+                                <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
+                                <span> {passenger.infantNumber} </span>
+                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
                             </div>
+                        </div>
 
                     </div>
                     </Dropdown.Menu>
