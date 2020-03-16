@@ -34,7 +34,6 @@ export const sendPassengerData = (passengerData, sessionId) => dispatch => {
                 console.log('Error! Unsuccessful request to server')
                 throw new Error ('Unsuccessful request to server')
             }
-
             console.log('Loading Complete!', response.data);
             const data = response.data;
             dispatch({

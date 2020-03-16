@@ -24,11 +24,6 @@ class PassengerDetailsInput extends React.Component {
         handleSubmit,
         handleChange,
         isValid,
-        formIndex,
-        adultNumber,
-        childrenNumber,
-        infantNumber,
-        currentStep
     } = this.props;
 
 
@@ -40,7 +35,6 @@ class PassengerDetailsInput extends React.Component {
         handleSubmit();
     }
 
-
     const handleBirthDateChange = value => {
         const event = {target: {name:'birthdate', value: value }};
         handleChange(event);
@@ -51,32 +45,6 @@ class PassengerDetailsInput extends React.Component {
         handleChange(event);
     }
 
-    const handlePreviousStep = () => {
-        this.props.previousStep();
-    }
-
-    /**Returns the type of passenger for the form header based on the form Index */
-    const getPaxType = (formIndex) => {
-        const paxString = 'Adult '.repeat(adultNumber) + 'Child '.repeat(childrenNumber) + 'Infant '.repeat(infantNumber);
-        const paxList = paxString.split(" ");
-        return `${paxList[formIndex]}`;
-    }
-
-    /**Returns the header for the passenger form eg Adult 2 or Infant 1 */
-    const paxHeader = (formIndex) => {
-        const paxType = getPaxType(formIndex);
-        if (paxType === 'Adult'){
-            const paxNumber = formIndex+1;
-            return `${paxType} ${paxNumber}`;
-        } else if (paxType === 'Child'){
-            const paxNumber = formIndex + 1 - adultNumber;
-            return `${paxType} ${paxNumber}`;
-        } else if (paxType === 'Infant'){
-            const paxNumber = formIndex + 1 - adultNumber  - childrenNumber;
-            return `${paxType} ${paxNumber}`;
-        }
-    }
-
     return (
         <Row>
             <Col lg={12}>
@@ -84,7 +52,7 @@ class PassengerDetailsInput extends React.Component {
                     <form onSubmit={handleSubmission}>
                         <Row>
                             <Col md={12} className = "p-0 m-0">
-                            <h6 className="pl-2 text-primary">Passenger Details For {paxHeader(this.props.formIndex)}</h6>
+                            <h6 className="pl-2 text-primary">Passenger Details For {this.props.paxDetail}</h6>
                             <MDBProgress className="progressBar" material value={100} color="primary" />
 
                             </Col>
@@ -171,7 +139,7 @@ class PassengerDetailsInput extends React.Component {
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="text-danger pl-2">{Boolean(errors.birthdate && touched.birthdate) ? errors.birthdate : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.birthdate ) ? errors.birthdate : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport or ID Number</label>   
@@ -231,14 +199,13 @@ class PassengerDetailsInput extends React.Component {
                                         className =  "btn btn-primary w-100"
                                         disabled={!isValid}>
                                         {
-                                            !this.state.submitted || !isValid ? (<span>Submit</span>) : (<span>Submitted</span>)
+                                            <span>Submit Details</span>
                                         }
                                     </button>
                             }
                             </Col>
                         </Row>
-                        </form>
-
+                    </form>
                 </div>           
             </Col>
         </Row>

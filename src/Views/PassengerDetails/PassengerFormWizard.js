@@ -45,7 +45,7 @@ class FormsWizard extends React.Component {
         const totalSteps = this.props.passengersDetails.length + 1;
         this.setState({ totalSteps: totalSteps });
     }
-
+    //Updates global app state with all passenger details & redirects to payment page
     handleSubmit = () => {
         this.props.history.push('/booking-payment'); //Start redirect to payments page
         const contactDetails = this.props.contactDetails;
@@ -65,14 +65,7 @@ class FormsWizard extends React.Component {
         }
         this.props.sendPassengerData(passengerData, this.props.sessionId);
     }
-
-    /*
-    * the functions for our button
-    */
-    previousButton =() => {
-        this.setState({ currentSection: 1 })
-    }
-
+    //Function to keep track of which form has been submitted
     nextStep = () => {
         let currentStep = this.state.currentStep;
         const totalSteps = this.state.totalSteps;
@@ -82,7 +75,10 @@ class FormsWizard extends React.Component {
             this.setState({ isValid: true })
         }
     }
-
+    //Function to go to the previous section ie passenger details section
+    previousButton =() => {
+        this.setState({ currentSection: 1 })
+    }
     //Function to go to the next section ie contact section
     toContact = () => {
         if (true){ //check if all forms submitted
