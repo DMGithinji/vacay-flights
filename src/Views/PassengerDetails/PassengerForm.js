@@ -4,7 +4,6 @@ import  PassengerDetailsInput from "./PassengerDetailsInput";
 import * as Yup from "yup";
 import { connect } from 'react-redux';
 import { savePassengerDetails } from '../../store/actions/passengers';
-import { getDate } from "../../Shared/utils/dateTimeFormatter";
 
 class PassengerForm extends Component {
   constructor(props) {
@@ -74,7 +73,6 @@ class PassengerForm extends Component {
      */
 
     const departDateInSeconds = (Date.parse(departDate))/1000; // departdate in seconds
-    let maxDate;
     if (paxType === 'Adult'){
       const maxDateinSec = 31540000*120;
       const maxDate = new Date((departDateInSeconds - maxDateinSec)*1000);
@@ -103,20 +101,19 @@ class PassengerForm extends Component {
      */
 
     const departDateInSeconds = (Date.parse(departDate))/1000; // departdate in seconds
-    let minDate;
     if (paxType === 'Adult'){
       const minDateinSec = 31540000*12 + 4*86400;
-      minDate = new Date((departDateInSeconds - minDateinSec)*1000);
+      const minDate = new Date((departDateInSeconds - minDateinSec)*1000);
       console.log('minDate ', minDate);
       return minDate;
     } else if (paxType === 'Child'){
       const minDateinSec = 31540000*2;
-      minDate = new Date((departDateInSeconds - minDateinSec)*1000);
+      const minDate = new Date((departDateInSeconds - minDateinSec)*1000);
       return minDate;
     }
     else {
       const minDateinSec = 86400*10;
-      minDate = new Date((departDateInSeconds - minDateinSec)*1000);
+      const minDate = new Date((departDateInSeconds - minDateinSec)*1000);
       return minDate;
     }
   }

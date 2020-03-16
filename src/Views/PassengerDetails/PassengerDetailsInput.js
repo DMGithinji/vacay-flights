@@ -139,7 +139,7 @@ class PassengerDetailsInput extends React.Component {
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-                                <div className="text-danger pl-2">{Boolean(errors.birthdate ) ? errors.birthdate : ""}</div>
+                                <div className="text-danger pl-2">{Boolean(errors.birthdate  && touched.birthdate ) ? errors.birthdate : ""}</div>
                             </Col>
                             <Col md={6} className = "passenger-input-field">
                                 <label id="title-label" className="text-muted">Passport or ID Number</label>   
@@ -197,7 +197,8 @@ class PassengerDetailsInput extends React.Component {
                                         type="submit"
                                         fullWidth
                                         className =  "btn btn-primary w-100"
-                                        disabled={!isValid}>
+                                        // disabled={!isValid}
+                                        >
                                         {
                                             <span>Submit Details</span>
                                         }
