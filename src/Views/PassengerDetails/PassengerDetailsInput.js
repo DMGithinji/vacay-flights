@@ -6,9 +6,12 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import { Row,  Col, } from 'react-bootstrap';
 import CustomSelect from "../../Shared/components/SelectInputField";
+import { MDBProgress } from 'mdbreact';
+import {connect} from 'react-redux';
 
+class PassengerDetailsInput extends React.Component {
 
-export const PassengerDetailsInput = props => {
+    render(){
     const {
         values: { title, firstname, lastname, nationality, birthdate, docnumber, docexpiry },
         errors,
@@ -16,36 +19,64 @@ export const PassengerDetailsInput = props => {
         handleSubmit,
         handleChange,
         isValid,
+        formIndex,
+        adultNumber,
+        childrenNumber,
+        infantNumber,
         currentStep
-    } = props;
-// console.table("formIndex ", formIndex);
-
-const handleBirthDateChange = value => {
-    const event = {target: {name:'birthdate', value: value }};
-    handleChange(event);
-}
-
-const handleExpiryDateChange = value => {
-    const event = {target: {name:'docexpiry', value: value }};
-    handleChange(event);
-}
-
-const handlePreviousStep = () => {
-    props.previousStep();
-}
+    } = this.props;
 
 
-return (
-    <Row>
-        <Col lg={12}>
-            <div className="card p-4 m-0 shadow-none">
+
+    const handleBirthDateChange = value => {
+        const event = {target: {name:'birthdate', value: value }};
+        handleChange(event);
+    }
+
+    const handleExpiryDateChange = value => {
+        const event = {target: {name:'docexpiry', value: value }};
+        handleChange(event);
+    }
+
+    const handlePreviousStep = () => {
+        this.props.previousStep();
+    }
+
+    /**Returns the type of passenger for the form header based on the form Index */
+    const getPaxType = (formIndex) => {
+        const paxString = 'Adult '.repeat(adultNumber) + 'Child '.repeat(childrenNumber) + 'Infant '.repeat(infantNumber);
+        const paxList = paxString.split(" ");
+        return `${paxList[formIndex]}`;
+    }
+
+    /**Returns the header for the passenger form eg Adult 2 or Infant 1 */
+    const paxHeader = (formIndex) => {
+        const paxType = getPaxType(formIndex);
+        if (paxType === 'Adult'){
+            const paxNumber = formIndex+1;
+            return `${paxType} ${paxNumber}`;
+        } else if (paxType === 'Child'){
+            const paxNumber = formIndex + 1 - adultNumber;
+            return `${paxType} ${paxNumber}`;
+        } else if (paxType === 'Infant'){
+            const paxNumber = formIndex + 1 - adultNumber  - childrenNumber;
+            return `${paxType} ${paxNumber}`;
+        }
+    }
+    console.log('Props ',this.props)
+
+    return (
+        <Row>
+            <Col lg={12}>
+                <div className="card p-4 m-0 shadow-none">
                     <form onSubmit={handleSubmit}>
                         <Row>
                             <Col md={12} className = "p-0 m-0">
-                            <div className="alert alert-primary" role="alert">
-                                Please ensure that the details entered are as they appear in your passport/ID to avoid boarding complications
-                            </div>
+                            <h6 className="pl-2 text-primary">Passenger Details For {paxHeader(this.props.formIndex)}</h6>
+                            <MDBProgress className="progressBar" material value={100} color="primary" />
+
                             </Col>
+
                             <Col md={2} className = "passenger-input-field">
                                     <label id="title-label" className="text-muted">Title</label>
                                     <CustomSelect
@@ -167,7 +198,7 @@ return (
                             </Col>
                             </Row>
                             <Row className="mt-3">
-                            <Col md={6} className = "passenger-input-field">
+                            {/* <Col md={6} className = "passenger-input-field">
                                 {
                                     currentStep !== 1 ? (
                                         <button
@@ -179,16 +210,16 @@ return (
                                             Previous Passenger
                                         </button> ) : null
                                 }                                                    
-                            </Col>
-                            <Col md={6} className = "passenger-input-field">
+                            </Col> */}
+                            <Col md={12} className = "passenger-input-field">
                             {
-                                !props.currentStep !== props.totalSteps ? (                                
+                                !this.props.currentStep !== this.props.totalSteps ? (                                
                                     <button
                                         type="submit"
                                         fullWidth
                                         className =  "btn btn-primary w-100"
                                         disabled={!isValid}>
-                                        Next
+                                        Submit
                                     </button>
                                 ) : null
                             }
@@ -201,3 +232,17 @@ return (
         </Row>
     );
 };
+
+}
+
+const mapStateToProps = state => {
+    const { 
+        querry: { adultNumber, childrenNumber, infantNumber },
+    } = state;
+    return { adultNumber, childrenNumber, infantNumber }
+}
+
+
+export default connect(
+    mapStateToProps,
+)(PassengerDetailsInput);

@@ -97,7 +97,7 @@ const FlightResultLG = ({ flightDetails, queryDetails, selectFlight, sessionId})
     
     return (
     <div className="card shadow-none flight-card-lg">
-        <div className="row border-bottom pb-2">
+        <div className="row border-bottom pb-1">
             <div className="col-12 d-flex inline justify-content-between">
                 <div className= "d-flex flex-column" >
                     <span className = "trip-locations"> {flightDetails.outbound.from} to {flightDetails.outbound.to}</span>

@@ -26,10 +26,10 @@ class FlightSearch extends Component {
                                             <Search />
                                             <div className='content-wrapper row'>
                                                 <div className='col-lg-3 mr-5'>
-                                                    <Filter className='search-content-wrapper'/>
+                                                    <Filter/>
                                                 </div>
                                                 <div className='col-lg-8  p-0'>
-                                                    <FilterResults  className='filter-content-wrapper'/>
+                                                    <FilterResults />
                                                 </div>
                                             </div>
                                         </div>
@@ -46,10 +46,10 @@ class FlightSearch extends Component {
                                         <div>
                                             <div className='content-wrapper row'>
                                                 <div className='col-lg-3 mr-5'>
-                                                    <Filter className='search-content-wrapper'/>
+                                                    <Filter />
                                                 </div>
                                                 <div className='col-lg-8 p-0'>
-                                                    <FilterResults  className='filter-content-wrapper'/>
+                                                    <FilterResults />
                                                 </div>
                                             </div>
                                         </div>

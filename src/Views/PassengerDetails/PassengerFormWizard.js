@@ -98,7 +98,7 @@ class FormsWizard extends React.Component {
                                 totalSteps={this.state.totalSteps}
                                 previousStep={this.previousButton}
                                 nextStep={this.nextStep}
-                                id = {i} />
+                                formIndex = {i} />
                         })
                     }
                     <ContactForm 

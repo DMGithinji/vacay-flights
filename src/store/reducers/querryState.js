@@ -4,7 +4,7 @@ import { QUERY_DATA } from '../actions/types';
 import fetchStates from './fetchStates';
 
 const DEFAULT_QUERRY_PARAMETERS = {
-    origin: "",
+    origin: "BCN",
     destination: "",
     departDate:  new Date(),
     returnDate: null,

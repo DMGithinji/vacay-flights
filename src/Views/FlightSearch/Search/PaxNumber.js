@@ -5,12 +5,16 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 class PaxNumber extends Component {
     
-    updatePaxNo = (method, currentNo) => {
+    updatePaxNo = (paxType, method, currentNo) => {
         if (method === 'ADD') {
             currentNo++;
         } else if (method === 'SUBTRACT') {
             if (currentNo > 0){
-                currentNo--;
+                if (paxType === "adultNumber"){
+                    currentNo = 1;
+                } else {
+                    currentNo--;
+                }
             } else {
                 currentNo = 0
             }
@@ -19,7 +23,7 @@ class PaxNumber extends Component {
     }
 
     paxUpdater = (paxType, method, currentNo) =>()=> {
-        const paxNo = this.updatePaxNo(method, currentNo);
+        const paxNo = this.updatePaxNo(paxType, method, currentNo);
         let event = {
             target: { name: paxType, value: paxNo},
         }
@@ -38,25 +42,33 @@ class PaxNumber extends Component {
                         <span className="dropdown-styling">{passengerNumber} {passengerNumber === 1 ? ("Passenger") : ("Passengers")}</span>
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu className="p-2">
+                    <Dropdown.Menu className="p-2 dropdown-content">
                     <div className = "container">
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber)} fontSize="small" />
-                                    <span>{passenger.adultNumber} {parseInt(passenger.adultNumber) === 1 ? (<span>Adult</span>) : (<span>Adults</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber)} fontSize="small" />
+                                <span>Adults<br />(Above 12yrs)</span>
+                                <div>
+                                    <ControlPointRoundedIcon onClick={this.paxUpdater('adultNumber', 'ADD', passenger.adultNumber)} fontSize="small" />
+                                    <span> {passenger.adultNumber} </span>
+                                    <RemoveCircleOutlineIcon onClick={this.paxUpdater('adultNumber', 'SUBTRACT', passenger.adultNumber)} fontSize="small" />
+                                </div>
                             </div>
 
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber)} fontSize="small" />
-                                    <span>{passenger.childrenNumber} {parseInt(passenger.childrenNumber) === 1 ? (<span>Child</span>) : (<span>Children</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber)} fontSize="small" />
+                                <span>Children<br /> (2-11yrs)</span>
+                                <div>
+                                    <ControlPointRoundedIcon onClick={this.paxUpdater('childrenNumber', 'ADD', passenger.childrenNumber)} fontSize="small" />
+                                    <span> {passenger.childrenNumber} </span>
+                                    <RemoveCircleOutlineIcon onClick={this.paxUpdater('childrenNumber', 'SUBTRACT', passenger.childrenNumber)} fontSize="small" />
+                                </div>
                             </div>
-
                             <div className = "d-flex inline justify-content-between mb-2">
-                                <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
-                                    <span>{passenger.infantNumber} {parseInt(passenger.infantNumber) === 1 ? (<span>Infant</span>) : (<span>Infants</span>)}</span>
-                                <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
+                                <span>Infants<br />Below 2yrs)</span>
+                                <div>
+                                    <ControlPointRoundedIcon onClick={this.paxUpdater('infantNumber', 'ADD', passenger.infantNumber)} fontSize="small" />
+                                    <span> {passenger.infantNumber} </span>
+                                    <RemoveCircleOutlineIcon onClick={this.paxUpdater('infantNumber', 'SUBTRACT', passenger.infantNumber)} fontSize="small" />
+                                </div>
                             </div>
 
                     </div>

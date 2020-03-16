@@ -14,15 +14,15 @@ class SearchResults extends Component {
                             };
 
         return (
-            <div>
+            <div className="flightResults-wrapper">
                 {
                     this.props.fetchState === 'error' ? (
                         <div className="alert alert-danger mt-4" role="alert">
                             <br></br>
-                            <Typography className="mb-2">{
+                            <Typography className="mb-2  mt-4">{
                                 this.props.message==="Unexpected end of JSON input" ?
                                 ( <span>No results for that particular flight booking currently!</span>) :
-                                ( <span> {this.props.message} <br /> Please update your search</span>)
+                                ( <span> {this.props.message} <br /> Please check your internet connection then update your search</span>)
                             }</Typography>
                         </div>
                     ) : (

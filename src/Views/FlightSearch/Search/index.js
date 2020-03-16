@@ -89,7 +89,7 @@ class Search extends Component {
     render() {
         // const { formErrors } = this.state;
         return (
-            <div className="card shadow-none search-content">
+            <div className='search-wrapper card shadow-none'>
                 <SearchForm values = { this.state } handleChange = {this.handleChange} handleSubmit = { this.handleSubmit } />
             </div>
         );

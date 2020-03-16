@@ -1,21 +1,10 @@
-.search-content {
-    margin-bottom: 0;
-    border-bottom: 1px solid #ddd;
-}
 
-
-.search-content-wrapper {
-    @media only screen and (max-width: 1000px) {
-        display: none;
-    }
-}
 
 .search-form {
     width: 90%;
     height: auto;
     margin: 0 auto;
-    padding: 25px 0 25px;
-    position: sticky;
+    padding: 20px 0 25px;
 
     .search-grid-container {
         display: grid;
@@ -99,6 +88,7 @@
         width: 85%;
         line-height: 13px;
 
+
         &:hover {
             color: rgb(29, 33, 54);
         }
@@ -116,6 +106,8 @@
             margin-left: -15px;
             font-size: 14px;
         }
+
+
     }
     .option-select {
         color: #666 !important;
@@ -152,3 +144,22 @@
         }
     }
 }
+
+
+
+
+
+
+.dropdown-content {
+    width: 180px !important;
+    font-size: 12px;
+
+    .span{
+        padding: 2px;
+        font-size: 13px;
+    }
+}
+
+
+
+

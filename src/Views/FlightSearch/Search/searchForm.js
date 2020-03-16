@@ -5,11 +5,9 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import PaxNumber from './PaxNumber';
 import OptionSelect from './OptionSelect';
-
-import TextField from "@material-ui/core/TextField";
-// import { Link } from 'react-router-dom';
-
 import places from '../../../Shared/data/places';
+import TextField from '@material-ui/core/TextField';
+
 
 export const SearchForm = (props) => {
 
@@ -42,6 +40,7 @@ export const SearchForm = (props) => {
         const event = {target: {name:'returnDate', value: value }};
         handleChange(event);
     }
+
 
     const placeOptions = places.aerocrs.destinations.destination;
 
@@ -78,6 +77,7 @@ export const SearchForm = (props) => {
                     id="origin"
                     options={placeOptions}
                     onChange={handleOriginSelect}
+                    // size="small" 
                     getOptionLabel={option => option.name}
                     style={{ marginBottom: 0 }}
                     renderInput={params => <TextField {...params} label="Origin"  variant="outlined" />}
@@ -88,6 +88,7 @@ export const SearchForm = (props) => {
                 <Autocomplete
                     id="destination"
                     options={placeOptions}
+                    // size="small" 
                     getOptionLabel={option => option.name}
                     onChange={handleDestinationSelect}
                     renderInput={params => <TextField {...params} label="Destination" variant="outlined" />}
@@ -100,9 +101,10 @@ export const SearchForm = (props) => {
                         inputVariant="outlined"
                         label="Departure date"
                         id="date-picker-dialog"
-                        name="departTime"
+                        name="departDate"
                         format="dd/MM/yyyy"
                         fullWidth
+                        // size="small" 
                         value={departDate}
                         onChange={handleDepartDateChange}
                         KeyboardButtonProps={{
@@ -111,7 +113,6 @@ export const SearchForm = (props) => {
                     />
                 </MuiPickersUtilsProvider>
             </div>
-
             <div className="grid-item">
                 <MuiPickersUtilsProvider utils={DateFnsUtils} className="searchDate">
                     <KeyboardDatePicker
@@ -121,6 +122,7 @@ export const SearchForm = (props) => {
                         name="returnDate"
                         format="dd/MM/yyyy"
                         fullWidth
+                        // size="small" 
                         value={returnDate}
                         onChange={handleReturnDateChange}
                         KeyboardButtonProps={{
@@ -129,6 +131,7 @@ export const SearchForm = (props) => {
                     />
                 </MuiPickersUtilsProvider>
             </div>
+
 
             <div className="grid-item">
                 <div className="search-btn">

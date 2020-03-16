@@ -27,6 +27,9 @@ class PassengerDetails extends React.Component {
                                         <p className="text-muted card-header-detail">Fill in the form below to enable us get your booking details.</p>
                                     </div>
                                     <div className="card-body">
+                                        <div className="alert alert-primary" role="alert">
+                                            Please ensure that the details entered are as they appear in your passport/ID to avoid boarding complications
+                                        </div>
                                         <FormsWizard />
                                     </div>
                                 </div>           
